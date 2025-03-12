@@ -37,7 +37,6 @@ def fetch_opportunities(sf):
         SELECT 
             Id, Name, StageName
         FROM Opportunity
-        LIMIT 100
         """
         
         # Execute the query
@@ -99,7 +98,6 @@ def fetch_opportunities(sf):
                         CreatedDate, Probability, Owner.Name, AccountId,
                         Account.Name
                     FROM Opportunity
-                    LIMIT 100
                     """
                     
                     complete_results = sf.query(complete_query)
@@ -378,7 +376,7 @@ def main():
                 st.sidebar.success("✅ Connected to Salesforce")
                 
                 # Fetch opportunities
-                with st.spinner("Fetching opportunities..."):
+                with st.spinner("Fetching all opportunities (this may take some time)..."):
                     df = fetch_opportunities(sf)
                     
                     if not df.empty:
