@@ -1,10 +1,23 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from simple_salesforce import Salesforce
 import io
 import base64
 import datetime
+import warnings
+import urllib3
+
+# Suppress urllib3 warnings about LibreSSL on macOS
+warnings.filterwarnings("ignore", category=UserWarning, module="urllib3")
+# Additional suppression for NotOpenSSLWarning
+urllib3.disable_warnings()
+
+# For Streamlit Cloud, we can also try setting the environment variable
+import os
+os.environ['PYTHONWARNINGS'] = "ignore:urllib3"
+
+# Import Salesforce after warning suppression
+from simple_salesforce import Salesforce
 
 # Page configuration
 st.set_page_config(
@@ -32,6 +45,9 @@ st.markdown("""
 # Main function to fetch opportunities
 def fetch_opportunities(sf):
     try:
+        # Create placeholder for status messages
+        status_placeholder = st.empty()
+        
         # Start with a minimal query that has fewer fields to avoid permission issues
         query = """
         SELECT 
@@ -40,11 +56,11 @@ def fetch_opportunities(sf):
         """
         
         # Execute the query
-        st.info("Fetching opportunities from Salesforce...")
+        status_placeholder.info("Fetching opportunities from Salesforce...")
         results = sf.query(query)
         
         if not results.get('records'):
-            st.error("No opportunities found in your Salesforce org.")
+            status_placeholder.error("No opportunities found in your Salesforce org.")
             return pd.DataFrame()
             
         # Convert to DataFrame - very carefully handle possible None values
@@ -74,7 +90,7 @@ def fetch_opportunities(sf):
             # Try to get additional fields in a separate query
             if len(df) > 0:
                 sample_opp_id = df['Opportunity ID'].iloc[0]
-                st.info(f"Successfully retrieved basic opportunity data. Checking for additional fields...")
+                status_placeholder.info(f"Successfully retrieved basic opportunity data. Checking for additional fields...")
                 
                 # Try to get more fields for the first opportunity to see what's available
                 sample_query = f"""
@@ -89,7 +105,7 @@ def fetch_opportunities(sf):
                 
                 sample_result = sf.query(sample_query)
                 if sample_result.get('records'):
-                    st.success("Additional fields are available. Retrieving complete data...")
+                    status_placeholder.success("Additional fields are available. Retrieving complete data...")
                     
                     # Now get all opportunities with the fields that we know exist
                     complete_query = """
@@ -130,7 +146,11 @@ def fetch_opportunities(sf):
                         df = pd.DataFrame(complete_records)
                     
         except Exception as e:
-            st.warning(f"Could not retrieve additional fields. Using basic opportunity data only. Error: {str(e)}")
+            status_placeholder.warning(f"Could not retrieve additional fields. Using basic opportunity data only. Error: {str(e)}")
+            # Clear warning after 5 seconds
+            import time
+            time.sleep(5)
+            status_placeholder.empty()
         
         # Try to convert date strings to datetime objects
         for date_field in ['Close Date', 'Created Date']:
@@ -156,7 +176,17 @@ def fetch_opportunities(sf):
                 # Calculate age in days
                 df['Age'] = (now - created_dates).dt.days
             except Exception as age_error:
-                st.warning(f"Could not calculate opportunity age: {str(age_error)}")
+                status_placeholder.warning(f"Could not calculate opportunity age: {str(age_error)}")
+                # Clear warning after 5 seconds
+                import time
+                time.sleep(5)
+                status_placeholder.empty()
+        
+        # Display final success message with count, then clear after 5 seconds
+        status_placeholder.success(f"Found {len(df)} opportunities in Salesforce.")
+        import time
+        time.sleep(5)
+        status_placeholder.empty()
         
         return df
         
@@ -297,43 +327,83 @@ def main():
     
     # Initialize session state variables for credentials if they don't exist
     if 'sf_credentials' not in st.session_state:
-        st.session_state.sf_credentials = {
-            'username': '',
-            'password': '',
-            'security_token': '',
-            'domain': 'login'
-        }
+        # Try to get username and password from secrets.toml
+        try:
+            username = st.secrets["salesforce"]["username"]
+            password = st.secrets["salesforce"]["password"]
+            domain = st.secrets["salesforce"].get("domain", "login")
+            
+            # Initialize with secrets but empty security token
+            st.session_state.sf_credentials = {
+                'username': username,
+                'password': password,
+                'security_token': '',
+                'domain': domain
+            }
+            using_secrets = True
+        except:
+            # If no secrets found, start with empty credentials
+            st.session_state.sf_credentials = {
+                'username': '',
+                'password': '',
+                'security_token': '',
+                'domain': 'login'
+            }
+            using_secrets = False
+    else:
+        # Check if we're using secrets for username/password
+        try:
+            using_secrets = (st.session_state.sf_credentials['username'] == st.secrets["salesforce"]["username"])
+        except:
+            using_secrets = False
     
     # Add Salesforce credential form to sidebar
     st.sidebar.subheader("Salesforce Credentials")
     
     # Create a form for the credentials
     with st.sidebar.form(key="credentials_form"):
-        username = st.text_input("Username (Email)", value=st.session_state.sf_credentials['username'])
-        password = st.text_input("Password", type="password", value=st.session_state.sf_credentials['password'])
-        security_token = st.text_input("Security Token", type="password", value=st.session_state.sf_credentials['security_token'])
-        domain = st.text_input("Domain (Default: login)", value=st.session_state.sf_credentials['domain'])
+        if using_secrets:
+            # If using secrets, only show security token field
+            st.markdown("**Username and password loaded from secrets**")
+            security_token = st.text_input("Security Token (required)", 
+                                          type="password", 
+                                          value=st.session_state.sf_credentials['security_token'])
+        else:
+            # If not using secrets, allow full credential entry
+            username = st.text_input("Username (Email)", value=st.session_state.sf_credentials['username'])
+            password = st.text_input("Password", type="password", value=st.session_state.sf_credentials['password'])
+            security_token = st.text_input("Security Token", type="password", value=st.session_state.sf_credentials['security_token'])
+            domain = st.text_input("Domain (Default: login)", value=st.session_state.sf_credentials['domain'])
         
         submit_button = st.form_submit_button(label="Connect to Salesforce")
         
         if submit_button:
-            # Store credentials in session state
-            st.session_state.sf_credentials = {
-                'username': username,
-                'password': password,
-                'security_token': security_token,
-                'domain': domain if domain else 'login'
-            }
+            if using_secrets:
+                # Only update the security token
+                st.session_state.sf_credentials['security_token'] = security_token
+            else:
+                # Store all credentials in session state
+                st.session_state.sf_credentials = {
+                    'username': username,
+                    'password': password,
+                    'security_token': security_token,
+                    'domain': domain if domain else 'login'
+                }
             
             # Clear any cached data to force refresh
             if 'salesforce_data' in st.session_state:
                 del st.session_state['salesforce_data']
     
     # Show connection status
-    if st.session_state.sf_credentials['username'] and st.session_state.sf_credentials['password']:
+    if using_secrets and st.session_state.sf_credentials['security_token']:
+        st.sidebar.info("Ready to connect with credentials from secrets.toml")
+    elif not using_secrets and st.session_state.sf_credentials['username'] and st.session_state.sf_credentials['password']:
         st.sidebar.info("Ready to connect with provided credentials")
     else:
-        st.sidebar.warning("Please enter your Salesforce credentials to connect")
+        if using_secrets:
+            st.sidebar.warning("Please enter your Salesforce security token to connect")
+        else:
+            st.sidebar.warning("Please enter your Salesforce credentials to connect")
     
     # Add manual refresh button with a unique key
     refresh_key = f"refresh_button_{session_id}"
@@ -344,26 +414,46 @@ def main():
             st.rerun()  # Force a rerun to update everything
     
     # Check if we have credentials to connect
-    credentials_provided = (st.session_state.sf_credentials['username'] and 
-                          st.session_state.sf_credentials['password'])
+    if using_secrets:
+        credentials_provided = st.session_state.sf_credentials['security_token']
+    else:
+        credentials_provided = (st.session_state.sf_credentials['username'] and 
+                              st.session_state.sf_credentials['password'] and
+                              st.session_state.sf_credentials['security_token'])
     
     if not credentials_provided:
-        st.info("Please enter your Salesforce credentials in the sidebar to get started.")
-        st.write("""
-        ### How to get your Salesforce security token:
-        1. Log in to Salesforce
-        2. Go to your profile (click your name/image in the top right)
-        3. Select "Settings"
-        4. In the left sidebar, navigate to "My Personal Information" > "Reset Security Token"
-        5. Click the "Reset Security Token" button
-        6. A new security token will be emailed to you
-        """)
+        if using_secrets:
+            st.info("Please enter your Salesforce security token in the sidebar to get started.")
+            st.write("""
+            ### How to get your Salesforce security token:
+            1. Log in to Salesforce
+            2. Go to your profile (click your name/image in the top right)
+            3. Select "Settings"
+            4. In the left sidebar, navigate to "My Personal Information" > "Reset Security Token"
+            5. Click the "Reset Security Token" button
+            6. A new security token will be emailed to you
+            """)
+        else:
+            st.info("Please enter your Salesforce credentials in the sidebar to get started.")
+            st.write("""
+            ### How to get your Salesforce security token:
+            1. Log in to Salesforce
+            2. Go to your profile (click your name/image in the top right)
+            3. Select "Settings"
+            4. In the left sidebar, navigate to "My Personal Information" > "Reset Security Token"
+            5. Click the "Reset Security Token" button
+            6. A new security token will be emailed to you
+            """)
         return
     
-    # Attempt to fetch and display data if credentials are provided
+                    # Attempt to fetch and display data if credentials are provided
     try:
         # Use session state to store data
         if 'salesforce_data' not in st.session_state:
+            # Create placeholder for connection message
+            connection_placeholder = st.empty()
+            
+            # Use the st.spinner context manager
             with st.spinner("Connecting to Salesforce..."):
                 # Connect to Salesforce using provided credentials
                 sf = Salesforce(
@@ -373,7 +463,12 @@ def main():
                     domain=st.session_state.sf_credentials['domain']
                 )
                 
-                st.sidebar.success("✅ Connected to Salesforce")
+                sidebar_placeholder = st.sidebar.empty()
+                sidebar_placeholder.success("✅ Connected to Salesforce")
+                # Clear success message after 5 seconds
+                import time
+                time.sleep(5)
+                sidebar_placeholder.empty()
                 
                 # Fetch opportunities
                 with st.spinner("Fetching all opportunities (this may take some time)..."):
@@ -382,15 +477,27 @@ def main():
                     if not df.empty:
                         # Store data in session state
                         st.session_state['salesforce_data'] = df
-                        st.success(f"Found {len(df)} opportunities in Salesforce.")
+                        # The success message is handled within fetch_opportunities
                     else:
-                        st.error("No opportunities could be retrieved from Salesforce.")
-                        st.info("Please check your Salesforce permissions and try again.")
+                        error_placeholder = st.empty()
+                        error_placeholder.error("No opportunities could be retrieved from Salesforce.")
+                        info_placeholder = st.empty()
+                        info_placeholder.info("Please check your Salesforce permissions and try again.")
+                        # Clear messages after 10 seconds
+                        time.sleep(10)
+                        error_placeholder.empty()
+                        info_placeholder.empty()
                         return
         else:
             # Use cached data
             df = st.session_state['salesforce_data']
-            st.success(f"Showing {len(df)} opportunities from Salesforce.")
+            # Show temporary message
+            temp_message = st.empty()
+            temp_message.success(f"Showing {len(df)} opportunities from Salesforce.")
+            # Clear after 5 seconds
+            import time
+            time.sleep(5)
+            temp_message.empty()
         
         # Add filters in sidebar
         st.sidebar.subheader("Filters")

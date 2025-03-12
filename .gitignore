@@ -1,0 +1,6 @@
+.streamlit/secrets copy.toml
+.streamlit/secrets.full.toml
+.streamlit/secrets.toml
+Salesforce-Pipeline.code-workspace
+myenv/
+.streamlit/
