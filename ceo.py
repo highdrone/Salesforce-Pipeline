@@ -45,6 +45,9 @@ st.markdown("""
 # Main function to fetch opportunities
 def fetch_opportunities(sf):
     try:
+        # Import time at the beginning of the function to avoid UnboundLocalError
+        import time
+        
         # Create placeholder for status messages
         status_placeholder = st.empty()
         
@@ -57,15 +60,29 @@ def fetch_opportunities(sf):
         
         # Execute the query
         status_placeholder.info("Fetching opportunities from Salesforce...")
-        results = sf.query(query)
         
-        if not results.get('records'):
+        # Handle pagination for large datasets
+        all_records = []
+        query_result = sf.query(query)
+        all_records.extend(query_result.get('records', []))
+        
+        # Check if more records exist
+        total_size = query_result.get('totalSize', 0)
+        status_placeholder.info(f"Found {total_size} total opportunities, retrieving all records...")
+        
+        # Continue querying if there are more records
+        while query_result.get('done') is False:
+            query_result = sf.query_more(query_result.get('nextRecordsUrl'), True)
+            all_records.extend(query_result.get('records', []))
+            status_placeholder.info(f"Retrieved {len(all_records)} of {total_size} opportunities...")
+        
+        if not all_records:
             status_placeholder.error("No opportunities found in your Salesforce org.")
             return pd.DataFrame()
             
         # Convert to DataFrame - very carefully handle possible None values
         records = []
-        for record in results.get('records', []):
+        for record in all_records:
             # Skip the Salesforce attributes
             if record and 'attributes' in record:
                 record_dict = {k: v for k, v in record.items() if k != 'attributes'}
@@ -97,7 +114,7 @@ def fetch_opportunities(sf):
                 SELECT 
                     Id, Amount, CloseDate, CreatedDate, 
                     Probability, Owner.Name, AccountId,
-                    Account.Name
+                    Account.Name, FiscalYear, FiscalQuarter
                 FROM Opportunity
                 WHERE Id = '{sample_opp_id}'
                 LIMIT 1
@@ -112,16 +129,29 @@ def fetch_opportunities(sf):
                     SELECT 
                         Id, Name, StageName, Amount, CloseDate, 
                         CreatedDate, Probability, Owner.Name, AccountId,
-                        Account.Name
+                        Account.Name, FiscalYear, FiscalQuarter
                     FROM Opportunity
                     """
                     
-                    complete_results = sf.query(complete_query)
+                    # Handle pagination for complete data
+                    complete_records = []
+                    query_result = sf.query(complete_query)
+                    complete_records.extend(query_result.get('records', []))
                     
-                    if complete_results.get('records'):
+                    # Check if more records exist
+                    total_size = query_result.get('totalSize', 0)
+                    status_placeholder.info(f"Found {total_size} total opportunities with complete data, retrieving all records...")
+                    
+                    # Continue querying if there are more records
+                    while query_result.get('done') is False:
+                        query_result = sf.query_more(query_result.get('nextRecordsUrl'), True)
+                        complete_records.extend(query_result.get('records', []))
+                        status_placeholder.info(f"Retrieved {len(complete_records)} of {total_size} opportunities with complete data...")
+                    
+                    if complete_records:
                         # Process records with additional fields
-                        complete_records = []
-                        for record in complete_results.get('records', []):
+                        processed_records = []
+                        for record in complete_records:
                             record_dict = {
                                 'Opportunity ID': record.get('Id'),
                                 'Opportunity Name': record.get('Name'),
@@ -130,7 +160,9 @@ def fetch_opportunities(sf):
                                 'Close Date': record.get('CloseDate'),
                                 'Created Date': record.get('CreatedDate'),
                                 'Probability (%)': record.get('Probability'),
-                                'Customer ID': record.get('AccountId')
+                                'Customer ID': record.get('AccountId'),
+                                'Fiscal Year': record.get('FiscalYear'),
+                                'Fiscal Quarter': record.get('FiscalQuarter')
                             }
                             
                             # Carefully handle nested fields
@@ -140,10 +172,10 @@ def fetch_opportunities(sf):
                             if record.get('Account') and isinstance(record.get('Account'), dict):
                                 record_dict['Account Name'] = record.get('Account', {}).get('Name')
                             
-                            complete_records.append(record_dict)
+                            processed_records.append(record_dict)
                         
                         # Create more complete dataframe
-                        df = pd.DataFrame(complete_records)
+                        df = pd.DataFrame(processed_records)
                     
         except Exception as e:
             status_placeholder.warning(f"Could not retrieve additional fields. Using basic opportunity data only. Error: {str(e)}")
@@ -156,6 +188,13 @@ def fetch_opportunities(sf):
         for date_field in ['Close Date', 'Created Date']:
             if date_field in df.columns:
                 df[date_field] = pd.to_datetime(df[date_field], errors='coerce')
+        
+        # Add year and quarter from dates if not available directly
+        if 'Close Date' in df.columns and 'Fiscal Year' not in df.columns:
+            df['Fiscal Year'] = df['Close Date'].dt.year
+        
+        if 'Close Date' in df.columns and 'Fiscal Quarter' not in df.columns:
+            df['Fiscal Quarter'] = df['Close Date'].dt.quarter
         
         # Calculate derived fields if the necessary columns exist
         if 'Amount' in df.columns and 'Probability (%)' in df.columns:
@@ -181,6 +220,11 @@ def fetch_opportunities(sf):
                 import time
                 time.sleep(5)
                 status_placeholder.empty()
+        
+        # Print year distribution for debugging
+        year_distribution = df.groupby('Fiscal Year').size()
+        status_placeholder.info(f"Year distribution: {year_distribution.to_dict()}")
+        time.sleep(10)  # Show this info for longer
         
         # Display final success message with count, then clear after 5 seconds
         status_placeholder.success(f"Found {len(df)} opportunities in Salesforce.")
@@ -265,6 +309,42 @@ def create_visualizations(df):
                 text_auto=True
             )
             st.plotly_chart(fig, use_container_width=True)
+    
+    # More visualizations in the next row
+    col1, col2 = st.columns(2)
+    
+    # Fiscal Year visualizations
+    if 'Fiscal Year' in df.columns:
+        with col1:
+            st.subheader("Opportunities by Fiscal Year")
+            year_counts = df.groupby('Fiscal Year').size().reset_index()
+            year_counts.columns = ['Year', 'Count']
+            year_counts = year_counts.sort_values('Year')
+            
+            fig = px.bar(
+                year_counts,
+                x='Year',
+                y='Count',
+                color='Count',
+                title='Opportunities by Fiscal Year'
+            )
+            st.plotly_chart(fig, use_container_width=True)
+            
+        with col2:
+            if 'Amount' in df.columns:
+                st.subheader("Amount by Fiscal Year")
+                year_amounts = df.groupby('Fiscal Year')['Amount'].sum().reset_index()
+                year_amounts.columns = ['Year', 'Amount']
+                year_amounts = year_amounts.sort_values('Year')
+                
+                fig = px.bar(
+                    year_amounts,
+                    x='Year',
+                    y='Amount',
+                    color='Amount',
+                    title='Total Amount by Fiscal Year'
+                )
+                st.plotly_chart(fig, use_container_width=True)
     
     # More visualizations in the next row
     col1, col2 = st.columns(2)
@@ -532,9 +612,17 @@ def main():
                 min_date = valid_dates.min().date()
                 max_date = valid_dates.max().date()
                 
+                # Calculate default dates: today and today + 3 days
+                today = datetime.date.today()
+                three_days_later = today + datetime.timedelta(days=90)
+                
+                # Make sure default dates are within the available range
+                default_start = max(today, min_date) if today <= max_date else min_date
+                default_end = min(three_days_later, max_date) if three_days_later >= min_date else max_date
+                
                 date_range = st.sidebar.date_input(
                     "Close Date Range",
-                    value=(min_date, max_date),
+                    value=(default_start, default_end),
                     min_value=min_date,
                     max_value=max_date,
                     key=f"date_filter_{session_id}"
