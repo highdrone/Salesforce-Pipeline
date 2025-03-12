@@ -343,7 +343,7 @@ def main():
         # Clear any cached data
         if 'salesforce_data' in st.session_state:
             del st.session_state['salesforce_data']
-            st.experimental_rerun()  # Force a rerun to update everything
+            st.rerun()  # Force a rerun to update everything
     
     # Check if we have credentials to connect
     credentials_provided = (st.session_state.sf_credentials['username'] and 
