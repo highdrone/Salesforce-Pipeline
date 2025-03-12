@@ -407,7 +407,9 @@ def main():
         
         # Account filter (if available)
         if 'Account Name' in df.columns:
-            account_options = ['All'] + sorted(df['Account Name'].unique().tolist())
+            # Filter out None/NaN values and convert to list of strings
+            valid_accounts = df['Account Name'].dropna().unique().tolist()
+            account_options = ['All'] + sorted(valid_accounts)
             selected_account = st.sidebar.selectbox("Account", account_options, key=f"account_filter_{session_id}")
             
             if selected_account != 'All':
