@@ -1,0 +1,7 @@
+matplotlib
+numpy
+pandas_stubs
+streamlit>=1.25.0
+pandas>=1.5.0
+plotly>=5.13.0
+simple-salesforce>=1.12.0
