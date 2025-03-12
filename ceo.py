@@ -297,40 +297,82 @@ def main():
     
     session_id = st.session_state.session_id
     
-    # Fetch data from Salesforce using secrets
-    try:
-        # Check if we have Salesforce credentials in secrets
-        if "salesforce" not in st.secrets:
-            st.error("Salesforce credentials not found in secrets.toml!")
-            st.info("""
-            Please create a .streamlit/secrets.toml file with:
-            ```
-            [salesforce]
-            username = "your_username"
-            password = "your_password"
-            security_token = "your_security_token"
-            domain = "login"
-            ```
-            """)
-            return
+    # Initialize session state variables for credentials if they don't exist
+    if 'sf_credentials' not in st.session_state:
+        st.session_state.sf_credentials = {
+            'username': '',
+            'password': '',
+            'security_token': '',
+            'domain': 'login'
+        }
+    
+    # Add Salesforce credential form to sidebar
+    st.sidebar.subheader("Salesforce Credentials")
+    
+    # Create a form for the credentials
+    with st.sidebar.form(key="credentials_form"):
+        username = st.text_input("Username (Email)", value=st.session_state.sf_credentials['username'])
+        password = st.text_input("Password", type="password", value=st.session_state.sf_credentials['password'])
+        security_token = st.text_input("Security Token", type="password", value=st.session_state.sf_credentials['security_token'])
+        domain = st.text_input("Domain (Default: login)", value=st.session_state.sf_credentials['domain'])
+        
+        submit_button = st.form_submit_button(label="Connect to Salesforce")
+        
+        if submit_button:
+            # Store credentials in session state
+            st.session_state.sf_credentials = {
+                'username': username,
+                'password': password,
+                'security_token': security_token,
+                'domain': domain if domain else 'login'
+            }
             
-        # Add manual refresh button with a unique key
-        refresh_key = f"refresh_button_{session_id}"
-        if st.button("🔄 Refresh Data", key=refresh_key):
-            # Clear any cached data
+            # Clear any cached data to force refresh
             if 'salesforce_data' in st.session_state:
                 del st.session_state['salesforce_data']
-                st.experimental_rerun()  # Force a rerun to update everything
-        
+    
+    # Show connection status
+    if st.session_state.sf_credentials['username'] and st.session_state.sf_credentials['password']:
+        st.sidebar.info("Ready to connect with provided credentials")
+    else:
+        st.sidebar.warning("Please enter your Salesforce credentials to connect")
+    
+    # Add manual refresh button with a unique key
+    refresh_key = f"refresh_button_{session_id}"
+    if st.sidebar.button("🔄 Refresh Data", key=refresh_key):
+        # Clear any cached data
+        if 'salesforce_data' in st.session_state:
+            del st.session_state['salesforce_data']
+            st.experimental_rerun()  # Force a rerun to update everything
+    
+    # Check if we have credentials to connect
+    credentials_provided = (st.session_state.sf_credentials['username'] and 
+                          st.session_state.sf_credentials['password'])
+    
+    if not credentials_provided:
+        st.info("Please enter your Salesforce credentials in the sidebar to get started.")
+        st.write("""
+        ### How to get your Salesforce security token:
+        1. Log in to Salesforce
+        2. Go to your profile (click your name/image in the top right)
+        3. Select "Settings"
+        4. In the left sidebar, navigate to "My Personal Information" > "Reset Security Token"
+        5. Click the "Reset Security Token" button
+        6. A new security token will be emailed to you
+        """)
+        return
+    
+    # Attempt to fetch and display data if credentials are provided
+    try:
         # Use session state to store data
         if 'salesforce_data' not in st.session_state:
             with st.spinner("Connecting to Salesforce..."):
-                # Connect to Salesforce
+                # Connect to Salesforce using provided credentials
                 sf = Salesforce(
-                    username=st.secrets["salesforce"]["username"],
-                    password=st.secrets["salesforce"]["password"],
-                    security_token=st.secrets["salesforce"]["security_token"],
-                    domain=st.secrets["salesforce"].get("domain", "login")
+                    username=st.session_state.sf_credentials['username'],
+                    password=st.session_state.sf_credentials['password'],
+                    security_token=st.session_state.sf_credentials['security_token'],
+                    domain=st.session_state.sf_credentials['domain']
                 )
                 
                 st.sidebar.success("✅ Connected to Salesforce")
