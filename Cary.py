@@ -321,12 +321,12 @@ def calculate_metrics(df):
     # Sales forecast by type - using same filtering as pipeline (ForecastCategory + current month)
     project_forecast = sales_by_type[sales_by_type['Type'] == 'System']['Amount'].sum()
     trans_forecast = sales_by_type[sales_by_type['Type'] == 'Transactional']['Amount'].sum()
-    service_forecast = sales_by_type[sales_by_type['Type'] == 'Service']['Amount'].sum()
+    service_forecast = sales_by_type[sales_by_type['Type'] == 'Service Agreement']['Amount'].sum()
     
     # Sales MTD by type - using same filtering as pipeline (current month)
     project_mtd = sales_by_type[sales_by_type['Type'] == 'System']['Amount'].sum()
     trans_mtd = sales_by_type[sales_by_type['Type'] == 'Transactional']['Amount'].sum()
-    service_mtd = sales_by_type[sales_by_type['Type'] == 'Service']['Amount'].sum()
+    service_mtd = sales_by_type[sales_by_type['Type'] == 'Service Agreement']['Amount'].sum()
     
     # Total Opportunities - all open opportunities for Branch 700
     # Filter out closed opportunities (Closed Won, Closed Lost)
@@ -453,15 +453,15 @@ def main():
     
     # Header
     st.markdown(f"""
-    <div class="google-header">
+    <div class="google-header" style="padding: 8px 0;">
         <div class="header-content">
             <div>
                 <div class="logo-title">
-                    <h1>Cary Forecasts MTD</h1>
+                    <h1 style="font-size: 24px; margin: 0;">Cary Forecasts MTD</h1>
                 </div>
-                <div class="subtitle">Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')}</div>
+                <div class="subtitle" style="font-size: 12px; margin-top: 4px;">Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')}</div>
             </div>
-            <div class="refresh-badge">Auto-refresh ON</div>
+            <div class="refresh-badge" style="font-size: 10px; padding: 4px 8px;">Auto-refresh ON</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -552,14 +552,62 @@ def main():
             """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">Top Sales by Owner</div>', 
+        # Add probability distribution chart
+        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">Probability Distribution</div>', 
+                   unsafe_allow_html=True)
+        
+        # Create probability distribution
+        if not df.empty:
+            prob_dist = df['Probability'].value_counts().sort_index()
+            prob_fig = px.bar(
+                x=prob_dist.index,
+                y=prob_dist.values,
+                title="",
+                color_discrete_sequence=['#1e40af']
+            )
+            prob_fig.update_layout(
+                height=120,
+                margin=dict(l=8, r=8, t=8, b=8),
+                xaxis_title="Probability (%)",
+                yaxis_title="Count",
+                showlegend=False,
+                plot_bgcolor='white',
+                paper_bgcolor='white',
+                font={'family': 'Roboto, sans-serif', 'size': 10}
+            )
+            st.plotly_chart(prob_fig, use_container_width=True, key="prob_chart")
+        
+        # Add stage breakdown
+        st.markdown('<div style="font-size: 14px; font-weight: 500; margin: 16px 0 8px 0;">Stage Breakdown</div>', 
+                   unsafe_allow_html=True)
+        
+        if not df.empty:
+            stage_dist = df['Stage'].value_counts()
+            stage_fig = px.pie(
+                values=stage_dist.values,
+                names=stage_dist.index,
+                title="",
+                color_discrete_sequence=['#1e40af', '#3b82f6', '#60a5fa', '#93c5fd']
+            )
+            stage_fig.update_layout(
+                height=150,
+                margin=dict(l=8, r=8, t=8, b=8),
+                showlegend=True,
+                plot_bgcolor='white',
+                paper_bgcolor='white',
+                font={'family': 'Roboto, sans-serif', 'size': 10}
+            )
+            st.plotly_chart(stage_fig, use_container_width=True, key="stage_chart")
+        
+        # Add owner performance chart
+        st.markdown('<div style="font-size: 14px; font-weight: 500; margin: 16px 0 8px 0;">Top Sales by Owner</div>', 
                    unsafe_allow_html=True)
         
         bar_chart = create_bar_chart(df)
         if bar_chart:
             st.plotly_chart(bar_chart, use_container_width=True, key="bar_chart")
         else:
-            st.info("No closed won opportunities to display")
+            st.info("No opportunities to display")
     
     # Auto-refresh JavaScript
     st.markdown("""
