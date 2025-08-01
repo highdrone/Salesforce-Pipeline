@@ -1,0 +1,31 @@
+label,name,type,length,precision,scale,custom
+Record ID,Id,id,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Group Name,Name,string,80,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Quote,SBQQ__Quote__c,reference,18,0,0,True
+Account,SBQQ__Account__c,reference,18,0,0,True
+Additional  Disc. (%),SBQQ__AdditionalDiscountRate__c,percent,0,5,2,True
+Billing Frequency,SBQQ__BillingFrequency__c,picklist,255,0,0,True
+Customer Total,SBQQ__CustomerTotal__c,currency,0,14,2,True
+Description,SBQQ__Description__c,textarea,32000,0,0,True
+End Date,SBQQ__EndDate__c,date,0,0,0,True
+Favorite,SBQQ__Favorite__c,reference,18,0,0,True
+List Total,SBQQ__ListTotal__c,currency,0,14,2,True
+Markup (%),SBQQ__MarkupRate__c,percent,0,8,2,True
+Net Total,SBQQ__NetTotal__c,currency,0,14,2,True
+Number,SBQQ__Number__c,double,0,5,0,True
+Optional,SBQQ__Optional__c,boolean,0,0,0,True
+Quote Process,SBQQ__QuoteProcess__c,reference,18,0,0,True
+Separate Contract,SBQQ__SeparateContract__c,boolean,0,0,0,True
+Solution Group,SBQQ__SolutionGroup__c,reference,18,0,0,True
+Source,SBQQ__Source__c,reference,18,0,0,True
+Start Date,SBQQ__StartDate__c,date,0,0,0,True
+Subscription Term,SBQQ__SubscriptionTerm__c,double,0,5,0,True
+Target Customer Amount,SBQQ__TargetCustomerAmount__c,currency,0,14,2,True
+Mark All Taxable,Taxable__c,boolean,0,0,0,True
+Unmark All Taxable,Unmark_All_Taxable__c,boolean,0,0,0,True

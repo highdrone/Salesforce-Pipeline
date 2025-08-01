@@ -1,0 +1,215 @@
+label,name,type,length,precision,scale,custom
+Record ID,Id,id,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Line Name,Name,string,80,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Quote,SBQQ__Quote__c,reference,18,0,0,True
+Additional Disc. (Amt),SBQQ__AdditionalDiscountAmount__c,currency,0,14,2,True
+Additional Quantity,SBQQ__AdditionalQuantity__c,double,0,12,2,True
+Allow Asset Refunds,SBQQ__AllowAssetRefund__c,boolean,0,0,0,True
+Batch Quantity,SBQQ__BatchQuantity__c,double,0,12,2,True
+Billing Frequency,SBQQ__BillingFrequency__c,picklist,255,0,0,True
+Billing Type,SBQQ__BillingType__c,picklist,255,0,0,True
+Block Price,SBQQ__BlockPrice__c,reference,18,0,0,True
+Package,SBQQ__Bundle__c,boolean,0,0,0,True
+Original Quantity,SBQQ__BundledQuantity__c,double,0,12,2,True
+Bundled,SBQQ__Bundled__c,boolean,0,0,0,True
+Carry-Over Line,SBQQ__CarryoverLine__c,boolean,0,0,0,True
+Charge Type,SBQQ__ChargeType__c,picklist,255,0,0,True
+Component Cost,SBQQ__ComponentCost__c,currency,0,16,2,True
+Component Discounted By Package,SBQQ__ComponentDiscountedByPackage__c,boolean,0,0,0,True
+Component List Total,SBQQ__ComponentListTotal__c,currency,0,16,2,True
+Component Percent of Total Scope,SBQQ__ComponentSubscriptionScope__c,picklist,255,0,0,True
+Component Net Total,SBQQ__ComponentTotal__c,currency,0,16,2,True
+Component Uplifted By Package,SBQQ__ComponentUpliftedByPackage__c,boolean,0,0,0,True
+Compound Discount (%),SBQQ__CompoundDiscountRate__c,percent,0,8,3,True
+Configuration Required,SBQQ__ConfigurationRequired__c,boolean,0,0,0,True
+Contracted Price,SBQQ__ContractedPrice__c,reference,18,0,0,True
+Cost Editable,SBQQ__CostEditable__c,boolean,0,0,0,True
+Cost,SBQQ__Cost__c,reference,18,0,0,True
+Customer Unit Price,SBQQ__CustomerPrice__c,currency,0,14,2,True
+Default Subscription Term,SBQQ__DefaultSubscriptionTerm__c,double,0,5,0,True
+Description,SBQQ__Description__c,textarea,32000,0,0,True
+Price Dimension,SBQQ__Dimension__c,reference,18,0,0,True
+Discount Schedule Type,SBQQ__DiscountScheduleType__c,picklist,255,0,0,True
+Discount Schedule,SBQQ__DiscountSchedule__c,reference,18,0,0,True
+Discount Tier,SBQQ__DiscountTier__c,reference,18,0,0,True
+Additional Disc. (%),SBQQ__Discount__c,percent,0,11,2,True
+Distributor Discount,SBQQ__DistributorDiscount__c,percent,0,5,2,True
+Dynamic Option ID,SBQQ__DynamicOptionId__c,string,40,0,0,True
+Earliest Valid Amendment Start Date,SBQQ__EarliestValidAmendmentStartDate__c,date,0,0,0,True
+End Date,SBQQ__EndDate__c,date,0,0,0,True
+Existing,SBQQ__Existing__c,boolean,0,0,0,True
+Favorite,SBQQ__Favorite__c,reference,18,0,0,True
+Generate Contracted Price,SBQQ__GenerateContractedPrice__c,picklist,255,0,0,True
+Gross Profit,SBQQ__GrossProfit__c,currency,0,16,2,True
+Group,SBQQ__Group__c,reference,18,0,0,True
+Guidance,SBQQ__Guidance__c,percent,0,18,2,True
+Has Consumption Schedules,SBQQ__HasConsumptionSchedule__c,boolean,0,0,0,True
+Hidden,SBQQ__Hidden__c,boolean,0,0,0,True
+Incomplete,SBQQ__Incomplete__c,boolean,0,0,0,True
+List Unit Price,SBQQ__ListPrice__c,currency,0,14,2,True
+Markup (Amt),SBQQ__MarkupAmount__c,currency,0,16,2,True
+Markup (%),SBQQ__MarkupRate__c,percent,0,8,2,True
+Maximum List Unit Price,SBQQ__MaximumPrice__c,currency,0,16,2,True
+Minimum List Unit Price,SBQQ__MinimumPrice__c,currency,0,18,0,True
+Net Unit Price,SBQQ__NetPrice__c,currency,0,14,2,True
+Non Discountable,SBQQ__NonDiscountable__c,boolean,0,0,0,True
+Non Partner Discountable,SBQQ__NonPartnerDiscountable__c,boolean,0,0,0,True
+Number,SBQQ__Number__c,double,0,5,0,True
+Option Discount (Amt),SBQQ__OptionDiscountAmount__c,currency,0,12,2,True
+Option Discount (%),SBQQ__OptionDiscount__c,percent,0,5,2,True
+Option Level,SBQQ__OptionLevel__c,double,0,5,0,True
+Option Type,SBQQ__OptionType__c,picklist,255,0,0,True
+Optional,SBQQ__Optional__c,boolean,0,0,0,True
+Original Price,SBQQ__OriginalPrice__c,currency,0,14,2,True
+Original Quote Line Id,SBQQ__OriginalQuoteLineId__c,string,255,0,0,True
+Original Unit Cost,SBQQ__OriginalUnitCost__c,currency,0,16,2,True
+Package Product Code,SBQQ__PackageProductCode__c,string,255,0,0,True
+Package Product Description,SBQQ__PackageProductDescription__c,textarea,32000,0,0,True
+Partner Discount,SBQQ__PartnerDiscount__c,percent,0,5,2,True
+Partner Unit Price,SBQQ__PartnerPrice__c,currency,0,14,2,True
+Previous Segment Regular Price,SBQQ__PreviousSegmentPrice__c,currency,0,14,2,True
+Previous Segment Uplift,SBQQ__PreviousSegmentUplift__c,currency,0,12,2,True
+Price Editable,SBQQ__PriceEditable__c,boolean,0,0,0,True
+Pricebook Entry Id,SBQQ__PricebookEntryId__c,string,64,0,0,True
+Pricing Method Editable,SBQQ__PricingMethodEditable__c,boolean,0,0,0,True
+Pricing Method,SBQQ__PricingMethod__c,picklist,255,0,0,True
+Prior Quantity,SBQQ__PriorQuantity__c,double,0,12,2,True
+Product Option,SBQQ__ProductOption__c,reference,18,0,0,True
+Product Subscription Type,SBQQ__ProductSubscriptionType__c,picklist,255,0,0,True
+Product,SBQQ__Product__c,reference,18,0,0,True
+Prorate Multiplier,SBQQ__ProrateMultiplier__c,double,0,8,4,True
+Prorated List Price,SBQQ__ProratedListPrice__c,currency,0,18,2,True
+Prorated Unit Price,SBQQ__ProratedPrice__c,currency,0,14,2,True
+Quantity,SBQQ__Quantity__c,double,0,12,2,True
+Regular Unit Price,SBQQ__RegularPrice__c,currency,0,14,2,True
+Renewal,SBQQ__Renewal__c,boolean,0,0,0,True
+Renewed Asset,SBQQ__RenewedAsset__c,reference,18,0,0,True
+Renewed Subscription,SBQQ__RenewedSubscription__c,reference,18,0,0,True
+Required By,SBQQ__RequiredBy__c,reference,18,0,0,True
+Segment Index,SBQQ__SegmentIndex__c,double,0,2,0,True
+Segment Key,SBQQ__SegmentKey__c,string,30,0,0,True
+Segment Label,SBQQ__SegmentLabel__c,string,25,0,0,True
+Source,SBQQ__Source__c,reference,18,0,0,True
+Special Price Description,SBQQ__SpecialPriceDescription__c,string,80,0,0,True
+Special Price Type,SBQQ__SpecialPriceType__c,picklist,255,0,0,True
+Special Price,SBQQ__SpecialPrice__c,currency,0,14,2,True
+Start Date,SBQQ__StartDate__c,date,0,0,0,True
+Subscribed Asset IDs,SBQQ__SubscribedAssetIds__c,textarea,19000,0,0,True
+Percent of Total Base,SBQQ__SubscriptionBase__c,string,30,0,0,True
+Percent of Total Category,SBQQ__SubscriptionCategory__c,picklist,255,0,0,True
+Percent of Total (%),SBQQ__SubscriptionPercent__c,percent,0,7,3,True
+Subscription Pricing,SBQQ__SubscriptionPricing__c,picklist,255,0,0,True
+Percent of Total Scope,SBQQ__SubscriptionScope__c,picklist,255,0,0,True
+Percent of Total Target Price,SBQQ__SubscriptionTargetPrice__c,currency,0,14,2,True
+Subscription Term,SBQQ__SubscriptionTerm__c,double,0,5,0,True
+Tax code,SBQQ__TaxCode__c,string,255,0,0,True
+Taxable,SBQQ__Taxable__c,boolean,0,0,0,True
+Term Discount Schedule,SBQQ__TermDiscountSchedule__c,reference,18,0,0,True
+Term Discount Tier,SBQQ__TermDiscountTier__c,reference,18,0,0,True
+Term Discount,SBQQ__TermDiscount__c,currency,0,14,2,True
+Unit Cost,SBQQ__UnitCost__c,currency,0,16,2,True
+Unprorated Net Price,SBQQ__UnproratedNetPrice__c,currency,0,16,2,True
+Upgraded Asset,SBQQ__UpgradedAsset__c,reference,18,0,0,True
+Upgraded Quantity,SBQQ__UpgradedQuantity__c,double,0,12,2,True
+Upgraded Subscription,SBQQ__UpgradedSubscription__c,reference,18,0,0,True
+Uplift (Amt),SBQQ__UpliftAmount__c,currency,0,12,2,True
+Uplift,SBQQ__Uplift__c,percent,0,9,2,True
+Volume Discount,SBQQ__VolumeDiscount__c,percent,0,14,2,True
+Additional Disc.,SBQQ__AdditionalDiscount__c,currency,0,18,2,True
+Component Visibility,SBQQ__ComponentVisibility__c,string,1300,0,0,True
+Customer Total,SBQQ__CustomerTotal__c,currency,0,18,2,True
+Effective End Date,SBQQ__EffectiveEndDate__c,date,0,0,0,True
+Effective Quantity,SBQQ__EffectiveQuantity__c,double,0,18,2,True
+Effective Start Date,SBQQ__EffectiveStartDate__c,date,0,0,0,True
+Effective Subscription Term,SBQQ__EffectiveSubscriptionTerm__c,double,0,18,0,True
+List Total,SBQQ__ListTotal__c,currency,0,18,2,True
+Markup,SBQQ__Markup__c,currency,0,18,2,True
+Net Total,SBQQ__NetTotal__c,currency,0,18,2,True
+Package Cost,SBQQ__PackageCost__c,currency,0,18,2,True
+Package List Total,SBQQ__PackageListTotal__c,currency,0,18,2,True
+Package Total,SBQQ__PackageTotal__c,currency,0,18,2,True
+Partner Total,SBQQ__PartnerTotal__c,currency,0,18,2,True
+Product Code,SBQQ__ProductCode__c,string,1300,0,0,True
+Product Family,SBQQ__ProductFamily__c,string,1300,0,0,True
+Product Name,SBQQ__ProductName__c,string,1300,0,0,True
+Regular Total,SBQQ__RegularTotal__c,currency,0,18,2,True
+Subscription Type,SBQQ__SubscriptionType__c,picklist,255,0,0,True
+Total Discount (Amt),SBQQ__TotalDiscountAmount__c,currency,0,18,2,True
+Total Discount (%),SBQQ__TotalDiscountRate__c,percent,0,18,3,True
+AV Warranty & Support Agreement,AV_Warranty_Support_Agreement__c,currency,0,18,2,True
+Added Content & Licenses Subtotal,Added_Content_Licenses_Subtotal__c,currency,0,18,2,True
+Added Equipment & Material Subtotal,Added_Equipment_Material_Subtotal__c,currency,0,18,2,True
+CO Document Quantity,CO_Document_Quantity__c,double,0,18,0,True
+Cancelled Equipment & Material,Cancelled_Equipment_Material__c,currency,0,18,2,True
+Cancelled Technical Services,Cancelled_Technical_Services__c,currency,0,18,2,True
+G&A Summary Variable,G_A_Summary_Variable__c,currency,0,18,2,True
+Package Cost QL,Package_Cost_QL__c,currency,0,18,2,True
+Pricing Method,Pricing_Method__c,string,1300,0,0,True
+Restock Fee,Restock_Fee__c,currency,0,18,2,True
+Shipping & Handling,Shipping_Handling__c,currency,0,18,2,True
+Total Contract Fee Summary Variable,Total_Contract_Fee_Summary_Variable__c,currency,0,18,2,True
+Total Subcontractor Summary Variable,Total_Subcontractor_Summary_Variable__c,currency,0,18,2,True
+CPQ Product,CPQ_Product__c,boolean,0,0,0,True
+Contract Applied,Contract_Applied__c,picklist,255,0,0,True
+Custom Cost - Note,Custom_Cost_Notes__c,string,255,0,0,True
+Custom Cost - URL,Custom_Cost_Quote__c,textarea,32768,0,0,True
+Desc.,Custom_Description__c,textarea,32000,0,0,True
+DirecTV Product,DirecTV_Product__c,boolean,0,0,0,True
+Manufacturer,Manufacturer__c,string,100,0,0,True
+Monitor Classification,Monitor_Classification__c,picklist,255,0,0,True
+New Part Number,Part__c,string,40,0,0,True
+Permutation Rate 1,Permutation_Rate_1__c,currency,0,18,2,True
+Permutation Rate 2,Permutation_Rate_2__c,currency,0,18,2,True
+Permutation Rate 3,Permutation_Rate_3__c,currency,0,18,2,True
+Product Validation,Product_ValidationPR__c,string,255,0,0,True
+Rate Level 1,Rate_Level_1__c,double,0,18,0,True
+Rate Level 2,Rate_Level_2__c,double,0,18,0,True
+Rate Level 3,Rate_Level_3__c,double,0,18,0,True
+Vendor,Vendor__c,string,100,0,0,True
+Product Validation,Product_Validation__c,string,1300,0,0,True
+Added Technical Services Subtotal,Added_Technical_Services_Subtotal__c,currency,0,18,2,True
+Cancelled Content & Licenses,Cancelled_Content_Licenses__c,currency,0,18,2,True
+qty_formatted,qty_formatted__c,double,0,18,0,True
+Margin (%),Margin__c,percent,0,8,4,True
+Markup %,Markup_No_Edit__c,percent,0,18,2,True
+Adjusted Price,Net_Unit_Price_IV__c,currency,0,18,2,True
+Change Order Line Item,Change_Order_Line_Item__c,reference,18,0,0,True
+Actual Prevailing Wage Rate,Actual_Prevailing_Wage_Rate__c,currency,0,17,2,True
+Additional Profit,Additional_Profit__c,currency,0,14,2,True
+Adjusted Cost,Adjusted_Cost__c,currency,0,18,2,True
+Contract Sell Total,Contract_Sell_Total__c,currency,0,17,2,True
+Custom Cost Quote,Custom_Cost_Quote2__c,url,255,0,0,True
+MM_Markup,MM_Markup__c,percent,0,18,2,True
+Maximum DES Rate,Maximum_DES_Rate__c,currency,0,7,2,True
+Maximum WIPHE Rate,Maximum_WIPHE_Rate__c,currency,0,7,2,True
+Number of Processor,Number_of_Processor__c,double,0,10,0,True
+Contract Sell Price,Original_Net_Price__c,currency,0,17,2,True
+Contract Sell Quantity,Original_Quantity__c,double,0,18,0,True
+Product Family Flow,Product_Family_Flow__c,string,100,0,0,True
+Product Family (page layout),Product_Family_page_layout__c,string,1300,0,0,True
+Quantity Changed,Quantity_Changed__c,boolean,0,0,0,True
+SLA Default,SLA_Default__c,boolean,0,0,0,True
+Target Price,Target_Price__c,currency,0,14,2,True
+Total Cost,Total_Cost__c,currency,0,18,2,True
+Total Indirect Material Summary Variable,Total_Indirect_Material_Summary_Variable__c,currency,0,18,2,True
+Total Labor Price Summary Variable,Total_Labor_Price_Summary_Variable__c,currency,0,18,2,True
+Total MFG Warranty Summary Variable,Total_MFG_Warranty_Summary_Variable__c,currency,0,18,2,True
+Total Reimbursables Summary Variable,Total_Reimbursables_Summary_Variable__c,currency,0,18,2,True
+Total Rental Summary Variable,Total_Rental_Summary_Variable__c,currency,0,18,2,True
+Total System Summary Variable,Total_System_Summary_Variable__c,currency,0,18,2,True
+Added Profit,Added_Profit__c,currency,0,18,2,True
+Total Number of Processors,Total_Number_of_Processors__c,double,0,18,0,True
+AV Warranty %,AV_Warranty__c,percent,0,18,0,True
+Reimbursable %,Reimbursable__c,percent,0,18,2,True
+SLA %,SLA__c,percent,0,18,2,True
+Sub Margin %,Sub_Margin__c,percent,0,18,2,True
+Technical Services Margin,TS_Margin__c,percent,0,18,0,True
+Note,Note__c,textarea,131070,0,0,True
+Product Category,Product_Category__c,picklist,255,0,0,True
+Sub Group,Sub_Group__c,string,50,0,0,True

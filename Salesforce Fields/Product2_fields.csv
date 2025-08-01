@@ -1,0 +1,128 @@
+label,name,type,length,precision,scale,custom
+Product ID,Id,id,18,0,0,False
+Product Name,Name,string,255,0,0,False
+Product Code,ProductCode,string,255,0,0,False
+Product Description,Description,textarea,4000,0,0,False
+Active,IsActive,boolean,0,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Product Family,Family,picklist,255,0,0,False
+Serialized,IsSerialized,boolean,0,0,0,False
+Record Type ID,RecordTypeId,reference,18,0,0,False
+External Data Source ID,ExternalDataSourceId,reference,18,0,0,False
+External ID,ExternalId,string,255,0,0,False
+Display URL,DisplayUrl,url,1000,0,0,False
+Quantity Unit Of Measure,QuantityUnitOfMeasure,picklist,255,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Archived,IsArchived,boolean,0,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Product SKU,StockKeepingUnit,string,180,0,0,False
+Transfer Record Mode,TransferRecordMode,picklist,40,0,0,False
+SL Last Updated,SL_Last_Updated__c,datetime,0,0,0,True
+SL Skip,SL_Skip__c,boolean,0,0,0,True
+SL_Update,SL_Update__c,boolean,0,0,0,True
+Labor Type,Labor_Type__c,boolean,0,0,0,True
+Is in Avidex Price Book?,Is_in_Avidex_Price_Book__c,boolean,0,0,0,True
+Is in Standard Price Book?,Is_in_Standard_Price_Book__c,boolean,0,0,0,True
+Is in Other Price Book?,Is_in_Other_Price_Book__c,boolean,0,0,0,True
+New Product?,New_Product__c,boolean,0,0,0,True
+Tax Category,Tax_Category__c,string,255,0,0,True
+List Price,List_Price__c,currency,0,18,2,True
+Primary Vendor,Primary_Vendor__c,string,255,0,0,True
+Asset Amendment Behavior,SBQQ__AssetAmendmentBehavior__c,picklist,255,0,0,True
+Asset Conversion,SBQQ__AssetConversion__c,picklist,255,0,0,True
+Batch Quantity,SBQQ__BatchQuantity__c,double,0,12,2,True
+Billing Frequency,SBQQ__BillingFrequency__c,picklist,255,0,0,True
+Billing Type,SBQQ__BillingType__c,picklist,255,0,0,True
+Block Pricing Field,SBQQ__BlockPricingField__c,picklist,255,0,0,True
+Charge Type,SBQQ__ChargeType__c,picklist,255,0,0,True
+Component,SBQQ__Component__c,boolean,0,0,0,True
+Compound Discount (%),SBQQ__CompoundDiscountRate__c,percent,0,8,3,True
+Configuration Field Set,SBQQ__ConfigurationFieldSet__c,picklist,255,0,0,True
+Configuration Fields,SBQQ__ConfigurationFields__c,textarea,10000,0,0,True
+Configuration Form Title,SBQQ__ConfigurationFormTitle__c,string,100,0,0,True
+Configuration Type,SBQQ__ConfigurationType__c,picklist,255,0,0,True
+Configuration Validator,SBQQ__ConfigurationValidator__c,textarea,32000,0,0,True
+Configured Code Pattern,SBQQ__ConfiguredCodePattern__c,string,255,0,0,True
+Configured Description Pattern,SBQQ__ConfiguredDescriptionPattern__c,textarea,1000,0,0,True
+Cost Editable,SBQQ__CostEditable__c,boolean,0,0,0,True
+Cost Schedule,SBQQ__CostSchedule__c,reference,18,0,0,True
+Custom Configuration Page,SBQQ__CustomConfigurationPage__c,string,40,0,0,True
+Custom Configuration Required,SBQQ__CustomConfigurationRequired__c,boolean,0,0,0,True
+Customer Community Availability,SBQQ__CustomerCommunityAvailability__c,picklist,255,0,0,True
+Default Pricing Table,SBQQ__DefaultPricingTable__c,picklist,255,0,0,True
+Default Quantity,SBQQ__DefaultQuantity__c,double,0,18,5,True
+Lock Description,SBQQ__DescriptionLocked__c,boolean,0,0,0,True
+Discount Category,SBQQ__DiscountCategory__c,reference,18,0,0,True
+Discount Schedule,SBQQ__DiscountSchedule__c,reference,18,0,0,True
+Percent Of Total Constraint,SBQQ__DynamicPricingConstraint__c,picklist,255,0,0,True
+Enable Large Configuration,SBQQ__EnableLargeConfiguration__c,boolean,0,0,0,True
+Exclude From Percent Of Total,SBQQ__ExcludeFromMaintenance__c,boolean,0,0,0,True
+Exclude From Opportunity,SBQQ__ExcludeFromOpportunity__c,boolean,0,0,0,True
+Externally Configurable,SBQQ__ExternallyConfigurable__c,boolean,0,0,0,True
+Generate Contracted Price,SBQQ__GenerateContractedPrice__c,picklist,255,0,0,True
+Has Configuration Attributes,SBQQ__HasConfigurationAttributes__c,boolean,0,0,0,True
+Has Consumption Schedules,SBQQ__HasConsumptionSchedule__c,boolean,0,0,0,True
+Hidden,SBQQ__Hidden__c,boolean,0,0,0,True
+Hide Price in Search Results,SBQQ__HidePriceInSearchResults__c,boolean,0,0,0,True
+Include In Percent Of Total,SBQQ__IncludeInMaintenance__c,boolean,0,0,0,True
+New Quote Group,SBQQ__NewQuoteGroup__c,boolean,0,0,0,True
+Non Discountable,SBQQ__NonDiscountable__c,boolean,0,0,0,True
+Non Partner Discountable,SBQQ__NonPartnerDiscountable__c,boolean,0,0,0,True
+Option Layout,SBQQ__OptionLayout__c,picklist,255,0,0,True
+Option Selection Method,SBQQ__OptionSelectionMethod__c,picklist,255,0,0,True
+Optional,SBQQ__Optional__c,boolean,0,0,0,True
+Price Editable,SBQQ__PriceEditable__c,boolean,0,0,0,True
+Pricing Guidance,SBQQ__PricingGuidance__c,reference,18,0,0,True
+Pricing Method Editable,SBQQ__PricingMethodEditable__c,boolean,0,0,0,True
+Pricing Method,SBQQ__PricingMethod__c,picklist,255,0,0,True
+Product Picture Id,SBQQ__ProductPictureID__c,string,18,0,0,True
+Quantity Editable,SBQQ__QuantityEditable__c,boolean,0,0,0,True
+Quantity Scale,SBQQ__QuantityScale__c,double,0,1,0,True
+Disable Reconfiguration,SBQQ__ReconfigurationDisabled__c,boolean,0,0,0,True
+Renewal Product,SBQQ__RenewalProduct__c,reference,18,0,0,True
+Sort Order,SBQQ__SortOrder__c,double,0,18,0,True
+Specifications,SBQQ__Specifications__c,textarea,32000,0,0,True
+Percent Of Total Base,SBQQ__SubscriptionBase__c,picklist,255,0,0,True
+Percent Of Total Category,SBQQ__SubscriptionCategory__c,picklist,255,0,0,True
+Percent Of Total (%),SBQQ__SubscriptionPercent__c,percent,0,7,3,True
+Subscription Pricing,SBQQ__SubscriptionPricing__c,picklist,255,0,0,True
+Percent Of Total Target,SBQQ__SubscriptionTarget__c,reference,18,0,0,True
+Subscription Term,SBQQ__SubscriptionTerm__c,double,0,5,0,True
+Subscription Type,SBQQ__SubscriptionType__c,picklist,255,0,0,True
+Tax code,SBQQ__TaxCode__c,string,255,0,0,True
+Taxable,SBQQ__Taxable__c,boolean,0,0,0,True
+Term Discount Level,SBQQ__TermDiscountLevel__c,picklist,255,0,0,True
+Term Discount Schedule,SBQQ__TermDiscountSchedule__c,reference,18,0,0,True
+Upgrade Credit,SBQQ__UpgradeCredit__c,reference,18,0,0,True
+Upgrade Ratio,SBQQ__UpgradeRatio__c,double,0,8,3,True
+Upgrade Source,SBQQ__UpgradeSource__c,reference,18,0,0,True
+Upgrade Target,SBQQ__UpgradeTarget__c,reference,18,0,0,True
+Configuration Event,SBQQ__ConfigurationEvent__c,picklist,255,0,0,True
+CPQ Product,CPQ_Product__c,boolean,0,0,0,True
+Custom Product Description,Custom_Description__c,textarea,4000,0,0,True
+DirecTV Product,DirecTV_Product__c,boolean,0,0,0,True
+Manufacturer,Manufacturer__c,string,100,0,0,True
+Monitor Classification,Monitor_Classification__c,picklist,255,0,0,True
+New Sandbox Product,New_Sandbox_Product__c,boolean,0,0,0,True
+Product Task,Product_Task__c,picklist,255,0,0,True
+Vendor,Vendor__c,string,100,0,0,True
+Gearset External ID,GearsetExternalId__c,string,18,0,0,True
+Record ID,Record_ID__c,string,1300,0,0,True
+SL Record Id,SL_Record_Id__c,string,50,0,0,True
+SL Unit Cost,SL_Unit_Cost__c,currency,0,18,0,True
+Approval Number,Approval_Number__c,reference,18,0,0,True
+Number of Processor,Number_of_Processor__c,double,0,10,0,True
+DES Sell Price,DES_Sell_Price__c,currency,0,12,2,True
+Labor Rate Entry,Labor_Rate_Entry__c,reference,18,0,0,True
+Process,Process__c,boolean,0,0,0,True
+Task,Task__c,boolean,0,0,0,True
+WIPHE Sell Price,WIPHE_Sell_Price__c,currency,0,12,2,True
+18 Digit Product ID,X18_digit_Product_ID__c,string,1300,0,0,True
+part c,part_c__c,string,50,0,0,True
+Quote Line,Quote_Line__c,reference,18,0,0,True
+Product Category,Product_Category__c,picklist,255,0,0,True

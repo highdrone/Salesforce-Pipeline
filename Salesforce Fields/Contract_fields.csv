@@ -1,0 +1,83 @@
+label,name,type,length,precision,scale,custom
+Contract ID,Id,id,18,0,0,False
+Account ID,AccountId,reference,18,0,0,False
+Price Book ID,Pricebook2Id,reference,18,0,0,False
+Owner Expiration Notice,OwnerExpirationNotice,picklist,40,0,0,False
+Contract Start Date,StartDate,date,0,0,0,False
+Contract End Date,EndDate,date,0,0,0,False
+Billing Street,BillingStreet,textarea,255,0,0,False
+Billing City,BillingCity,string,40,0,0,False
+Billing State/Province,BillingState,string,80,0,0,False
+Billing Zip/Postal Code,BillingPostalCode,string,20,0,0,False
+Billing Country,BillingCountry,string,80,0,0,False
+Billing Latitude,BillingLatitude,double,0,18,15,False
+Billing Longitude,BillingLongitude,double,0,18,15,False
+Billing Geocode Accuracy,BillingGeocodeAccuracy,picklist,40,0,0,False
+Billing Address,BillingAddress,address,0,0,0,False
+Shipping Street,ShippingStreet,textarea,255,0,0,False
+Shipping City,ShippingCity,string,40,0,0,False
+Shipping State/Province,ShippingState,string,80,0,0,False
+Shipping Zip/Postal Code,ShippingPostalCode,string,20,0,0,False
+Shipping Country,ShippingCountry,string,80,0,0,False
+Shipping Latitude,ShippingLatitude,double,0,18,15,False
+Shipping Longitude,ShippingLongitude,double,0,18,15,False
+Shipping Geocode Accuracy,ShippingGeocodeAccuracy,picklist,40,0,0,False
+Shipping Address,ShippingAddress,address,0,0,0,False
+Contract Term,ContractTerm,int,0,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Status,Status,picklist,100,0,0,False
+Company Signed By ID,CompanySignedId,reference,18,0,0,False
+Company Signed Date,CompanySignedDate,date,0,0,0,False
+Customer Signed By ID,CustomerSignedId,reference,18,0,0,False
+Customer Signed Title,CustomerSignedTitle,string,40,0,0,False
+Customer Signed Date,CustomerSignedDate,date,0,0,0,False
+Special Terms,SpecialTerms,textarea,4000,0,0,False
+Activated By ID,ActivatedById,reference,18,0,0,False
+Activated Date,ActivatedDate,datetime,0,0,0,False
+Status Category,StatusCode,picklist,40,0,0,False
+Description,Description,textarea,32000,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Contract Number,ContractNumber,string,30,0,0,False
+Last Approved Date,LastApprovedDate,datetime,0,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Activity,LastActivityDate,date,0,0,0,False
+Activity Metric ID,ActivityMetricId,reference,18,0,0,False
+Activity Metric Rollup ID,ActivityMetricRollupId,reference,18,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Expiration Date,SBQQ__ExpirationDate__c,date,0,0,0,True
+Amendment Opportunity Record Type Id,SBQQ__AmendmentOpportunityRecordTypeId__c,string,18,0,0,True
+Amendment Opportunity Stage,SBQQ__AmendmentOpportunityStage__c,string,60,0,0,True
+Amendment Owner,SBQQ__AmendmentOwner__c,reference,18,0,0,True
+Amendment Pricebook Id,SBQQ__AmendmentPricebookId__c,string,18,0,0,True
+Amendment & Renewal Behavior,SBQQ__AmendmentRenewalBehavior__c,picklist,255,0,0,True
+Amendment Start Date,SBQQ__AmendmentStartDate__c,date,0,0,0,True
+Default Renewal Contact Roles,SBQQ__DefaultRenewalContactRoles__c,boolean,0,0,0,True
+Default Renewal Partners,SBQQ__DefaultRenewalPartners__c,boolean,0,0,0,True
+Disable Amendment Co-Term,SBQQ__DisableAmendmentCoTerm__c,boolean,0,0,0,True
+Evergreen,SBQQ__Evergreen__c,boolean,0,0,0,True
+MDQ Renewal Behavior,SBQQ__MDQRenewalBehavior__c,picklist,255,0,0,True
+Master Contract,SBQQ__MasterContract__c,boolean,0,0,0,True
+Opportunity,SBQQ__Opportunity__c,reference,18,0,0,True
+Order,SBQQ__Order__c,reference,18,0,0,True
+Preserve Bundle Structure,SBQQ__PreserveBundleStructureUponRenewals__c,boolean,0,0,0,True
+Quote,SBQQ__Quote__c,reference,18,0,0,True
+Renewal Forecast,SBQQ__RenewalForecast__c,boolean,0,0,0,True
+Renewal Opportunity Record Type Id,SBQQ__RenewalOpportunityRecordTypeId__c,string,18,0,0,True
+Renewal Opportunity Stage,SBQQ__RenewalOpportunityStage__c,string,60,0,0,True
+Renewal Opportunity,SBQQ__RenewalOpportunity__c,reference,18,0,0,True
+Renewal Owner,SBQQ__RenewalOwner__c,reference,18,0,0,True
+Renewal Pricebook Id,SBQQ__RenewalPricebookId__c,string,18,0,0,True
+Renewal Quoted,SBQQ__RenewalQuoted__c,boolean,0,0,0,True
+Renewal Term,SBQQ__RenewalTerm__c,double,0,18,0,True
+Renewal Uplift (%),SBQQ__RenewalUpliftRate__c,percent,0,11,3,True
+Combine Subscription Quantities,SBQQ__SubscriptionQuantitiesCombined__c,boolean,0,0,0,True
+Active Contract,SBQQ__ActiveContract__c,double,0,18,0,True
+Opportunity or Quote Price Book ID,SBQQ__OpportunityPricebookId__c,string,1300,0,0,True
+Shift Area,Shift_Area__c,picklist,255,0,0,True
+Shift,Shift__c,picklist,255,0,0,True
+Contract Applied,Contract_Applied__c,picklist,255,0,0,True

@@ -1,0 +1,151 @@
+label,name,type,length,precision,scale,custom
+Opportunity ID,Id,id,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Account ID,AccountId,reference,18,0,0,False
+Record Type ID,RecordTypeId,reference,18,0,0,False
+Private,IsPrivate,boolean,0,0,0,False
+Name,Name,string,120,0,0,False
+Description,Description,textarea,32000,0,0,False
+Stage,StageName,picklist,255,0,0,False
+Amount,Amount,currency,0,18,2,False
+Probability (%),Probability,percent,0,3,0,False
+Expected Amount,ExpectedRevenue,currency,0,18,2,False
+Quantity,TotalOpportunityQuantity,double,0,18,2,False
+Close Date,CloseDate,date,0,0,0,False
+Opportunity Type,Type,picklist,255,0,0,False
+Next Step,NextStep,string,255,0,0,False
+Lead Source,LeadSource,picklist,255,0,0,False
+Closed,IsClosed,boolean,0,0,0,False
+Won,IsWon,boolean,0,0,0,False
+Forecast Category,ForecastCategory,picklist,40,0,0,False
+Forecast Category,ForecastCategoryName,picklist,255,0,0,False
+Campaign ID,CampaignId,reference,18,0,0,False
+Has Line Item,HasOpportunityLineItem,boolean,0,0,0,False
+Is Split,IsSplit,boolean,0,0,0,False
+Price Book ID,Pricebook2Id,reference,18,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Age,AgeInDays,int,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Activity,LastActivityDate,date,0,0,0,False
+Recent Activity,LastActivityInDays,int,0,0,0,False
+Push Count,PushCount,int,0,0,0,False
+Last Stage Change Date,LastStageChangeDate,datetime,0,0,0,False
+Days In Stage,LastStageChangeInDays,int,0,0,0,False
+Fiscal Quarter,FiscalQuarter,int,0,0,0,False
+Fiscal Year,FiscalYear,int,0,0,0,False
+Fiscal Period,Fiscal,string,6,0,0,False
+Contact ID,ContactId,reference,18,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Quote ID,SyncedQuoteId,reference,18,0,0,False
+Contract ID,ContractId,reference,18,0,0,False
+Has Open Activity,HasOpenActivity,boolean,0,0,0,False
+Has Overdue Task,HasOverdueTask,boolean,0,0,0,False
+Opportunity History ID,LastAmountChangedHistoryId,reference,18,0,0,False
+Opportunity History ID,LastCloseDateChangedHistoryId,reference,18,0,0,False
+Important,IsPriorityRecord,boolean,0,0,0,False
+Activity Metric ID,ActivityMetricId,reference,18,0,0,False
+Activity Metric Rollup ID,ActivityMetricRollupId,reference,18,0,0,False
+Branch (Old),Branch_Old__c,string,1300,0,0,True
+Project Start Date,Project_Start_Date__c,date,0,0,0,True
+Bid Due Date,Bid_Due_Date__c,date,0,0,0,True
+Definitive ID,texcellency__DefHC_HospitalID__c,double,0,18,0,True
+Loss Reason,Loss_Reason__c,picklist,255,0,0,True
+RFP ID,texcellency__DefHC_RFPID__c,double,0,18,0,True
+GUID,GUID__c,string,32,0,0,True
+Competition,Competition__c,textarea,255,0,0,True
+Bid,Bid__c,boolean,0,0,0,True
+Budgeted Cost,Budgeted_Cost__c,currency,0,18,2,True
+End Customer,End_Customer__c,reference,18,0,0,True
+Estimated Project End Date,Estimated_Project_End_Date__c,date,0,0,0,True
+GP %,Gross_Profit_Percentage__c,percent,0,18,2,True
+Gross Profit,Gross_Profit__c,currency,0,18,2,True
+Job Number,Job_Number__c,string,40,0,0,True
+Job Walk Date,Job_Walk_Date__c,date,0,0,0,True
+Loss Other Reason,Loss_Other_Reason__c,string,255,0,0,True
+Project Number,Project_Number__c,string,40,0,0,True
+Quote Number,Quote_Number__c,string,40,0,0,True
+RFI Due Date,RFI_Due_Date__c,date,0,0,0,True
+Project Number Requested,Project_Number_Requested__c,boolean,0,0,0,True
+Weighted AVG,Weighted_AVG__c,currency,0,18,0,True
+Weighted Avg GP,Weigthed_Avg_GP__c,currency,0,18,0,True
+Opportunity Created For,Opportunity_Created_For__c,picklist,255,0,0,True
+Opportunity Long ID,Opportunity_Long_ID__c,string,1300,0,0,True
+Service Contract Expiring,Service_Contract_Expiring__c,reference,18,0,0,True
+Service Contract,Service_Contract__c,reference,18,0,0,True
+next_order,next_order__c,double,0,3,0,True
+PushCount,PushCount__c,double,0,18,0,True
+Project Number Generated Date,Project_Number_Generated_Date__c,date,0,0,0,True
+Branch Name Override (Old),Branch_Name_Override_Old__c,picklist,255,0,0,True
+Branch Name (Old),Branch_Name_Old__c,string,1300,0,0,True
+Account Customer ID,Account_Customer_ID__c,string,1300,0,0,True
+Registered Partners,Partners__c,multipicklist,4099,10,0,True
+Partner Notes,Partner_Notes__c,textarea,255,0,0,True
+Have you registered with any Partners?,Have_you_registered_with_any_Partners__c,boolean,0,0,0,True
+Owner Manager Email,Owner_Manager_Email__c,email,80,0,0,True
+GM Email,GM_Email__c,email,80,0,0,True
+Branch,Branch__c,picklist,255,0,0,True
+Region,Region__c,picklist,255,0,0,True
+Owner Branch,Owner_Branch__c,string,1300,0,0,True
+Owner Region,Owner_Region__c,string,1300,0,0,True
+Account Name,Account_Name__c,string,1300,0,0,True
+Owner Name,Owner_Name__c,string,1300,0,0,True
+Parent Opportunity,Parent_Opportunity_del__c,reference,18,0,0,True
+Child Opportunity,Child_Opportunity__c,reference,18,0,0,True
+Amended Contract,SBQQ__AmendedContract__c,reference,18,0,0,True
+Contracted,SBQQ__Contracted__c,boolean,0,0,0,True
+Create Contracted Prices,SBQQ__CreateContractedPrices__c,boolean,0,0,0,True
+Order Group ID,SBQQ__OrderGroupID__c,string,255,0,0,True
+Ordered,SBQQ__Ordered__c,boolean,0,0,0,True
+Primary Quote,SBQQ__PrimaryQuote__c,reference,18,0,0,True
+Quote Pricebook Id,SBQQ__QuotePricebookId__c,string,18,0,0,True
+Renewal,SBQQ__Renewal__c,boolean,0,0,0,True
+Renewed Contract,SBQQ__RenewedContract__c,reference,18,0,0,True
+Approval Status,sbaa__ApprovalStatus__c,picklist,255,0,0,True
+Approval Step,sbaa__ApprovalStep__c,double,0,18,0,True
+Approver,sbaa__Approver__c,reference,18,0,0,True
+Step Approved,sbaa__StepApproved__c,boolean,0,0,0,True
+Submitted Date,sbaa__SubmittedDate__c,date,0,0,0,True
+Submitted User,sbaa__SubmittedUser__c,reference,18,0,0,True
+Branch Address,Branch_Address__c,string,1300,0,0,True
+Project Length,Project_Length__c,double,0,18,0,True
+Choice of Law,Choice_of_Law__c,string,100,0,0,True
+NDA Complete,NDA_Complete__c,boolean,0,0,0,True
+NDA Recipient,NDA_Recipient__c,reference,18,0,0,True
+NDA,NDA__c,picklist,255,0,0,True
+Project Rooms,Project_Rooms__c,textarea,255,0,0,True
+Purpose,Purpose__c,string,100,0,0,True
+SL Parent Order Key,SL_Parent_Order_Key__c,string,150,0,0,True
+Ship To Location,Ship_To_Location__c,reference,18,0,0,True
+Source Opportunity,Source_Opportunity__c,reference,18,0,0,True
+New Product Count,New_Product_Count__c,string,1300,0,0,True
+General Manager,General_Manager__c,reference,18,0,0,True
+Business Manager,Business_Manager__c,reference,18,0,0,True
+Project Manager,Project_Manager__c,reference,18,0,0,True
+Sales Engineer,Sales_Engineer__c,reference,18,0,0,True
+Verify,Checklist_Complete_1__c,boolean,0,0,0,True
+Affirm,Checklist_Complete_2__c,boolean,0,0,0,True
+Legitimize,Checklist_Complete_3__c,boolean,0,0,0,True
+Branch Street,Branch_Street__c,string,1300,0,0,True
+Branch City-State-Zip,Branch_City_State_Zip__c,string,1300,0,0,True
+Branch Phone,Branch_Phone__c,string,1300,0,0,True
+Branch Contractor,Branch_Contractor__c,string,1300,0,0,True
+CreatedUserRole__c,CreatedUserRole_c__c,string,1300,0,0,True
+Ship-To State,Ship_To_State__c,string,1300,0,0,True
+Submitted for Credit Review,Submitted_for_Credit_Review__c,boolean,0,0,0,True
+Account Active?,Account_Active__c,boolean,0,0,0,True
+Part and Product link,Part_and_Product_link__c,string,1300,0,0,True
+Design Hours,Design_Hours__c,double,0,5,2,True
+Design Engineer Status,Design_Engineer_STATUS__c,picklist,255,0,0,True
+Design Engineer,Design_Engineer__c,reference,18,0,0,True
+Need By Date,Need_By_Date__c,date,0,0,0,True
+DE Note,DE_Note__c,textarea,255,0,0,True
+IsValidBranch,IsValidBranch__c,boolean,0,0,0,True
+Is this a Renewal?,Is_this_a_Renewal__c,picklist,255,0,0,True
+Existing Contract #,Existing_Contract__c,string,50,0,0,True
+SL Skip After,SL_Skip_After__c,boolean,0,0,0,True
+SL Update,SL_Update__c,boolean,0,0,0,True

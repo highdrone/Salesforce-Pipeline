@@ -1,0 +1,84 @@
+label,name,type,length,precision,scale,custom
+Order ID,Id,id,18,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Contract ID,ContractId,reference,18,0,0,False
+Account ID,AccountId,reference,18,0,0,False
+Price Book ID,Pricebook2Id,reference,18,0,0,False
+Order ID,OriginalOrderId,reference,18,0,0,False
+Opportunity ID,OpportunityId,reference,18,0,0,False
+Quote ID,QuoteId,reference,18,0,0,False
+Order Start Date,EffectiveDate,date,0,0,0,False
+Order End Date,EndDate,date,0,0,0,False
+Reduction Order,IsReductionOrder,boolean,0,0,0,False
+Status,Status,picklist,100,0,0,False
+Description,Description,textarea,32000,0,0,False
+Customer Authorized By ID,CustomerAuthorizedById,reference,18,0,0,False
+Customer Authorized Date,CustomerAuthorizedDate,date,0,0,0,False
+Company Authorized By ID,CompanyAuthorizedById,reference,18,0,0,False
+Company Authorized Date,CompanyAuthorizedDate,date,0,0,0,False
+Order Type,Type,picklist,255,0,0,False
+Billing Street,BillingStreet,textarea,255,0,0,False
+Billing City,BillingCity,string,40,0,0,False
+Billing State/Province,BillingState,string,80,0,0,False
+Billing Zip/Postal Code,BillingPostalCode,string,20,0,0,False
+Billing Country,BillingCountry,string,80,0,0,False
+Billing Latitude,BillingLatitude,double,0,18,15,False
+Billing Longitude,BillingLongitude,double,0,18,15,False
+Billing Geocode Accuracy,BillingGeocodeAccuracy,picklist,40,0,0,False
+Billing Address,BillingAddress,address,0,0,0,False
+Shipping Street,ShippingStreet,textarea,255,0,0,False
+Shipping City,ShippingCity,string,40,0,0,False
+Shipping State/Province,ShippingState,string,80,0,0,False
+Shipping Zip/Postal Code,ShippingPostalCode,string,20,0,0,False
+Shipping Country,ShippingCountry,string,80,0,0,False
+Shipping Latitude,ShippingLatitude,double,0,18,15,False
+Shipping Longitude,ShippingLongitude,double,0,18,15,False
+Shipping Geocode Accuracy,ShippingGeocodeAccuracy,picklist,40,0,0,False
+Shipping Address,ShippingAddress,address,0,0,0,False
+Order Name,Name,string,80,0,0,False
+PO Date,PoDate,date,0,0,0,False
+PO Number,PoNumber,string,80,0,0,False
+Order Reference Number,OrderReferenceNumber,string,80,0,0,False
+Bill To Contact ID,BillToContactId,reference,18,0,0,False
+Ship To Contact ID,ShipToContactId,reference,18,0,0,False
+Activated Date,ActivatedDate,datetime,0,0,0,False
+Activated By ID,ActivatedById,reference,18,0,0,False
+Status Category,StatusCode,picklist,40,0,0,False
+Order Number,OrderNumber,string,30,0,0,False
+Order Amount,TotalAmount,currency,0,18,2,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Epicor Customer Number,Epicor_Customer_Number__c,reference,18,0,0,True
+Epicor Quote Number,Epicor_Quote_Number__c,double,0,18,0,True
+Contracted,SBQQ__Contracted__c,boolean,0,0,0,True
+Contracting Method,SBQQ__ContractingMethod__c,picklist,255,0,0,True
+Payment Term,SBQQ__PaymentTerm__c,picklist,255,0,0,True
+Price Calculation Status Message,SBQQ__PriceCalcStatusMessage__c,string,255,0,0,True
+Price Calculation Status,SBQQ__PriceCalcStatus__c,picklist,255,0,0,True
+Quote,SBQQ__Quote__c,reference,18,0,0,True
+Renewal Term,SBQQ__RenewalTerm__c,double,0,18,0,True
+Renewal Uplift (%),SBQQ__RenewalUpliftRate__c,percent,0,11,3,True
+Order Bookings,SBQQ__OrderBookings__c,currency,0,18,2,True
+Estimated Tax,SBQQ__TaxAmount__c,currency,0,18,2,True
+Activated In SL?,Activated_In_SL__c,boolean,0,0,0,True
+Approval Status,Approval_Status__c,picklist,255,0,0,True
+Attention,Attention__c,string,30,0,0,True
+Customer Id,Customer_Id__c,string,15,0,0,True
+FOB Id,FOB_Id__c,string,15,0,0,True
+Location,Location__c,reference,18,0,0,True
+SL Parent Order Key,SL_Parent_Order_Key__c,string,150,0,0,True
+Opportunity Type,Opportunity_Type__c,string,1300,0,0,True
+REVIEWED,REVIEWED__c,boolean,0,0,0,True
+REVIEWED #2,REVIEWED_2__c,boolean,0,0,0,True
+PO Date Page,PO_Date_Page__c,string,1300,0,0,True
+Account ID2,Account_ID2__c,string,1300,0,0,True
+Approval ID,Approval_ID__c,reference,18,0,0,True
+Account,Account__c,reference,18,0,0,True
+End Customer,End_Customer__c,reference,18,0,0,True
+Compare Account Name & End Customer Name,Compare_Account_Name_End_Customer_Name__c,boolean,0,0,0,True

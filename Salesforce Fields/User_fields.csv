@@ -1,0 +1,202 @@
+label,name,type,length,precision,scale,custom
+User ID,Id,id,18,0,0,False
+Username,Username,string,80,0,0,False
+Last Name,LastName,string,80,0,0,False
+First Name,FirstName,string,40,0,0,False
+Middle Name,MiddleName,string,40,0,0,False
+Suffix,Suffix,string,40,0,0,False
+Full Name,Name,string,121,0,0,False
+Company Name,CompanyName,string,80,0,0,False
+Division,Division,string,80,0,0,False
+Department,Department,string,80,0,0,False
+Title,Title,string,80,0,0,False
+Street,Street,textarea,255,0,0,False
+City,City,string,40,0,0,False
+State/Province,State,string,80,0,0,False
+Zip/Postal Code,PostalCode,string,20,0,0,False
+Country,Country,string,80,0,0,False
+Latitude,Latitude,double,0,18,15,False
+Longitude,Longitude,double,0,18,15,False
+Geocode Accuracy,GeocodeAccuracy,picklist,40,0,0,False
+Address,Address,address,0,0,0,False
+Email,Email,email,128,0,0,False
+AutoBcc,EmailPreferencesAutoBcc,boolean,0,0,0,False
+AutoBccStayInTouch,EmailPreferencesAutoBccStayInTouch,boolean,0,0,0,False
+StayInTouchReminder,EmailPreferencesStayInTouchReminder,boolean,0,0,0,False
+Email Sender Address,SenderEmail,email,80,0,0,False
+Email Sender Name,SenderName,string,80,0,0,False
+Email Signature,Signature,textarea,1333,0,0,False
+Stay-in-Touch Email Subject,StayInTouchSubject,string,80,0,0,False
+Stay-in-Touch Email Signature,StayInTouchSignature,textarea,512,0,0,False
+Stay-in-Touch Email Note,StayInTouchNote,string,512,0,0,False
+Phone,Phone,phone,40,0,0,False
+Fax,Fax,phone,40,0,0,False
+Mobile,MobilePhone,phone,40,0,0,False
+Alias,Alias,string,8,0,0,False
+Nickname,CommunityNickname,string,40,0,0,False
+User Photo badge text overlay,BadgeText,string,80,0,0,False
+Active,IsActive,boolean,0,0,0,False
+Time Zone,TimeZoneSidKey,picklist,40,0,0,False
+Role ID,UserRoleId,reference,18,0,0,False
+Locale,LocaleSidKey,picklist,40,0,0,False
+Info Emails,ReceivesInfoEmails,boolean,0,0,0,False
+Admin Info Emails,ReceivesAdminInfoEmails,boolean,0,0,0,False
+Email Encoding,EmailEncodingKey,picklist,40,0,0,False
+Profile ID,ProfileId,reference,18,0,0,False
+User Type,UserType,picklist,40,0,0,False
+Start of Day,StartDay,picklist,40,0,0,False
+End of Day,EndDay,picklist,40,0,0,False
+Language,LanguageLocaleKey,picklist,40,0,0,False
+Employee Number,EmployeeNumber,string,20,0,0,False
+Delegated Approver ID,DelegatedApproverId,reference,18,0,0,False
+Manager ID,ManagerId,reference,18,0,0,False
+Last Login,LastLoginDate,datetime,0,0,0,False
+Last Password Change or Reset,LastPasswordChangeDate,datetime,0,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Password Expiration Date,PasswordExpirationDate,datetime,0,0,0,False
+Failed Login Attempts,NumberOfFailedLogins,int,0,0,0,False
+SU Access Expiration Date,SuAccessExpirationDate,date,0,0,0,False
+Offline Edition Trial Expiration Date,OfflineTrialExpirationDate,datetime,0,0,0,False
+Sales Anywhere Trial Expiration Date,OfflinePdaTrialExpirationDate,datetime,0,0,0,False
+Marketing User,UserPermissionsMarketingUser,boolean,0,0,0,False
+Offline User,UserPermissionsOfflineUser,boolean,0,0,0,False
+AvantGo User,UserPermissionsAvantgoUser,boolean,0,0,0,False
+Auto-login To Call Center,UserPermissionsCallCenterAutoLogin,boolean,0,0,0,False
+Salesforce CRM Content User,UserPermissionsSFContentUser,boolean,0,0,0,False
+Flow User,UserPermissionsInteractionUser,boolean,0,0,0,False
+Service Cloud User,UserPermissionsSupportUser,boolean,0,0,0,False
+Chat User,UserPermissionsLiveAgentUser,boolean,0,0,0,False
+Allow Forecasting,ForecastEnabled,boolean,0,0,0,False
+ActivityRemindersPopup,UserPreferencesActivityRemindersPopup,boolean,0,0,0,False
+EventRemindersCheckboxDefault,UserPreferencesEventRemindersCheckboxDefault,boolean,0,0,0,False
+TaskRemindersCheckboxDefault,UserPreferencesTaskRemindersCheckboxDefault,boolean,0,0,0,False
+ReminderSoundOff,UserPreferencesReminderSoundOff,boolean,0,0,0,False
+DisableAllFeedsEmail,UserPreferencesDisableAllFeedsEmail,boolean,0,0,0,False
+DisableFollowersEmail,UserPreferencesDisableFollowersEmail,boolean,0,0,0,False
+DisableProfilePostEmail,UserPreferencesDisableProfilePostEmail,boolean,0,0,0,False
+DisableChangeCommentEmail,UserPreferencesDisableChangeCommentEmail,boolean,0,0,0,False
+DisableLaterCommentEmail,UserPreferencesDisableLaterCommentEmail,boolean,0,0,0,False
+DisProfPostCommentEmail,UserPreferencesDisProfPostCommentEmail,boolean,0,0,0,False
+ContentNoEmail,UserPreferencesContentNoEmail,boolean,0,0,0,False
+ContentEmailAsAndWhen,UserPreferencesContentEmailAsAndWhen,boolean,0,0,0,False
+ApexPagesDeveloperMode,UserPreferencesApexPagesDeveloperMode,boolean,0,0,0,False
+ReceiveNoNotificationsAsApprover,UserPreferencesReceiveNoNotificationsAsApprover,boolean,0,0,0,False
+ReceiveNotificationsAsDelegatedApprover,UserPreferencesReceiveNotificationsAsDelegatedApprover,boolean,0,0,0,False
+HideCSNGetChatterMobileTask,UserPreferencesHideCSNGetChatterMobileTask,boolean,0,0,0,False
+DisableMentionsPostEmail,UserPreferencesDisableMentionsPostEmail,boolean,0,0,0,False
+DisMentionsCommentEmail,UserPreferencesDisMentionsCommentEmail,boolean,0,0,0,False
+HideCSNDesktopTask,UserPreferencesHideCSNDesktopTask,boolean,0,0,0,False
+HideChatterOnboardingSplash,UserPreferencesHideChatterOnboardingSplash,boolean,0,0,0,False
+HideSecondChatterOnboardingSplash,UserPreferencesHideSecondChatterOnboardingSplash,boolean,0,0,0,False
+DisCommentAfterLikeEmail,UserPreferencesDisCommentAfterLikeEmail,boolean,0,0,0,False
+DisableLikeEmail,UserPreferencesDisableLikeEmail,boolean,0,0,0,False
+SortFeedByComment,UserPreferencesSortFeedByComment,boolean,0,0,0,False
+DisableMessageEmail,UserPreferencesDisableMessageEmail,boolean,0,0,0,False
+DisableBookmarkEmail,UserPreferencesDisableBookmarkEmail,boolean,0,0,0,False
+DisableSharePostEmail,UserPreferencesDisableSharePostEmail,boolean,0,0,0,False
+EnableAutoSubForFeeds,UserPreferencesEnableAutoSubForFeeds,boolean,0,0,0,False
+DisableFileShareNotificationsForApi,UserPreferencesDisableFileShareNotificationsForApi,boolean,0,0,0,False
+ShowTitleToExternalUsers,UserPreferencesShowTitleToExternalUsers,boolean,0,0,0,False
+ShowManagerToExternalUsers,UserPreferencesShowManagerToExternalUsers,boolean,0,0,0,False
+ShowEmailToExternalUsers,UserPreferencesShowEmailToExternalUsers,boolean,0,0,0,False
+ShowWorkPhoneToExternalUsers,UserPreferencesShowWorkPhoneToExternalUsers,boolean,0,0,0,False
+ShowMobilePhoneToExternalUsers,UserPreferencesShowMobilePhoneToExternalUsers,boolean,0,0,0,False
+ShowFaxToExternalUsers,UserPreferencesShowFaxToExternalUsers,boolean,0,0,0,False
+ShowStreetAddressToExternalUsers,UserPreferencesShowStreetAddressToExternalUsers,boolean,0,0,0,False
+ShowCityToExternalUsers,UserPreferencesShowCityToExternalUsers,boolean,0,0,0,False
+ShowStateToExternalUsers,UserPreferencesShowStateToExternalUsers,boolean,0,0,0,False
+ShowPostalCodeToExternalUsers,UserPreferencesShowPostalCodeToExternalUsers,boolean,0,0,0,False
+ShowCountryToExternalUsers,UserPreferencesShowCountryToExternalUsers,boolean,0,0,0,False
+ShowProfilePicToGuestUsers,UserPreferencesShowProfilePicToGuestUsers,boolean,0,0,0,False
+ShowTitleToGuestUsers,UserPreferencesShowTitleToGuestUsers,boolean,0,0,0,False
+ShowCityToGuestUsers,UserPreferencesShowCityToGuestUsers,boolean,0,0,0,False
+ShowStateToGuestUsers,UserPreferencesShowStateToGuestUsers,boolean,0,0,0,False
+ShowPostalCodeToGuestUsers,UserPreferencesShowPostalCodeToGuestUsers,boolean,0,0,0,False
+ShowCountryToGuestUsers,UserPreferencesShowCountryToGuestUsers,boolean,0,0,0,False
+ShowForecastingChangeSignals,UserPreferencesShowForecastingChangeSignals,boolean,0,0,0,False
+LiveAgentMiawSetupDeflection,UserPreferencesLiveAgentMiawSetupDeflection,boolean,0,0,0,False
+HideS1BrowserUI,UserPreferencesHideS1BrowserUI,boolean,0,0,0,False
+DisableEndorsementEmail,UserPreferencesDisableEndorsementEmail,boolean,0,0,0,False
+PathAssistantCollapsed,UserPreferencesPathAssistantCollapsed,boolean,0,0,0,False
+CacheDiagnostics,UserPreferencesCacheDiagnostics,boolean,0,0,0,False
+ShowEmailToGuestUsers,UserPreferencesShowEmailToGuestUsers,boolean,0,0,0,False
+ShowManagerToGuestUsers,UserPreferencesShowManagerToGuestUsers,boolean,0,0,0,False
+ShowWorkPhoneToGuestUsers,UserPreferencesShowWorkPhoneToGuestUsers,boolean,0,0,0,False
+ShowMobilePhoneToGuestUsers,UserPreferencesShowMobilePhoneToGuestUsers,boolean,0,0,0,False
+ShowFaxToGuestUsers,UserPreferencesShowFaxToGuestUsers,boolean,0,0,0,False
+ShowStreetAddressToGuestUsers,UserPreferencesShowStreetAddressToGuestUsers,boolean,0,0,0,False
+LightningExperiencePreferred,UserPreferencesLightningExperiencePreferred,boolean,0,0,0,False
+PreviewLightning,UserPreferencesPreviewLightning,boolean,0,0,0,False
+HideEndUserOnboardingAssistantModal,UserPreferencesHideEndUserOnboardingAssistantModal,boolean,0,0,0,False
+HideLightningMigrationModal,UserPreferencesHideLightningMigrationModal,boolean,0,0,0,False
+HideSfxWelcomeMat,UserPreferencesHideSfxWelcomeMat,boolean,0,0,0,False
+HideBiggerPhotoCallout,UserPreferencesHideBiggerPhotoCallout,boolean,0,0,0,False
+GlobalNavBarWTShown,UserPreferencesGlobalNavBarWTShown,boolean,0,0,0,False
+GlobalNavGridMenuWTShown,UserPreferencesGlobalNavGridMenuWTShown,boolean,0,0,0,False
+CreateLEXAppsWTShown,UserPreferencesCreateLEXAppsWTShown,boolean,0,0,0,False
+FavoritesWTShown,UserPreferencesFavoritesWTShown,boolean,0,0,0,False
+RecordHomeSectionCollapseWTShown,UserPreferencesRecordHomeSectionCollapseWTShown,boolean,0,0,0,False
+RecordHomeReservedWTShown,UserPreferencesRecordHomeReservedWTShown,boolean,0,0,0,False
+FavoritesShowTopFavorites,UserPreferencesFavoritesShowTopFavorites,boolean,0,0,0,False
+ExcludeMailAppAttachments,UserPreferencesExcludeMailAppAttachments,boolean,0,0,0,False
+SuppressTaskSFXReminders,UserPreferencesSuppressTaskSFXReminders,boolean,0,0,0,False
+SuppressEventSFXReminders,UserPreferencesSuppressEventSFXReminders,boolean,0,0,0,False
+PreviewCustomTheme,UserPreferencesPreviewCustomTheme,boolean,0,0,0,False
+HasCelebrationBadge,UserPreferencesHasCelebrationBadge,boolean,0,0,0,False
+UserDebugModePref,UserPreferencesUserDebugModePref,boolean,0,0,0,False
+SRHOverrideActivities,UserPreferencesSRHOverrideActivities,boolean,0,0,0,False
+NewLightningReportRunPageEnabled,UserPreferencesNewLightningReportRunPageEnabled,boolean,0,0,0,False
+ReverseOpenActivitiesView,UserPreferencesReverseOpenActivitiesView,boolean,0,0,0,False
+ShowTerritoryTimeZoneShifts,UserPreferencesShowTerritoryTimeZoneShifts,boolean,0,0,0,False
+HasSentWarningEmail,UserPreferencesHasSentWarningEmail,boolean,0,0,0,False
+HasSentWarningEmail238,UserPreferencesHasSentWarningEmail238,boolean,0,0,0,False
+HasSentWarningEmail240,UserPreferencesHasSentWarningEmail240,boolean,0,0,0,False
+NativeEmailClient,UserPreferencesNativeEmailClient,boolean,0,0,0,False
+SendListEmailThroughExternalService,UserPreferencesSendListEmailThroughExternalService,boolean,0,0,0,False
+HideBrowseProductRedirectConfirmation,UserPreferencesHideBrowseProductRedirectConfirmation,boolean,0,0,0,False
+HideOnlineSalesAppWelcomeMat,UserPreferencesHideOnlineSalesAppWelcomeMat,boolean,0,0,0,False
+ShowForecastingRoundedAmounts,UserPreferencesShowForecastingRoundedAmounts,boolean,0,0,0,False
+Contact ID,ContactId,reference,18,0,0,False
+Account ID,AccountId,reference,18,0,0,False
+Call Center ID,CallCenterId,reference,18,0,0,False
+Extension,Extension,phone,40,0,0,False
+Portal Role Level,PortalRole,picklist,40,0,0,False
+Is Portal Enabled,IsPortalEnabled,boolean,0,0,0,False
+SAML Federation ID,FederationIdentifier,string,512,0,0,False
+About Me,AboutMe,textarea,1000,0,0,False
+Url for full-sized Photo,FullPhotoUrl,url,1024,0,0,False
+Photo,SmallPhotoUrl,url,1024,0,0,False
+Show external indicator,IsExtIndicatorVisible,boolean,0,0,0,False
+Out of office message,OutOfOfficeMessage,string,40,0,0,False
+Url for medium profile photo,MediumPhotoUrl,url,1024,0,0,False
+Chatter Email Highlights Frequency,DigestFrequency,picklist,40,0,0,False
+Default Notification Frequency when Joining Groups,DefaultGroupNotificationFrequency,picklist,40,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Url for banner photo,BannerPhotoUrl,url,1024,0,0,False
+Url for IOS banner photo,SmallBannerPhotoUrl,url,1024,0,0,False
+Url for Android banner photo,MediumBannerPhotoUrl,url,1024,0,0,False
+Has Profile Photo,IsProfilePhotoActive,boolean,0,0,0,False
+Individual ID,IndividualId,reference,18,0,0,False
+Default Product Lookup Tab,SBQQ__DefaultProductLookupTab__c,picklist,255,0,0,True
+Company,Company__c,picklist,255,0,0,True
+Profile Name,Profile_Name__c,string,1300,0,0,True
+Can Manage DocuSign Account,dfsle__CanManageAccount__c,boolean,0,0,0,True
+Branch,Branch__c,picklist,255,0,0,True
+Region,Region__c,picklist,255,0,0,True
+DocuSign Provisioned Date,dfsle__Provisioned__c,date,0,0,0,True
+DocuSign User Status,dfsle__Status__c,picklist,255,0,0,True
+DocuSign Username,dfsle__Username__c,string,100,0,0,True
+Enable Diagnostic Tool,SBQQ__DiagnosticToolEnabled__c,boolean,0,0,0,True
+Allow Output Format Change,SBQQ__OutputFormatChangeAllowed__c,boolean,0,0,0,True
+Product Sort Preference,SBQQ__ProductSortPreference__c,picklist,255,0,0,True
+Reset Product Lookup,SBQQ__ResetProductLookup__c,boolean,0,0,0,True
+Theme,SBQQ__Theme__c,string,18,0,0,True
+18 Digit User ID,X18_Digit_User_ID__c,string,1300,0,0,True
+Rev Ops User,Rev_Ops_User__c,boolean,0,0,0,True
+GUID,GUID__c,string,32,0,0,True
+Salesperson ID,Salesperson_ID__c,string,10,0,0,True

@@ -1,0 +1,96 @@
+label,name,type,length,precision,scale,custom
+Contact ID,Id,id,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Master Record ID,MasterRecordId,reference,18,0,0,False
+Account ID,AccountId,reference,18,0,0,False
+Last Name,LastName,string,80,0,0,False
+First Name,FirstName,string,40,0,0,False
+Salutation,Salutation,picklist,40,0,0,False
+Middle Name,MiddleName,string,40,0,0,False
+Suffix,Suffix,string,40,0,0,False
+Full Name,Name,string,121,0,0,False
+Record Type ID,RecordTypeId,reference,18,0,0,False
+Other Street,OtherStreet,textarea,255,0,0,False
+Other City,OtherCity,string,40,0,0,False
+Other State/Province,OtherState,string,80,0,0,False
+Other Zip/Postal Code,OtherPostalCode,string,20,0,0,False
+Other Country,OtherCountry,string,80,0,0,False
+Other Latitude,OtherLatitude,double,0,18,15,False
+Other Longitude,OtherLongitude,double,0,18,15,False
+Other Geocode Accuracy,OtherGeocodeAccuracy,picklist,40,0,0,False
+Other Address,OtherAddress,address,0,0,0,False
+Mailing Street,MailingStreet,textarea,255,0,0,False
+Mailing City,MailingCity,string,40,0,0,False
+Mailing State/Province,MailingState,string,80,0,0,False
+Mailing Zip/Postal Code,MailingPostalCode,string,20,0,0,False
+Mailing Country,MailingCountry,string,80,0,0,False
+Mailing Latitude,MailingLatitude,double,0,18,15,False
+Mailing Longitude,MailingLongitude,double,0,18,15,False
+Mailing Geocode Accuracy,MailingGeocodeAccuracy,picklist,40,0,0,False
+Mailing Address,MailingAddress,address,0,0,0,False
+Business Phone,Phone,phone,40,0,0,False
+Business Fax,Fax,phone,40,0,0,False
+Mobile Phone,MobilePhone,phone,40,0,0,False
+Home Phone,HomePhone,phone,40,0,0,False
+Other Phone,OtherPhone,phone,40,0,0,False
+Asst. Phone,AssistantPhone,phone,40,0,0,False
+Reports To ID,ReportsToId,reference,18,0,0,False
+Email,Email,email,80,0,0,False
+Title,Title,string,128,0,0,False
+Department,Department,string,80,0,0,False
+Assistant's Name,AssistantName,string,40,0,0,False
+Lead Source,LeadSource,picklist,255,0,0,False
+Birthdate,Birthdate,date,0,0,0,False
+Contact Description,Description,textarea,32000,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Email Opt Out,HasOptedOutOfEmail,boolean,0,0,0,False
+Fax Opt Out,HasOptedOutOfFax,boolean,0,0,0,False
+Do Not Call,DoNotCall,boolean,0,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Activity,LastActivityDate,date,0,0,0,False
+Last Stay-in-Touch Request Date,LastCURequestDate,datetime,0,0,0,False
+Last Stay-in-Touch Save Date,LastCUUpdateDate,datetime,0,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Email Bounced Reason,EmailBouncedReason,string,255,0,0,False
+Email Bounced Date,EmailBouncedDate,datetime,0,0,0,False
+Is Email Bounced,IsEmailBounced,boolean,0,0,0,False
+Photo URL,PhotoUrl,url,255,0,0,False
+Data.com Key,Jigsaw,string,20,0,0,False
+Jigsaw Contact ID,JigsawContactId,string,20,0,0,False
+Individual ID,IndividualId,reference,18,0,0,False
+Pronouns,Pronouns,picklist,255,0,0,False
+Gender Identity,GenderIdentity,picklist,255,0,0,False
+Activity Metric ID,ActivityMetricId,reference,18,0,0,False
+Activity Metric Rollup ID,ActivityMetricRollupId,reference,18,0,0,False
+Important,IsPriorityRecord,boolean,0,0,0,False
+DHC Executive ID,texcellency__DefHC_ExecutiveID__c,double,0,18,0,True
+Definitive ID,texcellency__DefHC_HospitalID__c,double,0,18,0,True
+DHC Is Active,texcellency__DefHC_Is_Active__c,boolean,0,0,0,True
+DHC LinkedIn Profile,texcellency__DefHC_LinkedInProfile__c,textarea,2200,0,0,True
+DHC Record Changed Date,texcellency__DefHC_Record_Changed_Date__c,date,0,0,0,True
+GUID,GUID__c,string,32,0,0,True
+Role,Roles__c,picklist,255,0,0,True
+Contact Status,Contact_Status__c,picklist,255,0,0,True
+Inactive,Inactive__c,boolean,0,0,0,True
+Credentials,Credentials__c,picklist,255,0,0,True
+Other,Other__c,picklist,255,0,0,True
+Notes,Contact_Notes__c,textarea,255,0,0,True
+Preferred Method of Communication,Preferred_Method_of_Communication__c,picklist,255,0,0,True
+Created from Part Request (Mobile),Created_from_Part_Request_Mobile__c,boolean,0,0,0,True
+Works For,Works_For__c,string,1300,0,0,True
+Owner Works For,Owner_Works_For__c,string,1300,0,0,True
+Contact Long ID,Contact_Long_ID__c,string,1300,0,0,True
+Own_All,Own_All__c,boolean,0,0,0,True
+Email Format,Email_Format__c,string,1300,0,0,True
+Annual Revenue,annualrevenue__c,picklist,255,0,0,True
+Company,Company__c,string,1300,0,0,True
+Branch,Branch__c,string,1300,0,0,True
+GPO Affiliation,GPO_Affiliation__c,string,1300,0,0,True
+Market Segment,Market_Segment__c,string,1300,0,0,True
+Part Request,Part_Request__c,reference,18,0,0,True
+gclid,gclid__c,string,43,0,0,True

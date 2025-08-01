@@ -1,0 +1,157 @@
+label,name,type,length,precision,scale,custom
+Account ID,Id,id,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Master Record ID,MasterRecordId,reference,18,0,0,False
+Account Name,Name,string,255,0,0,False
+Account Type,Type,picklist,255,0,0,False
+Record Type ID,RecordTypeId,reference,18,0,0,False
+Parent Account ID,ParentId,reference,18,0,0,False
+Billing Street,BillingStreet,textarea,255,0,0,False
+Billing City,BillingCity,string,40,0,0,False
+Billing State/Province,BillingState,string,80,0,0,False
+Billing Zip/Postal Code,BillingPostalCode,string,20,0,0,False
+Billing Country,BillingCountry,string,80,0,0,False
+Billing Latitude,BillingLatitude,double,0,18,15,False
+Billing Longitude,BillingLongitude,double,0,18,15,False
+Billing Geocode Accuracy,BillingGeocodeAccuracy,picklist,40,0,0,False
+Billing Address,BillingAddress,address,0,0,0,False
+Shipping Street,ShippingStreet,textarea,255,0,0,False
+Shipping City,ShippingCity,string,40,0,0,False
+Shipping State/Province,ShippingState,string,80,0,0,False
+Shipping Zip/Postal Code,ShippingPostalCode,string,20,0,0,False
+Shipping Country,ShippingCountry,string,80,0,0,False
+Shipping Latitude,ShippingLatitude,double,0,18,15,False
+Shipping Longitude,ShippingLongitude,double,0,18,15,False
+Shipping Geocode Accuracy,ShippingGeocodeAccuracy,picklist,40,0,0,False
+Shipping Address,ShippingAddress,address,0,0,0,False
+Account Phone,Phone,phone,40,0,0,False
+Account Fax,Fax,phone,40,0,0,False
+Account Number,AccountNumber,string,40,0,0,False
+Website,Website,url,255,0,0,False
+Photo URL,PhotoUrl,url,255,0,0,False
+SIC Code,Sic,string,20,0,0,False
+Market Segment,Industry,picklist,255,0,0,False
+Annual Revenue,AnnualRevenue,currency,0,18,0,False
+Employees,NumberOfEmployees,int,0,0,0,False
+Ownership,Ownership,picklist,255,0,0,False
+Ticker Symbol,TickerSymbol,string,20,0,0,False
+Account Description,Description,textarea,32000,0,0,False
+Account Rating,Rating,picklist,255,0,0,False
+Account Site,Site,string,80,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Activity,LastActivityDate,date,0,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Source System ID,SourceSystemIdentifier,string,85,0,0,False
+Customer Portal Account,IsCustomerPortal,boolean,0,0,0,False
+Data.com Key,Jigsaw,string,20,0,0,False
+Jigsaw Company ID,JigsawCompanyId,string,20,0,0,False
+Account Source,AccountSource,picklist,255,0,0,False
+SIC Description,SicDesc,string,80,0,0,False
+Operating Hour ID,OperatingHoursId,reference,18,0,0,False
+Activity Metric ID,ActivityMetricId,reference,18,0,0,False
+Activity Metric Rollup ID,ActivityMetricRollupId,reference,18,0,0,False
+DHC ID Holder,texcellency__DHC_ID_Holder__c,double,0,18,0,True
+DHC Address 1,texcellency__DefHC_Address1__c,string,255,0,0,True
+DHC Address,texcellency__DefHC_Address__c,string,255,0,0,True
+DHC ACO Affiliations,texcellency__DefHC_AffiliationsACO__c,textarea,4000,0,0,True
+DHC GPO/Pharm/RPC Affiliations,texcellency__DefHC_AffiliationsGPO__c,textarea,4000,0,0,True
+DHC Avg. Daily Census,texcellency__DefHC_AvgDailyCensus__c,double,0,10,2,True
+DHC Avg. Length of Stay,texcellency__DefHC_AvgLengthOfStay__c,double,0,7,2,True
+DHC Cash on Hand,texcellency__DefHC_CashOnHand__c,currency,0,18,0,True
+DHC Date Created,texcellency__DefHC_DateCreated__c,date,0,0,0,True
+DHC Days Cash On Hand,texcellency__DefHC_DaysCashOnHand__c,double,0,6,0,True
+DHC EMR Vendor Ambulatory,texcellency__DefHC_EMR_Vendor_Ambulatory__c,string,255,0,0,True
+DHC EMR Vendor Inpatient,texcellency__DefHC_EMR_Vendor_Inpatient__c,string,255,0,0,True
+DHC Financial Data Date,texcellency__DefHC_FinancialDataDate__c,date,0,0,0,True
+DHC Firm Type,texcellency__DefHC_FirmType__c,string,255,0,0,True
+DHC HIE Affiliations,texcellency__DefHC_HIEAffiliations__c,textarea,2000,0,0,True
+DHC City,texcellency__DefHC_HQCity__c,string,255,0,0,True
+Definitive ID,texcellency__DefHC_HospitalID__c,double,0,18,0,True
+DHC Hospital Name,texcellency__DefHC_Hospital_Name__c,string,255,0,0,True
+DHC Provider Profile,texcellency__DefHC_Hospital_Profile__c,url,255,0,0,True
+DHC Hospital Type,texcellency__DefHC_Hospital_Type__c,string,255,0,0,True
+DHC Meaningful Use Status,texcellency__DefHC_MeaningfulUseStatus__c,string,255,0,0,True
+DHC Medicare Provider Number,texcellency__DefHC_MedicareProviderNumber__c,string,100,0,0,True
+DHC Net Medicare Revenue,texcellency__DefHC_NetMedicareRevenue__c,currency,0,18,0,True
+DHC Net Patient Revenue,texcellency__DefHC_NetPatientRev__c,currency,0,18,0,True
+DHC Network ID,texcellency__DefHC_NetworkID__c,double,0,18,0,True
+DHC Network Name,texcellency__DefHC_Network_Name__c,string,255,0,0,True
+DHC # of Affiliated Physicians,texcellency__DefHC_NumAffiliatedPhysicians__c,double,0,18,0,True
+DHC # of Beds,texcellency__DefHC_NumBeds__c,double,0,8,0,True
+DHC # of Discharges,texcellency__DefHC_NumDischarges__c,double,0,18,0,True
+DHC # of Employees,texcellency__DefHC_NumEmployees__c,double,0,18,0,True
+DHC # of Hospitals in Network,texcellency__DefHC_NumHospitalsInNetwork__c,double,0,18,0,True
+DHC # of Medicare Beds,texcellency__DefHC_NumMedicareBeds__c,double,0,8,0,True
+DHC # of Operating Rooms,texcellency__DefHC_NumOperatingRooms__c,double,0,4,0,True
+DHC Operating Income,texcellency__DefHC_OperatingIncome__c,currency,0,18,0,True
+DHC Opt Out of Sync,texcellency__DefHC_OptOutofSync__c,boolean,0,0,0,True
+DHC Ownership Status,texcellency__DefHC_OwnershipStatus__c,string,255,0,0,True
+DHC Parent Network ID,texcellency__DefHC_Parent_NetworkID__c,double,0,18,0,True
+DHC Parent Network Name,texcellency__DefHC_Parent_Network_Name__c,string,255,0,0,True
+DHC Payor Mix % Medicaid,texcellency__DefHC_PayorMixPctMedicaid__c,percent,0,6,1,True
+DHC Payor Mix % Medicare,texcellency__DefHC_PayorMixPctMedicare__c,percent,0,6,1,True
+DHC Payor Mix % Private/Self/Other,texcellency__DefHC_PayorMixPctPrivateSelf__c,percent,0,6,1,True
+DHC Phone,texcellency__DefHC_Phone__c,phone,40,0,0,True
+DHC State,texcellency__DefHC_State__c,string,255,0,0,True
+DHC Sync Time,texcellency__DefHC_SyncTime__c,datetime,0,0,0,True
+DHC Total Medicare Charges,texcellency__DefHC_TotalMedicareCharges__c,currency,0,18,0,True
+DHC Provider Website,texcellency__DefHC_Website__c,url,255,0,0,True
+DHC Zip Code,texcellency__DefHC_ZipCode__c,string,255,0,0,True
+GUID,GUID__c,string,32,0,0,True
+Primary Contact,Primary_Contact__c,reference,18,0,0,True
+Company Status,Company_Status__c,picklist,255,0,0,True
+Inactive,Inactive__c,boolean,0,0,0,True
+Billing Website,Billing_Website__c,url,255,0,0,True
+National Account,National_Account__c,boolean,0,0,0,True
+Tech Partner,Tech_Partner__c,boolean,0,0,0,True
+Active,Active__c,boolean,0,0,0,True
+GPO Affiliation,GPO_Membership__c,picklist,255,0,0,True
+Outcomes Manager,Outcomes_Manager__c,picklist,255,0,0,True
+NPI Code,NPI_Code__c,string,50,0,0,True
+SL Vendor ID,Epicor_Customer_Number__c,string,50,0,0,True
+Customer ID,Customer_Id__c,string,6,0,0,True
+Customer Success Manager,Customer_Success_Manager__c,picklist,255,0,0,True
+SL Company,SL_Company__c,picklist,255,0,0,True
+SL Customer Update,SL_Customer_Update__c,datetime,0,0,0,True
+SL Skip After,SL_Skip_After__c,boolean,0,0,0,True
+SL Update,SL_Update__c,boolean,0,0,0,True
+Salesperson,Salesperson__c,reference,18,0,0,True
+SlsperId,SlsperId__c,string,10,0,0,True
+Unassigned Account,Unassigned_Account__c,boolean,0,0,0,True
+Verified,Verified__c,boolean,0,0,0,True
+Common Address,Common_Address__c,string,1300,0,0,True
+Account Long ID,Long_ID__c,string,1300,0,0,True
+Owner Works For,Owner_Works_For__c,string,1300,0,0,True
+ParentCustomerID,ParentCustomerID__c,string,15,0,0,True
+Account Type,Account_Type__c,picklist,255,0,0,True
+Service Contract,Service_Contract__c,reference,18,0,0,True
+Epicor Customer ID,Epicor_Customer_ID__c,string,25,0,0,True
+Region,Region__c,picklist,255,0,0,True
+Email Address,Email_Address__c,email,80,0,0,True
+Combine Asset Quantities,SBQQ__AssetQuantitiesCombined__c,boolean,0,0,0,True
+Combine Co-Termed Contracts,SBQQ__CoTermedContractsCombined__c,boolean,0,0,0,True
+Contract Co-Termination,SBQQ__ContractCoTermination__c,picklist,255,0,0,True
+Default Opportunity,SBQQ__DefaultOpportunity__c,reference,18,0,0,True
+Ignore Parent Contracted Prices,SBQQ__IgnoreParentContractedPrices__c,boolean,0,0,0,True
+Preserve Bundle Structure,SBQQ__PreserveBundle__c,boolean,0,0,0,True
+Price Hold End,SBQQ__PriceHoldEnd__c,date,0,0,0,True
+Renewal Model,SBQQ__RenewalModel__c,picklist,255,0,0,True
+Renewal Pricing Method,SBQQ__RenewalPricingMethod__c,picklist,255,0,0,True
+Tax-Exempt,SBQQ__TaxExempt__c,picklist,255,0,0,True
+Co-Termination Event,SBQQ__CoTerminationEvent__c,picklist,255,0,0,True
+Credit Limit,Credit_Limit__c,currency,0,18,0,True
+Payment Terms (ARCHIVE),Payment_Terms__c,string,30,0,0,True
+Payment Terms,Payment_Terms_IV__c,picklist,255,0,0,True
+Territory,Territory__c,picklist,255,0,0,True
+Lead Source,Lead_Source__c,picklist,255,0,0,True
+ITOCHU Affiliate,ITOCHU_Affiliate__c,boolean,0,0,0,True
+Original Source,Original_Sauce__c,picklist,255,0,0,True
+ITOCHU Partner,ITOCHU_Partner__c,boolean,0,0,0,True
+Available Credit,Available_Credit__c,double,0,18,2,True
+Last Credit refresh date,Last_Credit_refresh_date__c,datetime,0,0,0,True

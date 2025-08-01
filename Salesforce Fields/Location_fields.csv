@@ -1,0 +1,58 @@
+label,name,type,length,precision,scale,custom
+Location ID,Id,id,18,0,0,False
+Owner ID,OwnerId,reference,18,0,0,False
+Deleted,IsDeleted,boolean,0,0,0,False
+Site Name,Name,string,255,0,0,False
+Record Type ID,RecordTypeId,reference,18,0,0,False
+Created Date,CreatedDate,datetime,0,0,0,False
+Created By ID,CreatedById,reference,18,0,0,False
+Last Modified Date,LastModifiedDate,datetime,0,0,0,False
+Last Modified By ID,LastModifiedById,reference,18,0,0,False
+System Modstamp,SystemModstamp,datetime,0,0,0,False
+Last Viewed Date,LastViewedDate,datetime,0,0,0,False
+Last Referenced Date,LastReferencedDate,datetime,0,0,0,False
+Site Type,LocationType,picklist,40,0,0,False
+Latitude,Latitude,double,0,18,15,False
+Longitude,Longitude,double,0,18,15,False
+Location,Location,location,0,0,0,False
+Description,Description,string,255,0,0,False
+Driving Directions,DrivingDirections,string,1000,0,0,False
+Time Zone,TimeZone,picklist,255,0,0,False
+Parent Site,ParentLocationId,reference,18,0,0,False
+Possession Date,PossessionDate,date,0,0,0,False
+Construction Start Date,ConstructionStartDate,date,0,0,0,False
+Construction End Date,ConstructionEndDate,date,0,0,0,False
+Open Date,OpenDate,date,0,0,0,False
+Close Date,CloseDate,date,0,0,0,False
+Remodel Start Date,RemodelStartDate,date,0,0,0,False
+Remodel End Date,RemodelEndDate,date,0,0,0,False
+Mobile Location,IsMobile,boolean,0,0,0,False
+Inventory Location,IsInventoryLocation,boolean,0,0,0,False
+Address ID,VisitorAddressId,reference,18,0,0,False
+Root Location ID,RootLocationId,reference,18,0,0,False
+Location Level,LocationLevel,int,0,0,0,False
+External Reference,ExternalReference,string,255,0,0,False
+Asset File ID,LogoId,reference,18,0,0,False
+Account SL Customer ID,Account_SL_Customer_ID__c,string,1300,0,0,True
+Account,Account__c,reference,18,0,0,True
+Branch,Branch__c,picklist,255,0,0,True
+Branch ID (Old),Branch_ID_Old__c,string,200,0,0,True
+Case,Case__c,reference,18,0,0,True
+City,City__c,string,255,0,0,True
+Contact Name,Contact_Name__c,reference,18,0,0,True
+Country,Country__c,string,255,0,0,True
+SL Address Update,SL_Address_Update__c,datetime,0,0,0,True
+SL Site ID,SL_Site_ID__c,string,255,0,0,True
+SL Skip After,SL_Skip_After__c,boolean,0,0,0,True
+SL Update,SL_Update__c,boolean,0,0,0,True
+Sharepoint Link,Sharepoint_Link__c,url,255,0,0,True
+State,State__c,string,255,0,0,True
+Street,Street__c,string,255,0,0,True
+Zip Code,Zip_Code__c,string,255,0,0,True
+Geographic Zone (Old),Geographic_Zone_Old__c,picklist,255,0,0,True
+Site Name and Address,Site_Name_and_Address__c,string,1300,0,0,True
+Branch Name (Old),Branch_Name_Old__c,picklist,255,0,0,True
+Region,Region__c,picklist,255,0,0,True
+User,User__c,reference,18,0,0,True
+Record Type Name,Record_Type_Name__c,string,1300,0,0,True
+Account Name,Account_Name__c,string,1300,0,0,True

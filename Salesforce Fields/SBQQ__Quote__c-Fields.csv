@@ -1,0 +1,281 @@
+﻿,label,name,type,length,precision,scale,custom
+0,Record ID,Id,id,18,0,0,false
+1,Owner ID,OwnerId,reference,18,0,0,false
+2,Deleted,IsDeleted,boolean,0,0,0,false
+3,Quote Number,Name,string,80,0,0,false
+4,Record Type ID,RecordTypeId,reference,18,0,0,false
+5,Created Date,CreatedDate,datetime,0,0,0,false
+6,Created By ID,CreatedById,reference,18,0,0,false
+7,Last Modified Date,LastModifiedDate,datetime,0,0,0,false
+8,Last Modified By ID,LastModifiedById,reference,18,0,0,false
+9,System Modstamp,SystemModstamp,datetime,0,0,0,false
+10,Last Activity Date,LastActivityDate,date,0,0,0,false
+11,Last Viewed Date,LastViewedDate,datetime,0,0,0,false
+12,Last Referenced Date,LastReferencedDate,datetime,0,0,0,false
+13,Account,SBQQ__Account__c,reference,18,0,0,true
+14,Bill To City,SBQQ__BillingCity__c,string,40,0,0,true
+15,Bill To Country,SBQQ__BillingCountry__c,string,80,0,0,true
+16,Billing Frequency,SBQQ__BillingFrequency__c,picklist,255,0,0,true
+17,Bill To Name,SBQQ__BillingName__c,string,255,0,0,true
+18,Bill To Postal Code,SBQQ__BillingPostalCode__c,string,20,0,0,true
+19,Bill To State,SBQQ__BillingState__c,string,80,0,0,true
+20,Bill To Street,SBQQ__BillingStreet__c,textarea,255,0,0,true
+21,Consumption Rate Override,SBQQ__ConsumptionRateOverride__c,boolean,0,0,0,true
+22,Contracting Method,SBQQ__ContractingMethod__c,picklist,255,0,0,true
+23,Additional Disc. (%),SBQQ__CustomerDiscount__c,percent,0,5,2,true
+24,Default Template,SBQQ__DefaultTemplate__c,reference,18,0,0,true
+25,Delivery Method,SBQQ__DeliveryMethod__c,picklist,255,0,0,true
+26,Distributor Discount,SBQQ__DistributorDiscount__c,percent,0,5,2,true
+27,Distributor,SBQQ__Distributor__c,reference,18,0,0,true
+28,Document Status,SBQQ__DocumentStatus__c,picklist,255,0,0,true
+29,Email Template Id,SBQQ__EmailTemplateId__c,string,18,0,0,true
+30,End Date,SBQQ__EndDate__c,date,0,0,0,true
+31,First Segment Term End Date,SBQQ__FirstSegmentTermEndDate__c,date,0,0,0,true
+32,Generate Contracted Price,SBQQ__GenerateContractedPrice__c,picklist,255,0,0,true
+33,Introduction,SBQQ__Introduction__c,textarea,2000,0,0,true
+34,Key,SBQQ__Key__c,string,80,0,0,true
+35,Last Calculated On,SBQQ__LastCalculatedOn__c,datetime,0,0,0,true
+36,Last Saved On,SBQQ__LastSavedOn__c,datetime,0,0,0,true
+37,Group Line Items,SBQQ__LineItemsGrouped__c,boolean,0,0,0,true
+38,Print Line Items,SBQQ__LineItemsPrinted__c,boolean,0,0,0,true
+39,Markup (%),SBQQ__MarkupRate__c,percent,0,8,2,true
+40,Master Contract,SBQQ__MasterContract__c,reference,18,0,0,true
+41,Master Evergreen Contract,SBQQ__MasterEvergreenContract__c,reference,18,0,0,true
+42,Notes,SBQQ__Notes__c,textarea,2000,0,0,true
+43,Opportunity,SBQQ__Opportunity2__c,reference,18,0,0,true
+44,Order By Quote Line Group,SBQQ__OrderByQuoteLineGroup__c,boolean,0,0,0,true
+45,Order By,SBQQ__OrderBy__c,picklist,255,0,0,true
+46,Order Group ID,SBQQ__OrderGroupID__c,string,255,0,0,true
+47,Ordered,SBQQ__Ordered__c,boolean,0,0,0,true
+48,Original Quote,SBQQ__OriginalQuote__c,reference,18,0,0,true
+49,Paper Size,SBQQ__PaperSize__c,picklist,255,0,0,true
+50,Partner Discount,SBQQ__PartnerDiscount__c,percent,0,5,2,true
+51,Partner,SBQQ__Partner__c,reference,18,0,0,true
+52,Payment Terms,SBQQ__PaymentTerms__c,picklist,255,0,0,true
+53,Price Book,SBQQ__PriceBook__c,reference,18,0,0,true
+54,Pricebook ID,SBQQ__PricebookId__c,string,18,0,0,true
+55,Primary Contact,SBQQ__PrimaryContact__c,reference,18,0,0,true
+56,Primary,SBQQ__Primary__c,boolean,0,0,0,true
+57,Proration Day Of Month,SBQQ__ProrationDayOfMonth__c,picklist,255,0,0,true
+58,Quote Language,SBQQ__QuoteLanguage__c,picklist,255,0,0,true
+59,Quote Process Id,SBQQ__QuoteProcessId__c,string,80,0,0,true
+60,Quote Template Id,SBQQ__QuoteTemplateId__c,string,18,0,0,true
+61,Renewal Term,SBQQ__RenewalTerm__c,double,0,18,0,true
+62,Renewal Uplift (%),SBQQ__RenewalUpliftRate__c,percent,0,11,3,true
+63,Sales Rep,SBQQ__SalesRep__c,reference,18,0,0,true
+64,Ship To City,SBQQ__ShippingCity__c,string,40,0,0,true
+65,Ship To Country,SBQQ__ShippingCountry__c,string,80,0,0,true
+66,Ship To Name,SBQQ__ShippingName__c,string,255,0,0,true
+67,Ship To Postal Code,SBQQ__ShippingPostalCode__c,string,20,0,0,true
+68,Ship To State,SBQQ__ShippingState__c,string,80,0,0,true
+69,Ship To Street,SBQQ__ShippingStreet__c,textarea,255,0,0,true
+70,Source,SBQQ__Source__c,reference,18,0,0,true
+71,Start Date,SBQQ__StartDate__c,date,0,0,0,true
+72,Status,SBQQ__Status__c,picklist,255,0,0,true
+73,Subscription Term,SBQQ__SubscriptionTerm__c,double,0,5,0,true
+74,Target Customer Amount,SBQQ__TargetCustomerAmount__c,currency,0,14,2,true
+75,Type,SBQQ__Type__c,picklist,255,0,0,true
+76,Unopened,SBQQ__Unopened__c,boolean,0,0,0,true
+77,Watermark Shown,SBQQ__WatermarkShown__c,boolean,0,0,0,true
+78,Addl. Disc. Amount,SBQQ__AdditionalDiscountAmount__c,currency,0,18,2,true
+79,Avg. Customer Disc. (%),SBQQ__AverageCustomerDiscount__c,percent,0,18,1,true
+80,Avg. Partner Disc. (%),SBQQ__AveragePartnerDiscount__c,percent,0,18,1,true
+81,Days Quote Open,SBQQ__DaysQuoteOpen__c,double,0,18,0,true
+82,Expires On,SBQQ__ExpirationDate__c,date,0,0,0,true
+83,Total Customer Disc. Amount,SBQQ__TotalCustomerDiscountAmount__c,currency,0,18,2,true
+84,Uncalculated,SBQQ__Uncalculated__c,boolean,0,0,0,true
+85,Customer Amount,SBQQ__CustomerAmount__c,currency,0,18,2,true
+86,Line Item Count,SBQQ__LineItemCount__c,double,0,18,0,true
+87,List Amount,SBQQ__ListAmount__c,currency,0,18,2,true
+88,Net Amount,SBQQ__NetAmount__c,currency,0,18,2,true
+89,Regular Amount,SBQQ__RegularAmount__c,currency,0,18,2,true
+90,Approval Status,ApprovalStatus__c,picklist,255,0,0,true
+91,Submitted Date,SubmittedDate__c,date,0,0,0,true
+92,Submitted User,SubmittedUser__c,reference,18,0,0,true
+93,General Manager ID,General_Manager_ID__c,string,1300,0,0,true
+94,Opportunity Type,Opportunity_Type__c,string,1300,0,0,true
+95,Primary Contact's Email,Primary_Contact_s_Email__c,string,1300,0,0,true
+96,Primary Contact's Phone,Primary_Contact_s_Phone__c,string,1300,0,0,true
+97,Quote Owner,Quote_Owner__c,string,1300,0,0,true
+98,Sales Director ID,Sales_Director_ID__c,string,1300,0,0,true
+99,Sales Rep User,Sales_Rep_User__c,double,0,18,0,true
+100,Ship State Triggering Recalculation,Ship_State_Triggering_Recalculation__c,boolean,0,0,0,true
+101,AV Warranty & Support Agreement,AV_Warranty_Support_Agreement__c,currency,0,18,2,true
+102,Added Content & Licenses Subtotal,Added_Content_Licenses_Subtotal__c,currency,0,18,2,true
+103,Added Equipment & Material Subtotal,Added_Equipment_Material_Subtotal__c,currency,0,18,2,true
+104,Added Technical Services Subtotal,Added_Technical_Services_Subtotal__c,currency,0,18,2,true
+105,Appendix B Equipment List Included,Appendix_B_Equipment_List_Included__c,picklist,255,0,0,true
+106,Apply Prevailing Wage,Apply_Prevailing_Wage__c,picklist,255,0,0,true
+107,Attention,Attention__c,string,34,0,0,true
+108,CO Contract Schedule Revision,CO_Contract_Schedule_Revision__c,textarea,255,0,0,true
+109,CO Document Type,CO_Document_Type__c,picklist,255,0,0,true
+110,CO Number,CO_Number__c,string,50,0,0,true
+111,Cancelled Content & Licenses Subtotal,Cancelled_Content_Licenses_Subtotal__c,currency,0,18,2,true
+112,Cancelled Equipment & Material Subtotal,Cancelled_Equipment_Material_Subtotal__c,currency,0,18,2,true
+113,Cancelled Technical Services Subtotal,Cancelled_Technical_Services_Subtotal__c,currency,0,18,2,true
+114,Cancelled Technical Services,Cancelled_Technical_Services__c,currency,0,18,2,true
+115,Contract Applied,Contract_Applied__c,picklist,255,0,0,true
+116,Control System Programming,Control_System_Programming__c,textarea,32768,0,0,true
+117,Cover Page Account Name,Cover_Page_Account_Name__c,string,100,0,0,true
+118,Credit Card Processing Fee,Credit_Card_Processing_Fee__c,currency,0,18,2,true
+119,Deposit Amount,Deposit_Amount__c,picklist,255,0,0,true
+120,Effective Date,Effective_Date__c,date,0,0,0,true
+121,Electronic Waste Recycling Fee,Electronic_Waste_Recycling_Fee__c,currency,0,18,2,true
+122,Estimated Tax,Estimated_Tax__c,currency,0,18,2,true
+123,Total G&A Amount,General_Administrative__c,currency,0,18,2,true
+124,General Manager,General_Manager__c,reference,18,0,0,true
+125,Lease Term,Lease_Term__c,picklist,255,0,0,true
+126,Lease Type,Lease_Type__c,picklist,255,0,0,true
+127,Ship to Location,Location__c,reference,18,0,0,true
+128,Monthly Payment,Monthly_Payment__c,currency,0,18,2,true
+129,Net Total minus Bonding,Net_Total_minus_Bonding__c,currency,0,18,2,true
+130,New Product Count,New_Product_Count__c,double,0,18,0,true
+131,Other Deposit Amount,Other_Deposit_Amount__c,string,20,0,0,true
+132,Payment & Performance Bond,Payment_Performance_Bond__c,currency,0,18,2,true
+133,Payment Type,Payment_Type__c,picklist,255,0,0,true
+134,Payment and Performance Bond Included,Payment_and_Performance_Bond_Included__c,picklist,255,0,0,true
+135,Programming Content,Programming_Content__c,currency,0,18,2,true
+136,Project Management,Project_Management__c,textarea,32768,0,0,true
+137,Proposal Sent Date,Proposal_Sent_Date__c,date,0,0,0,true
+138,Proposal Status,Proposal_Status__c,picklist,255,0,0,true
+139,Registration ID,Registration_ID__c,string,255,0,0,true
+140,Restock Fee,Restock_Fee__c,currency,0,18,2,true
+141,Round Up TS?,Round_Up_Prices__c,picklist,255,0,0,true
+142,Scope of Work Completed,Scope_of_Work_Completed__c,boolean,0,0,0,true
+143,Scope of Work,Scope_of_Work__c,textarea,32768,0,0,true
+144,Sent for Wet Signature,Sent_for_Wet_Signature__c,boolean,0,0,0,true
+145,Labor Rate Selection,Shift_Area__c,picklist,255,0,0,true
+146,Shift,Shift__c,picklist,255,0,0,true
+147,Shipping Cost,Shipping_Estimate__c,currency,0,18,2,true
+148,Shipping & Handling,Shipping_Handling__c,currency,0,18,2,true
+149,Shipping Included,Shipping_Included__c,picklist,255,0,0,true
+150,System Documentation,System_Documentation__c,textarea,32768,0,0,true
+151,Include Prices?,Include_Prices__c,boolean,0,0,0,true
+152,Technical Services,Technical_Services__c,textarea,32768,0,0,true
+153,Total AV Warranty Amount,Total_AV_Warranty_Price__c,currency,0,18,2,true
+154,Total Contract Fee Amount,Total_Contract_Fee_Price__c,currency,0,18,2,true
+155,Total Cost,Total_Cost__c,currency,0,18,2,true
+156,Total Fees,Total_Fees__c,currency,0,18,2,true
+157,Total Indirect Material Cost,Total_Indirect_Material_Price__c,currency,0,18,2,true
+158,Total Labor Amount,Total_Labor_Price__c,currency,0,18,2,true
+159,Total MFG Warranty Amount,Total_MFG_Warranty_Price__c,currency,0,18,2,true
+160,Total Material Cost,Total_Material_Cost__c,currency,0,18,2,true
+161,Total Monitors - Classification 1,Total_Monitors_Classification_1__c,double,0,18,0,true
+162,Total Monitors - Classification 2,Total_Monitors_Classification_2__c,double,0,18,0,true
+163,Total Monitors - Classification 3,Total_Monitors_Classification_3__c,double,0,18,0,true
+164,Total Reimbursables Amount,Total_Reimbursables_Price__c,currency,0,18,2,true
+165,Total Rental Amount,Total_Rental_Price__c,currency,0,18,2,true
+166,Total Subcontractor Price,Total_Subcontractor_Price__c,currency,0,18,2,true
+167,Total Systems Amount,Total_Systems_Price__c,currency,0,18,2,true
+168,Training and Documentation,Training_and_Documentation__c,textarea,32768,0,0,true
+169,Wet Signature Outcome,Wet_Signature_Outcome__c,picklist,255,0,0,true
+170,Total 360 Service Plan Amount,X360_Service_Plan_Total__c,currency,0,12,2,true
+171,360 Service Plan,X360_Service_Plan__c,picklist,255,0,0,true
+172,Bond Cost,Bond_Cost__c,currency,0,18,2,true
+173,CO Additions Subtotal,CO_Additions_Subtotal__c,currency,0,18,2,true
+174,CO Deletions Subtotal,CO_Deletions_Subtotal__c,currency,0,18,2,true
+175,Change Order Total,Change_Order_Total__c,currency,0,18,2,true
+176,Contract Revision Amount,Contract_Revision_Amount__c,currency,0,18,2,true
+177,Estimated Project Total,Estimated_Project_Total__c,currency,0,18,2,true
+178,Payment Terms,Payment_Terms__c,string,1300,0,0,true
+179,Project Subtotal,Project_Subtotal__c,currency,0,18,2,true
+180,Quote Deposit Amount,Quote_Deposit_Amount__c,string,1300,0,0,true
+181,Total Calculated Markup,Total_Calculated_Markup__c,percent,0,18,2,true
+182,Total Material Cost Subtotal,Total_Material_Cost_Subtotal__c,currency,0,18,2,true
+183,Net Amount minus Shipping,Net_Amount_minus_Shipping__c,currency,0,18,2,true
+184,Note on Quote Document,Note_on_Quote_Document__c,textarea,2000,0,0,true
+185,Override Sales Tax,CO_Override_Sales_Tax__c,percent,0,12,4,true
+186,ZipCodeTaxRateLOOKUP,ZipCodeTaxRate_del__c,reference,18,0,0,true
+187,Taxable Amount,CO_Taxable_Amount__c,currency,0,18,2,true
+188,Estimated TAX,CO_Est_TAX__c,currency,0,18,2,true
+189,Sales Tax Rate,Sales_Tax_Rate__c,percent,0,18,4,true
+190,Estimated Total,Estimated_Total__c,currency,0,18,2,true
+191,Shipping Cost Override,Freight_Override__c,currency,0,18,2,true
+192,Opp Ship to Populated,Opp_Ship_to_Populated__c,boolean,0,0,0,true
+193,Material Margin %,Margin__c,percent,0,4,2,true
+194,Markup %,Markup_No_Edit__c,percent,0,18,2,true
+195,Total Calculated Margin,Total_Calculated_Margin__c,percent,0,18,2,true
+196,Order,Order__c,reference,18,0,0,true
+197,Activated in SL?,Activated_in_SL__c,boolean,0,0,0,true
+198,PO Number,PO_Number__c,string,1300,0,0,true
+199,SL Parent Order Key,SL_Parent_Order_Key__c,string,1300,0,0,true
+200,Change Order,Change_Order__c,reference,18,0,0,true
+201,Non-Billable Change Order,Non_Billable_Change_Order__c,boolean,0,0,0,true
+202,Opportunity Branch,Opportunity_Branch__c,string,1300,0,0,true
+203,AVW/SA Margin Cost,AVW_SA_Margin_Cost__c,currency,0,17,2,true
+204,AVW/SA Margin Sell,AVW_SA_Margin_Sell__c,currency,0,17,2,true
+205,AV Warranty Margin %,AV_Warranty__c,percent,0,4,2,true
+206,Annual Assure Cost,Annual_Assure_Cost__c,currency,0,17,2,true
+207,Summary,Detailed_Quote_Summary_Part_2__c,textarea,32768,0,0,true
+208,Summary,Detailed_Quote_Summary__c,textarea,32768,0,0,true
+209,Freight Terms,Freight_Terms__c,picklist,255,0,0,true
+210,G&A Cost Calc %,G_A_Margin__c,percent,0,12,2,true
+211,Indirect Material Cost Calc %,Indirect_Material_Percent__c,percent,0,17,2,true
+212,Total Indirect Material Amount,Indirect_Material_Sell_Price__c,currency,0,18,2,true
+213,Number of Years,Number_of_Years__c,picklist,255,0,0,true
+214,Opportunity Project Number,Opportunity_Project_Number__c,reference,18,0,0,true
+215,Order Type,Order_Type__c,string,1300,0,0,true
+216,Overall Margin Cost,Overall_Margin_Cost__c,currency,0,18,2,true
+217,Overall Margin Sell,Overall_Margin_Sell__c,currency,0,18,2,true
+218,Patronage,Patronage__c,currency,0,12,2,true
+219,Product Code,Product_Code__c,picklist,255,0,0,true
+220,Project Margin Cost,Project_Margin_Cost__c,currency,0,17,2,true
+221,Project Margin Sell,Project_Margin_Sell__c,currency,0,17,2,true
+222,Reimbursable Margin %,Reimbursable__c,percent,0,4,2,true
+223,Round Up EQ?,Round_Up_EQ__c,picklist,255,0,0,true
+224,Total SLA Cost,SLA_Cost__c,currency,0,18,2,true
+225,Total SLA Amount,SLA_Sell_Price__c,currency,0,18,2,true
+226,SLA %,SLA__c,percent,0,18,2,true
+227,Stamp Ship State,Stamp_Ship_State__c,string,50,0,0,true
+228,Sub Margin %,Sub_Margin__c,percent,0,4,2,true
+229,Subtotal,Subtotal__c,currency,0,17,2,true
+230,Technical Services Margin %,TS_Margin__c,percent,0,4,2,true
+231,Technical Services Total2,Technical_Services_Total2__c,currency,0,18,2,true
+232,Technical Services Total Cost,Technical_Services_Total_Cost__c,currency,0,17,2,true
+233,Total 360 Service Plan Cost,Total_360_Service_Plan_Cost__c,currency,0,17,2,true
+234,Total AV Warranty Cost,Total_AV_Warranty_Cost__c,currency,0,17,2,true
+235,Total Assure Cost,Total_Assure_Cost__c,currency,0,18,2,true
+236,Total Assure Amount,Total_Assure_Sell_Price__c,currency,0,17,2,true
+237,Total Contract Fee Cost,Total_Contract_Fee_Cost__c,currency,0,18,2,true
+238,Total Fee Cost,Total_Fee_Cost__c,currency,0,17,2,true
+239,Total Fee Amount,Total_Fee_Price__c,currency,0,17,2,true
+240,Total G&A Cost,Total_G_A_Cost__c,currency,0,17,2,true
+241,Total Indirect Material Cost Overwrite,Total_Indirect_Material_Cost_Overwrite__c,boolean,0,0,0,true
+242,Total Labor Cost,Total_Labor_Cost__c,currency,0,17,2,true
+243,Total MFG Warranty Cost,Total_MFG_Warranty_Cost__c,currency,0,17,2,true
+244,Total Margin,Total_Margin__c,currency,0,17,2,true
+245,Total Markup Amount,Total_Markup__c,currency,0,17,2,true
+246,Total Material Amount,Total_Material_Sell_Price__c,currency,0,18,2,true
+247,Total Number of Processors,Total_Number_of_Processors__c,double,0,18,0,true
+248,Total Reimbursables Cost,Total_Reimbursables_Cost__c,currency,0,17,2,true
+249,Total Rental Cost,Total_Rental_Cost__c,currency,0,17,2,true
+250,Total Subcontractor Cost,Total_Subcontractor_Cost__c,currency,0,17,2,true
+251,Total Systems Cost,Total_Systems_Cost__c,currency,0,17,2,true
+252,Updated by QCP,Updated_by_QCP__c,boolean,0,0,0,true
+253,360 Service Payments,X360_Service_Payments__c,textarea,32768,0,0,true
+254,AVW/SA Margin %,AVW_SA_Margin_Percent__c,percent,0,18,2,true
+255,AVW/SA Margin,AVW_SA_Margin__c,currency,0,18,2,true
+256,Equipment Actual Margin (%),Equipment_Actual_Margin__c,percent,0,18,2,true
+257,Equipment GP Total,Equipment_GP_Total__c,currency,0,18,2,true
+258,Overall Margin %,Overall_Margin_Percent__c,percent,0,18,2,true
+259,Overall Margin,Overall_Margin__c,currency,0,18,2,true
+260,Project Margin %,Project_Margin_Percent__c,percent,0,18,2,true
+261,Project Margin,Project_Margin__c,currency,0,18,2,true
+262,Project Number,Project_Number__c,string,1300,0,0,true
+263,Service Actual Margin (%),Service_Actual_Margin__c,percent,0,18,2,true
+264,Service GP Total,Service_GP_Total__c,currency,0,18,2,true
+265,Technical Actual Margin (%),Technical_Actual_Margin__c,percent,0,18,2,true
+266,Technical GP Total,Technical_GP_Total__c,currency,0,18,2,true
+267,Net Total RollUp,Net_Total_RollUp__c,currency,0,18,2,true
+268,Total Unit Prices (Sum),Total_Unit_Prices_Sum__c,currency,0,16,2,true
+269,Technical Services Total,Technical_Services_Total__c,currency,0,18,2,true
+270,Shipping Amount,Shipping_Amount__c,currency,0,18,2,true
+271,Design Hours,Design_Hours__c,double,0,5,2,true
+272,Design Engineer,Design_Engineer__c,reference,18,0,0,true
+273,Proposal Type,Proposal_Type__c,picklist,255,0,0,true
+274,Total Bond Amount,Total_Bond_Amount__c,currency,0,18,2,true
+275,Total Bond Cost,Total_Bond_Cost__c,currency,0,18,2,true
+276,Total CA Waste Amount,Total_CA_Waste_Amount__c,currency,0,18,2,true
+277,Total CA Waste Cost,Total_CA_Waste_Cost__c,currency,0,18,2,true
+278,Quote Name,Quote_Name__c,string,250,0,0,true
+279,Tax Exempt,Tax_Exempt__c,boolean,0,0,0,true
