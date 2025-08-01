@@ -59,8 +59,8 @@ st.markdown("""
      .google-header {
          background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
          color: white;
-         padding: 12px 20px;
-         margin: -1rem -1rem 1rem -1rem;
+         padding: 8px 20px;
+         margin: -1rem -1rem 0.5rem -1rem;
          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
      }
     
@@ -83,7 +83,7 @@ st.markdown("""
     
          h1 {
          font-family: 'Google Sans', 'Roboto', sans-serif;
-         font-size: 20px;
+         font-size: 18px;
          font-weight: 500;
          color: white;
          margin: 0;
@@ -91,17 +91,17 @@ st.markdown("""
      }
      
      .subtitle {
-         font-size: 12px;
+         font-size: 11px;
          color: rgba(255,255,255,0.9);
-         margin: 2px 0 0 48px;
+         margin: 1px 0 0 48px;
      }
     
          .refresh-badge {
          background: rgba(255,255,255,0.2);
          color: white;
-         padding: 4px 12px;
-         border-radius: 20px;
-         font-size: 11px;
+         padding: 3px 10px;
+         border-radius: 16px;
+         font-size: 10px;
          font-weight: 500;
          border: 1px solid rgba(255,255,255,0.3);
      }
@@ -453,15 +453,15 @@ def main():
     
     # Header
     st.markdown(f"""
-    <div class="google-header" style="padding: 8px 0;">
+    <div class="google-header">
         <div class="header-content">
             <div>
                 <div class="logo-title">
-                    <h1 style="font-size: 24px; margin: 0;">Cary Forecasts MTD</h1>
+                    <h1>Cary Forecasts MTD</h1>
                 </div>
-                <div class="subtitle" style="font-size: 12px; margin-top: 4px;">Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')}</div>
+                <div class="subtitle">Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')}</div>
             </div>
-            <div class="refresh-badge" style="font-size: 10px; padding: 4px 8px;">Auto-refresh ON</div>
+            <div class="refresh-badge">Auto-refresh ON</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -506,7 +506,7 @@ def main():
     # Sales Performance
     st.markdown('<div class="section-header">Sales Performance</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([3, 2])
+    col1, col2 = st.columns([2, 1])
     
     with col1:
         # Sales metrics grid
@@ -518,7 +518,7 @@ def main():
                 <div class="metric-label">Project</div>
                 <div class="metric-value">{format_currency(metrics['project_forecast'])}</div>
                 <div class="metric-subtitle">Forecast</div>
-                <div class="metric-value status-negative" style="font-size: 24px; margin-top: 16px;">
+                <div class="metric-value status-negative" style="font-size: 22px; margin-top: 12px;">
                     {format_currency(metrics['project_mtd'])}
                 </div>
                 <div class="metric-subtitle">MTD Actual</div>
@@ -531,7 +531,7 @@ def main():
                 <div class="metric-label">Transactional</div>
                 <div class="metric-value">{format_currency(metrics['trans_forecast'])}</div>
                 <div class="metric-subtitle">Forecast</div>
-                <div class="metric-value status-warning" style="font-size: 24px; margin-top: 16px;">
+                <div class="metric-value status-warning" style="font-size: 22px; margin-top: 12px;">
                     {format_currency(metrics['trans_mtd'])}
                 </div>
                 <div class="metric-subtitle">MTD Actual</div>
@@ -544,7 +544,7 @@ def main():
                 <div class="metric-label">Service</div>
                 <div class="metric-value">{format_currency(metrics['service_forecast'])}</div>
                 <div class="metric-subtitle">Forecast</div>
-                <div class="metric-value status-negative" style="font-size: 24px; margin-top: 16px;">
+                <div class="metric-value status-negative" style="font-size: 22px; margin-top: 12px;">
                     {format_currency(metrics['service_mtd'])}
                 </div>
                 <div class="metric-subtitle">MTD Actual</div>
@@ -552,62 +552,14 @@ def main():
             """, unsafe_allow_html=True)
     
     with col2:
-        # Add probability distribution chart
-        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">Probability Distribution</div>', 
-                   unsafe_allow_html=True)
-        
-        # Create probability distribution
-        if not df.empty:
-            prob_dist = df['Probability'].value_counts().sort_index()
-            prob_fig = px.bar(
-                x=prob_dist.index,
-                y=prob_dist.values,
-                title="",
-                color_discrete_sequence=['#1e40af']
-            )
-            prob_fig.update_layout(
-                height=120,
-                margin=dict(l=8, r=8, t=8, b=8),
-                xaxis_title="Probability (%)",
-                yaxis_title="Count",
-                showlegend=False,
-                plot_bgcolor='white',
-                paper_bgcolor='white',
-                font={'family': 'Roboto, sans-serif', 'size': 10}
-            )
-            st.plotly_chart(prob_fig, use_container_width=True, key="prob_chart")
-        
-        # Add stage breakdown
-        st.markdown('<div style="font-size: 14px; font-weight: 500; margin: 16px 0 8px 0;">Stage Breakdown</div>', 
-                   unsafe_allow_html=True)
-        
-        if not df.empty:
-            stage_dist = df['Stage'].value_counts()
-            stage_fig = px.pie(
-                values=stage_dist.values,
-                names=stage_dist.index,
-                title="",
-                color_discrete_sequence=['#1e40af', '#3b82f6', '#60a5fa', '#93c5fd']
-            )
-            stage_fig.update_layout(
-                height=150,
-                margin=dict(l=8, r=8, t=8, b=8),
-                showlegend=True,
-                plot_bgcolor='white',
-                paper_bgcolor='white',
-                font={'family': 'Roboto, sans-serif', 'size': 10}
-            )
-            st.plotly_chart(stage_fig, use_container_width=True, key="stage_chart")
-        
-        # Add owner performance chart
-        st.markdown('<div style="font-size: 14px; font-weight: 500; margin: 16px 0 8px 0;">Top Sales by Owner</div>', 
+        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">Top Sales by Owner</div>', 
                    unsafe_allow_html=True)
         
         bar_chart = create_bar_chart(df)
         if bar_chart:
             st.plotly_chart(bar_chart, use_container_width=True, key="bar_chart")
         else:
-            st.info("No opportunities to display")
+            st.info("No closed won opportunities to display")
     
     # Auto-refresh JavaScript
     st.markdown("""
