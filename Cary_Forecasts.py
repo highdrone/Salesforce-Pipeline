@@ -206,16 +206,16 @@ def fetch_opportunities(sf):
         processed_records = []
         for record in all_records:
             if record and 'attributes' in record:
-                record_dict = {
-                    'Opportunity ID': record.get('Id'),
-                    'Opportunity Name': record.get('Name'),
-                    'Stage': record.get('StageName'),
-                    'Amount': record.get('Amount'),
-                    'Close Date': record.get('CloseDate'),
-                    'Created Date': record.get('CreatedDate'),
-                    'Probability (%)': record.get('Probability'),
-                    'Customer ID': record.get('AccountId'),
-                    'Fiscal Year': record.get('FiscalYear'),
+                            record_dict = {
+                                'Opportunity ID': record.get('Id'),
+                                'Opportunity Name': record.get('Name'),
+                                'Stage': record.get('StageName'),
+                                'Amount': record.get('Amount'),
+                                'Close Date': record.get('CloseDate'),
+                                'Created Date': record.get('CreatedDate'),
+                                'Probability (%)': record.get('Probability'),
+                                'Customer ID': record.get('AccountId'),
+                                'Fiscal Year': record.get('FiscalYear'),
                     'Fiscal Quarter': record.get('FiscalQuarter'),
                     'Type': record.get('Type'),
                     'Is Closed': record.get('IsClosed'),
@@ -242,17 +242,17 @@ def fetch_opportunities(sf):
                 }
                 
                 # Handle nested fields
-                if record.get('Owner') and isinstance(record.get('Owner'), dict):
-                    record_dict['Opportunity Owner'] = record.get('Owner', {}).get('Name')
-                    
-                if record.get('Account') and isinstance(record.get('Account'), dict):
-                    record_dict['Account Name'] = record.get('Account', {}).get('Name')
-                
-                processed_records.append(record_dict)
-        
+                            if record.get('Owner') and isinstance(record.get('Owner'), dict):
+                                record_dict['Opportunity Owner'] = record.get('Owner', {}).get('Name')
+                                
+                            if record.get('Account') and isinstance(record.get('Account'), dict):
+                                record_dict['Account Name'] = record.get('Account', {}).get('Name')
+                            
+                            processed_records.append(record_dict)
+                        
         # Create DataFrame
-        df = pd.DataFrame(processed_records)
-        
+                        df = pd.DataFrame(processed_records)
+                    
         # Filter for Cary Branch data only (API name is 200)
         if 'Branch' in df.columns:
             df = df[df['Branch'] == '200'].copy()
@@ -356,7 +356,7 @@ def create_owner_sales_chart(df):
     owner_sales = owner_sales.sort_values('Amount', ascending=True)
     
     # Create enhanced horizontal bar chart
-    fig = px.bar(
+            fig = px.bar(
         owner_sales,
         x='Amount',
         y='Opportunity Owner',
@@ -500,7 +500,7 @@ def create_dashboard(df, metrics):
         st.markdown('<div class="metric-label">Current Month Pipeline</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
     
-    with col2:
+        with col2:
         st.markdown('<div class="gauge-container">', unsafe_allow_html=True)
         fig2 = create_gauge_chart(
             metrics['pipeline_3_months'], 

@@ -9,12 +9,11 @@ import urllib3
 import os
 from simple_salesforce import Salesforce
 
-# Suppress urllib3 warnings
-warnings.filterwarnings("ignore", category=UserWarning, module="urllib3")
+# Suppress warnings
+warnings.filterwarnings("ignore")
 urllib3.disable_warnings()
-os.environ['PYTHONWARNINGS'] = "ignore:urllib3"
 
-# Page configuration for 1080p monitor
+# Page config
 st.set_page_config(
     page_title="Cary Forecasts MTD",
     page_icon="📊",
@@ -22,176 +21,162 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Enhanced CSS for modern, compact design
+# Google-style CSS
 st.markdown("""
 <style>
-    /* Reset and base styles */
-    .main {
-        padding: 0.5rem 1rem;
-        max-width: 1920px;
-        margin: 0 auto;
-    }
-    .block-container {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        max-width: 100%;
-    }
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+    
+    /* Reset */
+    .main { padding: 0; }
+    .block-container { padding: 1rem; max-width: 100%; }
+    
+         /* Avidex Brand Colors */
+     :root {
+         --avidex-blue: #1e40af;
+         --avidex-dark-blue: #1e3a8a;
+         --avidex-light-blue: #3b82f6;
+         --primary-green: #059669;
+         --primary-orange: #ea580c;
+         --primary-red: #dc2626;
+         --primary-yellow: #d97706;
+         --accent-teal: #0d9488;
+         --accent-pink: #db2777;
+         --light-grey: #f1f5f9;
+         --border-color: #e2e8f0;
+         --text-dark: #1e293b;
+         --text-muted: #64748b;
+     }
+    
+    /* Typography */
     .stApp {
-        background: #f0f2f5;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: 'Roboto', 'Google Sans', Arial, sans-serif;
+        background-color: var(--light-grey);
+        color: #202124;
     }
     
-    /* Header styles */
-    .dashboard-header {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        padding: 1rem 1.5rem;
-        margin: -0.5rem -1rem 1rem -1rem;
-        color: white;
+         /* Header */
+     .google-header {
+         background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+         color: white;
+         padding: 12px 20px;
+         margin: -1rem -1rem 1rem -1rem;
+         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+     }
+    
+    .header-content {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .header-left {
+    
+    .logo-title {
         display: flex;
         align-items: center;
-        gap: 1rem;
-    }
-    .header-title {
-        font-size: 1.75rem;
-        font-weight: 600;
-        margin: 0;
-        letter-spacing: -0.5px;
-    }
-    .header-subtitle {
-        font-size: 0.875rem;
-        opacity: 0.9;
-        margin: 0;
-    }
-    .refresh-info {
-        text-align: right;
-        font-size: 0.875rem;
-        opacity: 0.9;
+        gap: 16px;
     }
     
-    /* Card styles */
-    .metric-card {
-        background: white;
-        border-radius: 8px;
-        padding: 1rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        height: 100%;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    .google-logo {
+        width: 32px;
+        height: 32px;
     }
     
-    /* Gauge styles */
-    .gauge-container {
-        background: white;
-        border-radius: 8px;
-        padding: 0.5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        height: 260px;
-        overflow: hidden;
-        position: relative;
-    }
+         h1 {
+         font-family: 'Google Sans', 'Roboto', sans-serif;
+         font-size: 20px;
+         font-weight: 500;
+         color: white;
+         margin: 0;
+         line-height: 1.2;
+     }
+     
+     .subtitle {
+         font-size: 12px;
+         color: rgba(255,255,255,0.9);
+         margin: 2px 0 0 48px;
+     }
     
-    /* Chart containers */
+         .refresh-badge {
+         background: rgba(255,255,255,0.2);
+         color: white;
+         padding: 4px 12px;
+         border-radius: 20px;
+         font-size: 11px;
+         font-weight: 500;
+         border: 1px solid rgba(255,255,255,0.3);
+     }
+    
+         /* Cards */
+     .metric-card {
+         background: white;
+         border-radius: 12px;
+         padding: 16px;
+         border: 1px solid var(--border-color);
+         height: 100%;
+         transition: all 0.3s ease;
+         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+     }
+     
+     .metric-card:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+     }
+    
+    /* Metrics */
+         .metric-label {
+         font-size: 11px;
+         font-weight: 600;
+         color: var(--text-muted);
+         text-transform: uppercase;
+         letter-spacing: 0.5px;
+         margin-bottom: 6px;
+     }
+     
+     .metric-value {
+         font-size: 28px;
+         font-weight: 600;
+         color: var(--text-dark);
+         line-height: 1;
+         font-family: 'Google Sans', 'Roboto', sans-serif;
+     }
+    
+         .metric-subtitle {
+         font-size: 12px;
+         color: var(--text-muted);
+         margin-top: 2px;
+     }
+     
+     /* Status colors */
+     .status-positive { color: var(--primary-green); }
+     .status-negative { color: var(--primary-red); }
+     .status-warning { color: var(--primary-orange); }
+    
+         /* Section headers */
+     .section-header {
+         font-size: 18px;
+         font-weight: 600;
+         color: var(--text-dark);
+         margin: 16px 0 12px 0;
+         font-family: 'Google Sans', 'Roboto', sans-serif;
+         text-align: center;
+         padding: 8px 0;
+         border-bottom: 2px solid var(--avidex-blue);
+     }
+    
+    /* Charts */
     .chart-container {
         background: white;
         border-radius: 8px;
-        padding: 0.75rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        height: 100%;
-        overflow: hidden;
-        position: relative;
+        padding: 16px;
+        border: 1px solid var(--border-color);
     }
     
-    /* Metric styles */
-    .metric-value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0.25rem 0;
-        line-height: 1.2;
-    }
-    .metric-label {
-        font-size: 0.875rem;
-        color: #666;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.25rem;
-    }
-    .metric-comparison {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-        justify-content: space-around;
-        padding: 0.5rem;
-    }
-    .metric-item {
-        text-align: center;
-        flex: 1;
-    }
+    /* Hide Streamlit branding */
+    #MainMenu, footer, header { visibility: hidden; }
     
-    /* Section titles */
-    .section-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        margin-bottom: 0.75rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0e0e0;
-    }
-    
-    /* Color indicators */
-    .positive { color: #10b981; }
-    .negative { color: #ef4444; }
-    .warning { color: #f59e0b; }
-    .neutral { color: #6b7280; }
-    
-    /* Responsive grid adjustments */
+    /* Responsive */
     @media (max-width: 1920px) {
-        .metric-value { font-size: 1.75rem; }
-        .section-title { font-size: 1.125rem; }
-    }
-    
-    /* Hide Streamlit defaults */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    .css-1rs6os {visibility: hidden;}
-    .css-17ziqus {visibility: hidden;}
-    
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-    
-    /* Compact spacing */
-    .stPlotlyChart {
-        height: auto !important;
-    }
-    .element-container {
-        margin-bottom: 0.5rem !important;
-    }
-    div[data-testid="column"] {
-        padding: 0 0.5rem;
+        .metric-value { font-size: 28px; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -199,401 +184,434 @@ st.markdown("""
 # Initialize session state
 if 'last_refresh' not in st.session_state:
     st.session_state.last_refresh = datetime.datetime.now()
-if 'auto_refresh' not in st.session_state:
-    st.session_state.auto_refresh = True
+if 'refresh_count' not in st.session_state:
+    st.session_state.refresh_count = 0
 
-# Auto-refresh logic
-def check_refresh():
-    current_time = datetime.datetime.now()
-    time_diff = (current_time - st.session_state.last_refresh).total_seconds()
-    
-    # Refresh every 10 minutes (600 seconds)
-    if time_diff >= 600 and st.session_state.auto_refresh:
-        st.session_state.last_refresh = current_time
+# Auto-refresh function
+def auto_refresh():
+    time_since_refresh = (datetime.datetime.now() - st.session_state.last_refresh).total_seconds()
+    if time_since_refresh > 600:  # 10 minutes
+        st.session_state.refresh_count += 1
+        st.session_state.last_refresh = datetime.datetime.now()
         if 'salesforce_data' in st.session_state:
             del st.session_state['salesforce_data']
         st.rerun()
 
-# Fetch opportunities function
-def fetch_opportunities(sf):
+# Fetch data function
+@st.cache_data(ttl=600)  # Cache for 10 minutes
+def fetch_opportunities():
+    """Fetch opportunities from Salesforce"""
     try:
+        sf = Salesforce(
+            username="william.evans@avidex.com",
+            password="D_w?ygrM6g9rp",
+            security_token="V7W9o94PW3TVtBsqaS5zkNKS",
+            domain='login'
+        )
+        
         query = """
         SELECT 
             Id, Name, StageName, Amount, CloseDate, CreatedDate, 
-            Probability, Owner.Name, AccountId, Account.Name, 
-            FiscalYear, FiscalQuarter, Type, IsClosed, IsWon,
-            Region__c, Branch__c, Weighted_AVG__c, Gross_Profit__c,
-            Owner_Name__c, Account_Name__c
+            Probability, Owner.Name, Type, Branch__c,
+            Owner_Name__c, ForecastCategory
         FROM Opportunity
         WHERE IsDeleted = false
-        AND Branch__c = '200'
+        AND Branch__c = '700'
+        LIMIT 10000
         """
         
-        all_records = []
-        query_result = sf.query(query)
-        all_records.extend(query_result.get('records', []))
+        result = sf.query_all(query)
+        records = result['records']
         
-        while query_result.get('done') is False:
-            query_result = sf.query_more(query_result.get('nextRecordsUrl'), True)
-            all_records.extend(query_result.get('records', []))
+        # Process records
+        data = []
+        for record in records:
+            data.append({
+                'Stage': record.get('StageName'),
+                'Amount': float(record.get('Amount', 0) or 0),
+                'Close Date': record.get('CloseDate'),
+                'Probability': float(record.get('Probability', 0) or 0),
+                'Type': record.get('Type', 'Unknown'),
+                'ForecastCategory': record.get('ForecastCategory', 'Unknown'),
+                'Owner': record.get('Owner', {}).get('Name') if record.get('Owner') else record.get('Owner_Name__c', 'Unknown')
+            })
         
-        if not all_records:
-            return pd.DataFrame()
-            
-        processed_records = []
-        for record in all_records:
-            if record and 'attributes' in record:
-                record_dict = {
-                    'Opportunity ID': record.get('Id'),
-                    'Opportunity Name': record.get('Name'),
-                    'Stage': record.get('StageName'),
-                    'Amount': record.get('Amount', 0),
-                    'Close Date': record.get('CloseDate'),
-                    'Created Date': record.get('CreatedDate'),
-                    'Probability (%)': record.get('Probability', 0),
-                    'Type': record.get('Type'),
-                    'Is Closed': record.get('IsClosed'),
-                    'Is Won': record.get('IsWon'),
-                    'Branch': record.get('Branch__c'),
-                    'Weighted AVG': record.get('Weighted_AVG__c'),
-                    'Gross Profit': record.get('Gross_Profit__c'),
-                }
-                
-                if record.get('Owner') and isinstance(record.get('Owner'), dict):
-                    record_dict['Opportunity Owner'] = record.get('Owner', {}).get('Name')
-                else:
-                    record_dict['Opportunity Owner'] = record.get('Owner_Name__c')
-                    
-                if record.get('Account') and isinstance(record.get('Account'), dict):
-                    record_dict['Account Name'] = record.get('Account', {}).get('Name')
-                else:
-                    record_dict['Account Name'] = record.get('Account_Name__c')
-                
-                processed_records.append(record_dict)
-        
-        df = pd.DataFrame(processed_records)
-        
-        # Convert dates
-        date_fields = ['Close Date', 'Created Date']
-        for date_field in date_fields:
-            if date_field in df.columns:
-                df[date_field] = pd.to_datetime(df[date_field], errors='coerce')
-        
-        # Calculate weighted average if needed
-        if 'Amount' in df.columns and 'Probability (%)' in df.columns:
-            df['Weighted AVG'] = df['Amount'] * df['Probability (%)'] / 100
-        
+        df = pd.DataFrame(data)
+        df['Close Date'] = pd.to_datetime(df['Close Date'])
         return df
         
     except Exception as e:
-        st.error(f"Error fetching opportunities: {str(e)}")
+        st.error(f"Error fetching data: {str(e)}")
         return pd.DataFrame()
 
-# Compact gauge chart
-def create_compact_gauge(value, max_val, title):
-    fig = go.Figure(go.Indicator(
-        mode = "gauge+number",
-        value = value,
-        domain = {'x': [0, 1], 'y': [0, 1]},
-        title = {'text': title, 'font': {'size': 14}},
-        gauge = {
-            'axis': {'range': [0, max_val], 'tickwidth': 1},
-            'bar': {'color': "#2563eb", 'thickness': 0.3},
-            'bgcolor': "rgba(0,0,0,0)",
-            'borderwidth': 2,
-            'bordercolor': "#e5e7eb",
-            'steps': [
-                {'range': [0, max_val*0.33], 'color': '#fee2e2'},
-                {'range': [max_val*0.33, max_val*0.66], 'color': '#fef3c7'},
-                {'range': [max_val*0.66, max_val], 'color': '#d1fae5'}
-            ],
-            'threshold': {
-                'line': {'color': "#1f2937", 'width': 2},
-                'thickness': 0.75,
-                'value': value
-            }
-        }
-    ))
-    
-    fig.update_layout(
-        height=200,
-        margin=dict(l=10, r=10, t=30, b=10),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        font={'family': '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'}
-    )
-    
-    return fig
-
-# Compact bar chart
-def create_owner_chart(df):
-    closed_won = df[df['Stage'] == 'Closed Won'].copy()
-    
-    if closed_won.empty:
-        return None
-    
-    owner_sales = closed_won.groupby('Opportunity Owner')['Amount'].sum().reset_index()
-    owner_sales = owner_sales.sort_values('Amount', ascending=True).tail(10)  # Top 10 only
-    
-    fig = px.bar(
-        owner_sales,
-        x='Amount',
-        y='Opportunity Owner',
-        orientation='h',
-        color='Amount',
-        color_continuous_scale='Blues',
-        text='Amount'
-    )
-    
-    fig.update_layout(
-        height=250,
-        margin=dict(l=10, r=10, t=20, b=10),
-        xaxis_title='',
-        yaxis_title='',
-        showlegend=False,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        xaxis=dict(showgrid=True, gridcolor='#f0f0f0'),
-        yaxis=dict(showgrid=False),
-        font={'size': 11}
-    )
-    
-    fig.update_traces(
-        texttemplate='$%{text:,.0f}',
-        textposition='auto',
-        textfont_size=9
-    )
-    
-    return fig
-
 # Calculate metrics
-def calculate_dashboard_metrics(df):
-    metrics = {}
+def calculate_metrics(df):
+    """Calculate dashboard metrics"""
+    if df.empty:
+        return {
+            'pipeline_current': 0,
+            'pipeline_3month': 0,
+            'pipeline_fy': 0,
+            'total_opps': 0,
+            'project_forecast': 0,
+            'project_mtd': 0,
+            'trans_forecast': 0,
+            'trans_mtd': 0,
+            'service_forecast': 0,
+            'service_mtd': 0
+        }
     
+    now = pd.Timestamp.now()
+    current_month = now.month
+    current_year = now.year
+    
+    # Pipeline metrics - matching Salesforce filters
+    # Apply ForecastCategory filter: "equals Best Case, Closed, Commit, Pipeline"
+    valid_forecast_categories = ['BestCase', 'Closed', 'Commit', 'Pipeline']
+    filtered_opportunities = df[
+        df['ForecastCategory'].isin(valid_forecast_categories)
+    ]
+    
+    # Current Month Pipeline - all opportunities active in current month
+    current_month_pipeline = filtered_opportunities[
+        (filtered_opportunities['Close Date'].dt.month == current_month) & 
+        (filtered_opportunities['Close Date'].dt.year == current_year)
+    ]['Amount'].sum()
+    
+    # MTD Pipeline - opportunities closing from 1st of current month to today
+    # Filter out invalid dates first
+    valid_dates = filtered_opportunities[
+        (filtered_opportunities['Close Date'] >= pd.Timestamp('2020-01-01')) &
+        (filtered_opportunities['Close Date'] <= pd.Timestamp('2030-12-31'))
+    ]
+    
+    # Get current date and first day of current month
     current_date = pd.Timestamp.now()
-    current_month = current_date.month
-    current_year = current_date.year
+    mtd_start = current_date.replace(day=1)
     
-    # Pipeline metrics
-    current_month_opps = df[
-        (df['Close Date'].dt.month == current_month) & 
-        (df['Close Date'].dt.year == current_year) &
-        (df['Stage'] != 'Closed Won')
+    # MTD Pipeline: opportunities with close date from 1st of current month to today
+    mtd_pipeline = valid_dates[
+        (valid_dates['Close Date'] >= mtd_start) & 
+        (valid_dates['Close Date'] <= current_date)
+    ]['Amount'].sum()
+    
+    # If MTD is 0, use current month pipeline instead
+    if mtd_pipeline == 0:
+        mtd_pipeline = current_month_pipeline
+    
+    # 3-Month Pipeline - sum of current month + next 2 months
+    three_month_pipeline = valid_dates[
+        (valid_dates['Close Date'] >= now) & 
+        (valid_dates['Close Date'] <= now + pd.DateOffset(months=2))
+    ]['Amount'].sum()
+    
+    # FY Pipeline - through March 31, 2025
+    fy_pipeline = valid_dates[
+        (valid_dates['Close Date'] >= pd.Timestamp(2024, 4, 1)) & 
+        (valid_dates['Close Date'] <= pd.Timestamp(2025, 3, 31))
+    ]['Amount'].sum()
+    
+    # Sales by type - using same close date filtering as pipeline
+    # Use current month pipeline filtering (all opportunities in current month)
+    sales_by_type = filtered_opportunities[
+        (filtered_opportunities['Close Date'].dt.month == current_month) & 
+        (filtered_opportunities['Close Date'].dt.year == current_year)
     ]
-    metrics['pipeline_current_month'] = current_month_opps['Amount'].sum()
     
-    next_2_months = current_date + pd.DateOffset(months=2)
-    pipeline_3_months = df[
-        (df['Close Date'] >= current_date) &
-        (df['Close Date'] <= next_2_months) &
-        (df['Stage'] != 'Closed Won')
-    ]
-    metrics['pipeline_3_months'] = pipeline_3_months['Amount'].sum()
+    # Total Opportunities - all open opportunities for Branch 700
+    # Filter out closed opportunities (Closed Won, Closed Lost)
+    open_opportunities = df[~df['Stage'].isin(['Closed Won', 'Closed Lost'])]
+    total_open_opps = len(open_opportunities)
     
-    fy_end = pd.Timestamp(2025, 6, 30)
-    pipeline_fy = df[
-        (df['Close Date'] >= current_date) &
-        (df['Close Date'] <= fy_end) &
-        (df['Stage'] != 'Closed Won')
-    ]
-    metrics['pipeline_fy'] = pipeline_fy['Amount'].sum()
-    
-    # Sales metrics by type
-    for sale_type in ['Project', 'Transactional', 'Service']:
-        # Forecast
-        forecast = df[
-            (df['Type'] == sale_type) &
-            (df['Close Date'] >= current_date)
-        ]
-        metrics[f'{sale_type.lower()}_forecast'] = forecast['Amount'].sum()
-        
-        # MTD
-        mtd = df[
-            (df['Type'] == sale_type) &
-            (df['Close Date'].dt.month == current_month) &
-            (df['Close Date'].dt.year == current_year) &
-            (df['Stage'] == 'Closed Won')
-        ]
-        metrics[f'{sale_type.lower()}_mtd'] = mtd['Amount'].sum()
+    metrics = {
+        'pipeline_current': current_month_pipeline,
+        'pipeline_mtd': mtd_pipeline,
+        'pipeline_3month': three_month_pipeline,
+        'pipeline_fy': fy_pipeline,
+        'total_opps': total_open_opps,
+        'project_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'System']['Amount'].sum(),
+        'project_mtd': sales_by_type[sales_by_type['Type'] == 'System']['Amount'].sum(),
+        'trans_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'Transactional']['Amount'].sum(),
+        'trans_mtd': sales_by_type[sales_by_type['Type'] == 'Transactional']['Amount'].sum(),
+        'service_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'Service']['Amount'].sum(),
+        'service_mtd': sales_by_type[sales_by_type['Type'] == 'Service']['Amount'].sum()
+    }
     
     return metrics
 
-# Main dashboard
-def create_dashboard(df, metrics):
-    # Header
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        st.markdown(f"""
-        <div class="dashboard-header">
-            <div class="header-left">
-                <div>
-                    <h1 class="header-title">Cary Forecasts MTD</h1>
-                    <p class="header-subtitle">{datetime.datetime.now().strftime('%B %d, %Y, %I:%M %p')} | Auto-refresh: ON</p>
-                </div>
-            </div>
-            <div class="refresh-info">
-                <div>Last refresh: {st.session_state.last_refresh.strftime('%I:%M %p')}</div>
-                <div>Next refresh: {(st.session_state.last_refresh + datetime.timedelta(minutes=10)).strftime('%I:%M %p')}</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+# Create gauge chart
+def create_gauge(value, max_value, title):
+    """Create a simple gauge chart"""
+    fig = go.Figure(go.Indicator(
+        mode = "gauge+number",
+        value = value,
+        title = {'text': title, 'font': {'size': 14}},
+        number = {'font': {'size': 28}},
+                 gauge = {
+             'axis': {'range': [0, max_value]},
+             'bar': {'color': "#1e40af"},
+             'steps': [
+                 {'range': [0, max_value * 0.4], 'color': "#dbeafe"},
+                 {'range': [max_value * 0.4, max_value * 0.7], 'color': "#3b82f6"},
+                 {'range': [max_value * 0.7, max_value], 'color': "#1e3a8a"}
+             ],
+             'threshold': {
+                 'line': {'color': "#dc2626", 'width': 4},
+                 'thickness': 0.75,
+                 'value': value * 0.9
+             }
+         }
+    ))
     
-    # Pipeline Row
-    st.markdown('<div class="section-title">Pipeline Overview</div>', unsafe_allow_html=True)
-    col1, col2, col3, col4 = st.columns(4)
+    fig.update_layout(
+        height=180,
+        margin=dict(l=15, r=15, t=30, b=15),
+        paper_bgcolor='white',
+        font={'family': 'Roboto, sans-serif'}
+    )
     
-    with col1:
-        with st.container():
-            st.markdown('<div class="gauge-container">', unsafe_allow_html=True)
-            fig1 = create_compact_gauge(
-                metrics['pipeline_current_month'], 
-                25000000, 
-                "Current Month"
-            )
-            st.plotly_chart(fig1, use_container_width=True, key="gauge1")
-            st.markdown('</div>', unsafe_allow_html=True)
+    return fig
+
+# Create bar chart
+def create_bar_chart(df):
+    """Create owner performance bar chart"""
+    # Filter by Forecast Category and use same close date filtering as pipeline
+    valid_forecast_categories = ['BestCase', 'Closed', 'Commit', 'Pipeline']
+    now = pd.Timestamp.now()
+    current_month = now.month
+    current_year = now.year
     
-    with col2:
-        with st.container():
-            st.markdown('<div class="gauge-container">', unsafe_allow_html=True)
-            fig2 = create_compact_gauge(
-                metrics['pipeline_3_months'], 
-                100000000, 
-                "3-Month Pipeline"
-            )
-            st.plotly_chart(fig2, use_container_width=True, key="gauge2")
-            st.markdown('</div>', unsafe_allow_html=True)
+    # Filter out invalid dates first
+    valid_dates_df = df[
+        (df['Close Date'] >= pd.Timestamp('2020-01-01')) &
+        (df['Close Date'] <= pd.Timestamp('2030-12-31'))
+    ]
     
-    with col3:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.markdown('<div class="metric-label">FY2025 Pipeline</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">${metrics["pipeline_fy"]/1000000:.1f}M</div>', unsafe_allow_html=True)
-        st.markdown('<div class="metric-label">Through June 30</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Use same filtering as pipeline - current month opportunities
+    filtered_df = valid_dates_df[
+        (valid_dates_df['ForecastCategory'].isin(valid_forecast_categories)) &
+        (valid_dates_df['Close Date'].dt.month == current_month) &
+        (valid_dates_df['Close Date'].dt.year == current_year)
+    ]
     
-    with col4:
-        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.markdown('<div class="metric-label">Total Opportunities</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="metric-value">{len(df)}</div>', unsafe_allow_html=True)
-        st.markdown('<div class="metric-label">Active Records</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    if filtered_df.empty:
+        return None
     
-    # Sales Metrics and Chart Row
-    col1, col2 = st.columns([3, 2])
+    owner_sales = filtered_df.groupby('Owner')['Amount'].sum().sort_values(ascending=True).tail(8)
     
-    with col1:
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">Sales Performance by Type</div>', unsafe_allow_html=True)
-        
-        # Create three sub-columns for metrics
-        subcol1, subcol2, subcol3 = st.columns(3)
-        
-        with subcol1:
-            st.markdown('<div class="metric-comparison">', unsafe_allow_html=True)
-            st.markdown(f"""
-                <div class="metric-item">
-                    <div class="metric-label">Project Forecast</div>
-                    <div class="metric-value">${metrics['project_forecast']/1000000:.1f}M</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Project MTD</div>
-                    <div class="metric-value negative">${metrics['project_mtd']/1000000:.1f}M</div>
-                </div>
-            """, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-        
-        with subcol2:
-            st.markdown('<div class="metric-comparison">', unsafe_allow_html=True)
-            st.markdown(f"""
-                <div class="metric-item">
-                    <div class="metric-label">Trans. Forecast</div>
-                    <div class="metric-value">${metrics['transactional_forecast']/1000:.0f}K</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Trans. MTD</div>
-                    <div class="metric-value warning">${metrics['transactional_mtd']/1000:.0f}K</div>
-                </div>
-            """, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-        
-        with subcol3:
-            st.markdown('<div class="metric-comparison">', unsafe_allow_html=True)
-            st.markdown(f"""
-                <div class="metric-item">
-                    <div class="metric-label">Service Forecast</div>
-                    <div class="metric-value">${metrics['service_forecast']/1000000:.1f}M</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Service MTD</div>
-                    <div class="metric-value negative">${metrics['service_mtd']/1000000:.1f}M</div>
-                </div>
-            """, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+    fig = px.bar(
+        x=owner_sales.values,
+        y=owner_sales.index,
+        orientation='h',
+        color_discrete_sequence=['#1e40af']
+    )
     
-    with col2:
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">Top Sales by Owner</div>', unsafe_allow_html=True)
-        owner_chart = create_owner_chart(df)
-        if owner_chart:
-            st.plotly_chart(owner_chart, use_container_width=True, key="owner_chart")
-        else:
-            st.info("No closed won opportunities")
-        st.markdown('</div>', unsafe_allow_html=True)
+    fig.update_layout(
+        height=220,
+        margin=dict(l=8, r=8, t=8, b=8),
+        xaxis_title="",
+        yaxis_title="",
+        showlegend=False,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font={'family': 'Roboto, sans-serif', 'size': 11},
+        xaxis={'tickformat': ',.0f', 'showgrid': True, 'gridcolor': '#f0f0f0'},
+        yaxis={'showgrid': False}
+    )
+    
+    fig.update_traces(
+        text=[f'${x:,.0f}' for x in owner_sales.values],
+        textposition='outside'
+    )
+    
+    return fig
+
+# Format currency
+def format_currency(value):
+    """Format currency values"""
+    if value >= 1_000_000:
+        return f"${value/1_000_000:.1f}M"
+    elif value >= 1_000:
+        return f"${value/1_000:.0f}K"
+    else:
+        return f"${value:.0f}"
 
 # Main app
 def main():
     # Check for auto-refresh
-    check_refresh()
+    auto_refresh()
     
-    # Salesforce credentials
-    sf_credentials = {
-        'username': "william.evans@avidex.com",
-        'password': "D_w?ygrM6g9rp",
-        'security_token': "V7W9o94PW3TVtBsqaS5zkNKS",
-        'domain': 'login'
-    }
+    # Header
+    st.markdown(f"""
+    <div class="google-header">
+        <div class="header-content">
+            <div>
+                <div class="logo-title">
+                    <h1>Cary Forecasts MTD</h1>
+                </div>
+                <div class="subtitle">Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')}</div>
+            </div>
+            <div class="refresh-badge">Auto-refresh ON</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
-    try:
-        # Connect and fetch data
-        if 'salesforce_data' not in st.session_state:
-            with st.spinner("Connecting to Salesforce..."):
-                sf = Salesforce(
-                    username=sf_credentials['username'],
-                    password=sf_credentials['password'],
-                    security_token=sf_credentials['security_token'],
-                    domain=sf_credentials['domain']
-                )
-                
-                df = fetch_opportunities(sf)
-                
-                if not df.empty:
-                    st.session_state['salesforce_data'] = df
-                    st.session_state.last_refresh = datetime.datetime.now()
-                else:
-                    st.error("No Cary Branch opportunities found.")
-                    return
-        else:
-            df = st.session_state['salesforce_data']
+    # Fetch data
+    with st.spinner('Loading data...'):
+        df = fetch_opportunities()
         
-        # Calculate metrics and create dashboard
-        metrics = calculate_dashboard_metrics(df)
-        create_dashboard(df, metrics)
-        
-        # Add auto-refresh JavaScript
-        st.markdown("""
-        <script>
-            // Auto-refresh every 10 minutes
-            setTimeout(function(){
-                window.location.reload();
-            }, 600000);
-        </script>
+        metrics = calculate_metrics(df)
+    
+    # Pipeline Overview
+    st.markdown('<div class="section-header">Pipeline Overview</div>', unsafe_allow_html=True)
+    
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        gauge = create_gauge(metrics['pipeline_current'], 25_000_000, "Pipeline - Current Month")
+        st.plotly_chart(gauge, use_container_width=True, key="gauge1")
+    
+    with col2:
+        gauge = create_gauge(metrics['pipeline_3month'], 100_000_000, "Pipeline - Current Month + Next 2 Months")
+        st.plotly_chart(gauge, use_container_width=True, key="gauge2")
+    
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">FY2025 Pipeline</div>
+            <div class="metric-value">{format_currency(metrics['pipeline_fy'])}</div>
+            <div class="metric-subtitle">Through March 31</div>
+        </div>
         """, unsafe_allow_html=True)
-                    
-    except Exception as e:
-        st.error(f"Error: {str(e)}")
-        st.info("Please check your Salesforce connection.")
+    
+    with col4:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">Total Opportunities</div>
+            <div class="metric-value">{metrics['total_opps']:,}</div>
+            <div class="metric-subtitle">Active records</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Sales Performance
+    st.markdown('<div class="section-header">Sales Performance</div>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([3, 2])
+    
+    with col1:
+        # Sales metrics grid
+        subcol1, subcol2, subcol3 = st.columns(3)
+        
+        with subcol1:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">Project</div>
+                <div class="metric-value">{format_currency(metrics['project_forecast'])}</div>
+                <div class="metric-subtitle">Forecast</div>
+                <div class="metric-value status-negative" style="font-size: 24px; margin-top: 16px;">
+                    {format_currency(metrics['project_mtd'])}
+                </div>
+                <div class="metric-subtitle">MTD Actual</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with subcol2:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">Transactional</div>
+                <div class="metric-value">{format_currency(metrics['trans_forecast'])}</div>
+                <div class="metric-subtitle">Forecast</div>
+                <div class="metric-value status-warning" style="font-size: 24px; margin-top: 16px;">
+                    {format_currency(metrics['trans_mtd'])}
+                </div>
+                <div class="metric-subtitle">MTD Actual</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with subcol3:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">Service</div>
+                <div class="metric-value">{format_currency(metrics['service_forecast'])}</div>
+                <div class="metric-subtitle">Forecast</div>
+                <div class="metric-value status-negative" style="font-size: 24px; margin-top: 16px;">
+                    {format_currency(metrics['service_mtd'])}
+                </div>
+                <div class="metric-subtitle">MTD Actual</div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">Top Sales by Owner</div>', 
+                   unsafe_allow_html=True)
+        
+        bar_chart = create_bar_chart(df)
+        if bar_chart:
+            st.plotly_chart(bar_chart, use_container_width=True, key="bar_chart")
+        else:
+            st.info("No closed won opportunities to display")
+    
+    # Auto-refresh JavaScript
+    st.markdown("""
+    <script>
+        setTimeout(function() {
+            window.location.reload();
+        }, 600000);  // 10 minutes
+    </script>
+    """, unsafe_allow_html=True)
+    
+    # Show opportunities table at the bottom
+    st.markdown('<div class="section-header">Opportunities Data</div>', unsafe_allow_html=True)
+    
+    # Get the filtered opportunities used in calculations
+    valid_forecast_categories = ['BestCase', 'Closed', 'Commit', 'Pipeline']
+    valid_dates_df = df[
+        (df['Close Date'] >= pd.Timestamp('2025-08-01')) &
+        (df['Close Date'] <= pd.Timestamp('2025-08-31'))
+    ]
+    
+    filtered_opportunities = valid_dates_df[
+        valid_dates_df['ForecastCategory'].isin(valid_forecast_categories)
+    ]
+    
+    # Show table of opportunities with important columns
+    if not filtered_opportunities.empty:
+        # Select important columns and format them
+        display_df = filtered_opportunities[['Owner', 'Type', 'ForecastCategory', 'Close Date', 'Amount', 'Probability']].copy()
+        display_df['Amount'] = display_df['Amount'].apply(lambda x: f"${x:,.0f}")
+        display_df['Close Date'] = display_df['Close Date'].dt.strftime('%Y-%m-%d')
+        display_df['Probability'] = display_df['Probability'].apply(lambda x: f"{x:.0f}%")
+        
+        # Rename columns for better display
+        display_df = display_df.rename(columns={
+            'Owner': 'Owner',
+            'Type': 'Type', 
+            'ForecastCategory': 'Forecast Category',
+            'Close Date': 'Close Date',
+            'Amount': 'Amount',
+            'Probability': 'Probability (%)'
+        })
+        
+        st.write(f"**Total Opportunities:** {len(filtered_opportunities)}")
+        st.dataframe(display_df, use_container_width=True)
+        
+        # Show summary statistics
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.metric("Total Pipeline Value", f"${filtered_opportunities['Amount'].sum():,.0f}")
+        
+        with col2:
+            avg_prob = filtered_opportunities['Probability'].mean()
+            st.metric("Average Probability", f"{avg_prob:.0f}%")
+        
+        with col3:
+            avg_amount = filtered_opportunities['Amount'].mean()
+            st.metric("Average Deal Size", f"${avg_amount:,.0f}")
+    else:
+        st.write("No opportunities match the filtering criteria.")
+    
+
 
 if __name__ == "__main__":
     main()
