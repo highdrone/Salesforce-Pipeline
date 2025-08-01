@@ -318,6 +318,16 @@ def calculate_metrics(df):
         (filtered_opportunities['Close Date'].dt.year == current_year)
     ]
     
+    # Sales forecast by type - using same filtering as pipeline (ForecastCategory + date range)
+    project_forecast = filtered_opportunities[filtered_opportunities['Type'] == 'System']['Amount'].sum()
+    trans_forecast = filtered_opportunities[filtered_opportunities['Type'] == 'Transactional']['Amount'].sum()
+    service_forecast = filtered_opportunities[filtered_opportunities['Type'] == 'Service']['Amount'].sum()
+    
+    # Sales MTD by type - using same filtering as pipeline (current month)
+    project_mtd = sales_by_type[sales_by_type['Type'] == 'System']['Amount'].sum()
+    trans_mtd = sales_by_type[sales_by_type['Type'] == 'Transactional']['Amount'].sum()
+    service_mtd = sales_by_type[sales_by_type['Type'] == 'Service']['Amount'].sum()
+    
     # Total Opportunities - all open opportunities for Branch 700
     # Filter out closed opportunities (Closed Won, Closed Lost)
     open_opportunities = df[~df['Stage'].isin(['Closed Won', 'Closed Lost'])]
@@ -329,12 +339,12 @@ def calculate_metrics(df):
         'pipeline_3month': three_month_pipeline,
         'pipeline_fy': fy_pipeline,
         'total_opps': total_open_opps,
-        'project_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'System']['Amount'].sum(),
-        'project_mtd': sales_by_type[sales_by_type['Type'] == 'System']['Amount'].sum(),
-        'trans_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'Transactional']['Amount'].sum(),
-        'trans_mtd': sales_by_type[sales_by_type['Type'] == 'Transactional']['Amount'].sum(),
-        'service_forecast': filtered_opportunities[filtered_opportunities['Type'] == 'Service']['Amount'].sum(),
-        'service_mtd': sales_by_type[sales_by_type['Type'] == 'Service']['Amount'].sum()
+        'project_forecast': project_forecast,
+        'project_mtd': project_mtd,
+        'trans_forecast': trans_forecast,
+        'trans_mtd': trans_mtd,
+        'service_forecast': service_forecast,
+        'service_mtd': service_mtd
     }
     
     return metrics
