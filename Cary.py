@@ -44,8 +44,8 @@ st.markdown("""
          --accent-pink: #db2777;
          --light-grey: #f1f5f9;
          --border-color: #e2e8f0;
-         --text-dark: #1e293b;
-         --text-muted: #64748b;
+         --text-dark: #0f172a;
+         --text-muted: #475569;
      }
     
     /* Typography */
@@ -92,18 +92,19 @@ st.markdown("""
      
      .subtitle {
          font-size: 11px;
-         color: rgba(255,255,255,0.9);
+         color: rgba(255,255,255,0.95);
          margin: 1px 0 0 48px;
+         font-weight: 500;
      }
     
          .refresh-badge {
-         background: rgba(255,255,255,0.2);
+         background: rgba(255,255,255,0.25);
          color: white;
          padding: 3px 10px;
          border-radius: 16px;
          font-size: 10px;
-         font-weight: 500;
-         border: 1px solid rgba(255,255,255,0.3);
+         font-weight: 600;
+         border: 1px solid rgba(255,255,255,0.4);
      }
     
          /* Cards */
@@ -125,7 +126,7 @@ st.markdown("""
     /* Metrics */
          .metric-label {
          font-size: 11px;
-         font-weight: 600;
+         font-weight: 700;
          color: var(--text-muted);
          text-transform: uppercase;
          letter-spacing: 0.5px;
@@ -144,12 +145,13 @@ st.markdown("""
          font-size: 12px;
          color: var(--text-muted);
          margin-top: 2px;
+         font-weight: 500;
      }
      
      /* Status colors */
-     .status-positive { color: var(--primary-green); }
-     .status-negative { color: var(--primary-red); }
-     .status-warning { color: var(--primary-orange); }
+     .status-positive { color: var(--primary-green); font-weight: 600; }
+     .status-negative { color: var(--primary-red); font-weight: 600; }
+     .status-warning { color: var(--primary-orange); font-weight: 600; }
     
          /* Section headers */
      .section-header {
@@ -355,8 +357,8 @@ def create_gauge(value, max_value, title):
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
         value = value,
-        title = {'text': title, 'font': {'size': 14}},
-        number = {'font': {'size': 28}},
+        title = {'text': title, 'font': {'size': 14, 'color': '#0f172a'}},
+        number = {'font': {'size': 28, 'color': '#0f172a'}},
                  gauge = {
              'axis': {'range': [0, max_value]},
              'bar': {'color': "#1e40af"},
@@ -377,7 +379,7 @@ def create_gauge(value, max_value, title):
         height=180,
         margin=dict(l=15, r=15, t=30, b=15),
         paper_bgcolor='white',
-        font={'family': 'Roboto, sans-serif'}
+        font={'family': 'Roboto, sans-serif', 'color': '#0f172a'}
     )
     
     return fig
@@ -424,9 +426,9 @@ def create_bar_chart(df):
         showlegend=False,
         plot_bgcolor='white',
         paper_bgcolor='white',
-        font={'family': 'Roboto, sans-serif', 'size': 11},
-        xaxis={'tickformat': ',.0f', 'showgrid': True, 'gridcolor': '#f0f0f0'},
-        yaxis={'showgrid': False}
+        font={'family': 'Roboto, sans-serif', 'size': 11, 'color': '#0f172a'},
+        xaxis={'tickformat': ',.0f', 'showgrid': True, 'gridcolor': '#f0f0f0', 'tickfont': {'color': '#0f172a'}},
+        yaxis={'showgrid': False, 'tickfont': {'color': '#0f172a'}}
     )
     
     fig.update_traces(
@@ -552,7 +554,7 @@ def main():
             """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">Top Sales by Owner</div>', 
+        st.markdown('<div style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #0f172a;">Top Sales by Owner</div>', 
                    unsafe_allow_html=True)
         
         bar_chart = create_bar_chart(df)
