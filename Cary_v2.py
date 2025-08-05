@@ -55,15 +55,30 @@ st.markdown("""
     
     /* Reset and base styles */
     .main { 
-        padding: 0; 
+        padding: 0 !important; 
         background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
         min-height: 100vh;
     }
     
     .block-container { 
-        padding: 0; 
-        max-width: 100%; 
-        margin: 0;
+        padding: 0 !important; 
+        max-width: 100% !important; 
+        margin: 0 !important;
+    }
+    
+    /* Fix Streamlit container spacing */
+    .element-container {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .stPlotlyChart {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    div[data-testid="column"] {
+        padding: 0 10px !important;
     }
     
     /* Typography */
@@ -615,11 +630,491 @@ def calculate_metrics(df):
 def create_enhanced_gauge(value, max_value, title, target=None):
     """Create an enhanced gauge chart with target line"""
     fig = go.Figure(go.Indicator(
-        mode = "gauge+number+delta",
+        mode = "gauge+number",
         value = value,
-        title = {'text': title, 'font': {'size': 14, 'color': '#0f172a', 'family': 'Inter'}},
-        number = {'font': {'size': 32, 'color': '#0f172a', 'family': 'Inter'}, 'prefix': '$', 'valueformat': ',.0f'},
-        delta = {'reference': target, 'relative': False, 'font': {'size': 14}} if target else None,
+        title = {'text': title, 'font': {'size': 13, 'color': '#0f172a', 'family': 'Inter'}},
+        number = {'font': {'size': 28, 'color': '#0f172a', 'family': 'Inter'}, 'prefix': '
+
+# Create pipeline trend chart
+def create_pipeline_trend(df):
+    """Create a pipeline trend chart"""
+    if df.empty:
+        return None
+    
+    # Group by month
+    df_copy = df.copy()
+    df_copy['Month'] = df_copy['Close Date'].dt.to_period('M')
+    monthly_pipeline = df_copy.groupby('Month')['Amount'].sum().reset_index()
+    monthly_pipeline['Month'] = monthly_pipeline['Month'].dt.to_timestamp()
+    
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatter(
+        x=monthly_pipeline['Month'],
+        y=monthly_pipeline['Amount'],
+        mode='lines+markers',
+        name='Pipeline',
+        line=dict(color='#2563eb', width=3),
+        marker=dict(size=8, color='#2563eb'),
+        fill='tonexty',
+        fillcolor='rgba(37, 99, 235, 0.1)'
+    ))
+    
+    fig.update_layout(
+        height=200,
+        margin=dict(l=10, r=10, t=30, b=10),
+        title="Pipeline Trend",
+        title_font=dict(size=14, family='Inter'),
+        xaxis_title="",
+        yaxis_title="",
+        showlegend=False,
+        hovermode='x unified',
+        plot_bgcolor='white',
+        paper_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=True, gridcolor='#f0f0f0', zeroline=False),
+        yaxis=dict(showgrid=True, gridcolor='#f0f0f0', zeroline=False, tickformat='$,.0f')
+    )
+    
+    return fig
+
+# Create sales funnel chart
+def create_sales_funnel(df):
+    """Create a sales funnel visualization"""
+    if df.empty:
+        return None
+    
+    stages_order = ['Prospecting', 'Qualification', 'Needs Analysis', 'Value Proposition', 
+                   'Decision Makers', 'Proposal', 'Negotiation', 'Closed Won']
+    
+    stage_counts = df['Stage'].value_counts()
+    funnel_data = []
+    
+    for stage in stages_order:
+        if stage in stage_counts.index:
+            funnel_data.append({
+                'Stage': stage,
+                'Count': stage_counts[stage],
+                'Amount': df[df['Stage'] == stage]['Amount'].sum()
+            })
+    
+    if not funnel_data:
+        return None
+    
+    funnel_df = pd.DataFrame(funnel_data)
+    
+    fig = go.Figure(go.Funnel(
+        y=funnel_df['Stage'],
+        x=funnel_df['Count'],
+        textposition="inside",
+        textinfo="value+percent initial",
+        opacity=0.85,
+        marker=dict(
+            color=['#1e40af', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#dbeafe', '#10b981'],
+            line=dict(width=2, color='white')
+        ),
+        connector={"line": {"color": "#e2e8f0", "width": 2}}
+    ))
+    
+    fig.update_layout(
+        height=280,
+        margin=dict(l=10, r=10, t=30, b=10),
+        title="Sales Funnel",
+        title_font=dict(size=14, family='Inter'),
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(family='Inter', size=11)
+    )
+    
+    return fig
+
+# Create owner performance chart
+def create_owner_performance(df):
+    """Create enhanced owner performance bar chart"""
+    if df.empty:
+        return None
+    
+    valid_forecast_categories = ['BestCase', 'Closed', 'Commit', 'Pipeline']
+    now = pd.Timestamp.now()
+    current_month = now.month
+    current_year = now.year
+    
+    filtered_df = df[
+        (df['ForecastCategory'].isin(valid_forecast_categories)) &
+        (df['Close Date'].dt.month == current_month) &
+        (df['Close Date'].dt.year == current_year)
+    ]
+    
+    if filtered_df.empty:
+        return None
+    
+    owner_sales = filtered_df.groupby('Owner')['Amount'].sum().sort_values(ascending=True).tail(10)
+    
+    # Create gradient colors
+    colors = ['#dbeafe', '#bfdbfe', '#93c5fd', '#60a5fa', '#3b82f6', 
+              '#2563eb', '#1e40af', '#1e3a8a', '#172554', '#0c1a3d'][:len(owner_sales)]
+    
+    fig = go.Figure(go.Bar(
+        x=owner_sales.values,
+        y=owner_sales.index,
+        orientation='h',
+        marker=dict(
+            color=colors,
+            line=dict(color='white', width=1)
+        ),
+        text=[f'${x:,.0f}' for x in owner_sales.values],
+        textposition='outside',
+        textfont=dict(size=11, family='Inter')
+    ))
+    
+    fig.update_layout(
+        height=300,
+        margin=dict(l=10, r=10, t=30, b=10),
+        title="Top Performers",
+        title_font=dict(size=16, family='Inter'),
+        xaxis_title="",
+        yaxis_title="",
+        showlegend=False,
+        plot_bgcolor='white',
+        paper_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=True, gridcolor='#f0f0f0', tickformat='$,.0f'),
+        yaxis=dict(showgrid=False),
+        font=dict(family='Inter', size=11)
+    )
+    
+    return fig
+
+# Create opportunity type distribution
+def create_type_distribution(df):
+    """Create a donut chart for opportunity type distribution"""
+    if df.empty:
+        return None
+    
+    type_counts = df['Type'].value_counts()
+    
+    fig = go.Figure(go.Pie(
+        labels=type_counts.index,
+        values=type_counts.values,
+        hole=0.6,
+        marker=dict(
+            colors=['#2563eb', '#10b981', '#f59e0b'],
+            line=dict(color='white', width=2)
+        ),
+        textfont=dict(size=11, family='Inter'),
+        textposition='outside',
+        textinfo='label+percent'
+    ))
+    
+    fig.update_layout(
+        height=250,
+        margin=dict(l=10, r=10, t=30, b=10),
+        title="Opportunity Distribution",
+        title_font=dict(size=14, family='Inter'),
+        showlegend=True,
+        legend=dict(orientation="v", yanchor="middle", y=0.5, xanchor="left", x=1.02, font=dict(size=10)),
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(family='Inter', size=10)
+    )
+    
+    return fig
+
+# Format currency with better formatting
+def format_currency(value):
+    """Format currency values with proper formatting"""
+    if value >= 1_000_000_000:
+        return f"${value/1_000_000_000:.2f}B"
+    elif value >= 1_000_000:
+        return f"${value/1_000_000:.1f}M"
+    elif value >= 1_000:
+        return f"${value/1_000:.0f}K"
+    else:
+        return f"${value:.0f}"
+
+# Format percentage
+def format_percentage(value):
+    """Format percentage values"""
+    return f"{value:.1f}%"
+
+# Main app function
+def main():
+    # Check for auto-refresh
+    auto_refresh()
+    
+    # Fetch data
+    with st.spinner('🔄 Loading Salesforce data...'):
+        df = fetch_opportunities()
+        metrics = calculate_metrics(df)
+    
+    # Enhanced Header with live stats
+    total_pipeline = metrics['pipeline_current'] + metrics['pipeline_3month']
+    st.markdown(f"""
+    <div class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="dashboard-title">📊 Cary Sales Dashboard</div>
+                <div class="dashboard-subtitle">Branch 700 • Real-time Performance Metrics</div>
+            </div>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="header-stat-value">{format_currency(total_pipeline)}</span>
+                    <span class="header-stat-label">Total Pipeline</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-value">{metrics['total_opps']}</span>
+                    <span class="header-stat-label">Active Deals</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-value">{format_percentage(metrics['win_rate'])}</span>
+                    <span class="header-stat-label">Win Rate</span>
+                </div>
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span style="font-size: 12px; font-weight: 500;">LIVE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Key Metrics Section
+    st.markdown('<div class="section-header">Key Performance Indicators</div>', unsafe_allow_html=True)
+    
+    # Create container for metrics
+    metrics_container = st.container()
+    with metrics_container:
+        col1, col2, col3, col4 = st.columns([1, 1, 1, 1], gap="medium")
+    
+    with col1:
+        mtd_change = ((metrics['pipeline_mtd'] / metrics['pipeline_current']) * 100) if metrics['pipeline_current'] > 0 else 0
+        change_class = "positive" if mtd_change >= 50 else "negative"
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-icon">💰</div>
+            <div class="metric-label">Current Month Pipeline</div>
+            <div class="metric-value">{format_currency(metrics['pipeline_current'])}</div>
+            <div class="metric-change {change_class}">
+                {"↑" if mtd_change >= 50 else "↓"} {format_percentage(mtd_change)} MTD
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Progress to Goal</span>
+                    <span>{format_percentage(metrics['pipeline_current']/25_000_000*100 if metrics['pipeline_current'] else 0)}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {min(metrics['pipeline_current']/25_000_000*100, 100)}%"></div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-icon">📈</div>
+            <div class="metric-label">3-Month Pipeline</div>
+            <div class="metric-value">{format_currency(metrics['pipeline_3month'])}</div>
+            <div class="metric-subtitle">Next 90 days forecast</div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Pipeline Health</span>
+                    <span>{format_percentage(metrics['pipeline_3month']/100_000_000*100 if metrics['pipeline_3month'] else 0)}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {min(metrics['pipeline_3month']/100_000_000*100, 100)}%"></div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-icon">🎯</div>
+            <div class="metric-label">FY2025 Pipeline</div>
+            <div class="metric-value">{format_currency(metrics['pipeline_fy'])}</div>
+            <div class="metric-subtitle">Through March 31, 2025</div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>YTD Performance</span>
+                    <span>{format_percentage(metrics['pipeline_fy']/150_000_000*100 if metrics['pipeline_fy'] else 0)}</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {min(metrics['pipeline_fy']/150_000_000*100, 100)}%"></div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col4:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-icon">🏆</div>
+            <div class="metric-label">Average Deal Size</div>
+            <div class="metric-value">{format_currency(metrics['avg_deal_size'])}</div>
+            <div class="metric-subtitle">Avg: {int(metrics['avg_days_to_close'])} days to close</div>
+            <div class="metric-change positive" style="margin-top: 12px;">
+                Top Source: {metrics['top_lead_source']}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Sales Performance Section
+    st.markdown('<div class="section-header">Sales Performance Analysis</div>', unsafe_allow_html=True)
+    
+    sales_container = st.container()
+    with sales_container:
+        col1, col2 = st.columns([3, 2], gap="medium")
+        
+        with col1:
+            # Sales by Type Grid
+            subcol1, subcol2, subcol3 = st.columns(3, gap="small")
+        
+        with subcol1:
+            project_pct = (metrics['project_mtd'] / metrics['project_forecast'] * 100) if metrics['project_forecast'] > 0 else 0
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">🏗️ Project Sales</div>
+                <div class="metric-value">{format_currency(metrics['project_forecast'])}</div>
+                <div class="metric-subtitle">Monthly Target</div>
+                <div class="metric-change {'positive' if project_pct >= 80 else 'negative'}" style="margin-top: 12px;">
+                    MTD: {format_currency(metrics['project_mtd'])}
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {min(project_pct, 100)}%; background: {'#10b981' if project_pct >= 80 else '#ef4444'}"></div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with subcol2:
+            trans_pct = (metrics['trans_mtd'] / metrics['trans_forecast'] * 100) if metrics['trans_forecast'] > 0 else 0
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">💱 Transactional</div>
+                <div class="metric-value">{format_currency(metrics['trans_forecast'])}</div>
+                <div class="metric-subtitle">Monthly Target</div>
+                <div class="metric-change {'positive' if trans_pct >= 80 else 'negative'}" style="margin-top: 12px;">
+                    MTD: {format_currency(metrics['trans_mtd'])}
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {min(trans_pct, 100)}%; background: {'#10b981' if trans_pct >= 80 else '#f59e0b'}"></div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with subcol3:
+            service_pct = (metrics['service_mtd'] / metrics['service_forecast'] * 100) if metrics['service_forecast'] > 0 else 0
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-label">🔧 Service</div>
+                <div class="metric-value">{format_currency(metrics['service_forecast'])}</div>
+                <div class="metric-subtitle">Monthly Target</div>
+                <div class="metric-change {'positive' if service_pct >= 80 else 'negative'}" style="margin-top: 12px;">
+                    MTD: {format_currency(metrics['service_mtd'])}
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {min(service_pct, 100)}%; background: {'#10b981' if service_pct >= 80 else '#ef4444'}"></div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        # Opportunity Type Distribution
+        type_chart = create_type_distribution(df)
+        if type_chart:
+            st.plotly_chart(type_chart, use_container_width=True, key="type_dist")
+    
+    # Visual Analytics Section
+    st.markdown('<div class="section-header">Visual Analytics</div>', unsafe_allow_html=True)
+    
+    analytics_container = st.container()
+    with analytics_container:
+        col1, col2, col3 = st.columns([2, 2, 1], gap="medium")
+    
+    with col1:
+        # Enhanced Gauge Charts
+        gauge1 = create_enhanced_gauge(
+            metrics['pipeline_current'], 
+            25_000_000, 
+            "Current Month Pipeline",
+            target=20_000_000
+        )
+        st.plotly_chart(gauge1, use_container_width=True, key="gauge1")
+    
+    with col2:
+        # Pipeline Trend
+        trend_chart = create_pipeline_trend(df)
+        if trend_chart:
+            st.plotly_chart(trend_chart, use_container_width=True, key="trend")
+    
+    with col3:
+        # Quick Stats
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-label">Quick Stats</div>
+            <div style="margin-top: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="color: #64748b; font-size: 13px;">Open Opps</span>
+                    <span style="font-weight: 600; font-size: 14px;">{metrics['total_opps']}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="color: #64748b; font-size: 13px;">Win Rate</span>
+                    <span style="font-weight: 600; font-size: 14px; color: #10b981;">{format_percentage(metrics['win_rate'])}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <span style="color: #64748b; font-size: 13px;">Avg Deal</span>
+                    <span style="font-weight: 600; font-size: 14px;">{format_currency(metrics['avg_deal_size'])}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #64748b; font-size: 13px;">Avg Close</span>
+                    <span style="font-weight: 600; font-size: 14px;">{int(metrics['avg_days_to_close'])}d</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Team Performance Section
+    st.markdown('<div class="section-header">Team Performance</div>', unsafe_allow_html=True)
+    
+    team_container = st.container()
+    with team_container:
+        col1, col2 = st.columns([3, 2], gap="medium")
+    
+    with col1:
+        # Owner Performance Chart
+        owner_chart = create_owner_performance(df)
+        if owner_chart:
+            st.plotly_chart(owner_chart, use_container_width=True, key="owner_perf")
+    
+    with col2:
+        # Sales Funnel
+        funnel_chart = create_sales_funnel(df)
+        if funnel_chart:
+            st.plotly_chart(funnel_chart, use_container_width=True, key="funnel")
+    
+    # Footer with auto-refresh info
+    st.markdown(f"""
+    <div style="text-align: center; padding: 20px; color: #94a3b8; font-size: 12px; margin-top: 40px;">
+        Last updated: {st.session_state.last_refresh.strftime('%B %d, %Y at %I:%M %p')} 
+        • Auto-refresh: Every 10 minutes 
+        • Refresh count: {st.session_state.refresh_count}
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Auto-refresh JavaScript
+    st.markdown("""
+    <script>
+        setTimeout(function() {
+            window.location.reload();
+        }, 600000);  // 10 minutes
+    </script>
+    """, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    main(), 'valueformat': ',.0f'},
         gauge = {
             'axis': {'range': [0, max_value], 'tickwidth': 1, 'tickcolor': "#e2e8f0"},
             'bar': {'color': "#2563eb", 'thickness': 0.8},
@@ -641,8 +1136,8 @@ def create_enhanced_gauge(value, max_value, title, target=None):
     ))
     
     fig.update_layout(
-        height=200,
-        margin=dict(l=20, r=20, t=40, b=20),
+        height=180,
+        margin=dict(l=10, r=10, t=30, b=10),
         paper_bgcolor='rgba(0,0,0,0)',
         font={'family': 'Inter, sans-serif', 'color': '#0f172a'}
     )
@@ -891,7 +1386,10 @@ def main():
     # Key Metrics Section
     st.markdown('<div class="section-header">Key Performance Indicators</div>', unsafe_allow_html=True)
     
-    col1, col2, col3, col4 = st.columns(4)
+    # Create container for metrics
+    metrics_container = st.container()
+    with metrics_container:
+        col1, col2, col3, col4 = st.columns([1, 1, 1, 1], gap="medium")
     
     with col1:
         mtd_change = ((metrics['pipeline_mtd'] / metrics['pipeline_current']) * 100) if metrics['pipeline_current'] > 0 else 0
@@ -970,11 +1468,13 @@ def main():
     # Sales Performance Section
     st.markdown('<div class="section-header">Sales Performance Analysis</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([3, 2])
-    
-    with col1:
-        # Sales by Type Grid
-        subcol1, subcol2, subcol3 = st.columns(3)
+    sales_container = st.container()
+    with sales_container:
+        col1, col2 = st.columns([3, 2], gap="medium")
+        
+        with col1:
+            # Sales by Type Grid
+            subcol1, subcol2, subcol3 = st.columns(3, gap="small")
         
         with subcol1:
             project_pct = (metrics['project_mtd'] / metrics['project_forecast'] * 100) if metrics['project_forecast'] > 0 else 0
@@ -1039,7 +1539,9 @@ def main():
     # Visual Analytics Section
     st.markdown('<div class="section-header">Visual Analytics</div>', unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns([2, 2, 1])
+    analytics_container = st.container()
+    with analytics_container:
+        col1, col2, col3 = st.columns([2, 2, 1], gap="medium")
     
     with col1:
         # Enhanced Gauge Charts
@@ -1086,7 +1588,9 @@ def main():
     # Team Performance Section
     st.markdown('<div class="section-header">Team Performance</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([3, 2])
+    team_container = st.container()
+    with team_container:
+        col1, col2 = st.columns([3, 2], gap="medium")
     
     with col1:
         # Owner Performance Chart
